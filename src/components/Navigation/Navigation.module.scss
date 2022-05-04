@@ -1,0 +1,43 @@
+@import "../../assets/styles/variables.scss";
+
+.Navigation {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 0;
+}
+
+.Logo {
+  img {
+    height: auto;
+    width: 128.83px;
+  }
+}
+
+.Right {
+  align-items: center;
+  display: flex;
+}
+
+.Burger {
+  display: none;
+}
+
+.Nav {
+  display: grid;
+  grid-gap: 30px;
+  grid-auto-flow: column;
+
+  a {
+    color: #404546;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    text-decoration: none;
+    transition: .3s;
+
+    &:hover {
+      color: $blue;
+    }
+  }
+}

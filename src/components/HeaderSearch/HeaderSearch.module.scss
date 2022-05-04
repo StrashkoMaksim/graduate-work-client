@@ -1,0 +1,60 @@
+@import "../../assets/styles/variables.scss";
+
+.Search {
+  align-items: center;
+  border-right: 0.5px solid $outline;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  padding-right: 3px;
+
+  &Submit {
+    background: none;
+    border: none;
+    padding: 18px;
+
+    svg {
+      height: auto;
+      width: 21px;
+    }
+
+    path {
+      transition: .3s;
+    }
+
+    &:hover path {
+      fill: $blue;
+    }
+  }
+
+  &Wrapper {
+    align-items: center;
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+
+  input {
+    background: none;
+    border: none;
+    color: #404546;
+    width: 100%;
+
+    &::placeholder {
+      color: #404546;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &Cancel {
+    background: url("../../assets/img/cross.svg") no-repeat center;
+    border: none;
+    display: none;
+    padding: 18px;
+
+    &.active {
+      display: block;
+    }
+  }
+}
