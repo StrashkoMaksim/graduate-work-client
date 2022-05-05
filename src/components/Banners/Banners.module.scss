@@ -1,0 +1,65 @@
+.banners {
+  padding-bottom: 30px;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.slider {
+  border-radius: 6px;
+}
+
+.link, .skeleton {
+  display: block;
+  height: 460px;
+}
+
+.image {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.dots {
+  background: none !important;
+  padding: 0 !important;
+  position: absolute !important;
+  left: unset !important;
+  right: 78px !important;
+  bottom: 53px !important;
+  width: fit-content !important;
+
+  :global(.MuiMobileStepper-dot) {
+    background: rgba(#FFFFFF, .5) !important;
+  }
+
+  :global(.MuiMobileStepper-dot) + :global(.MuiMobileStepper-dot) {
+    margin: 0 0 0 12px !important;
+  }
+
+  :global(.MuiMobileStepper-dotActive) {
+    background: #FFFFFF !important;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .link, .skeleton {
+    height: 400px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .link, .skeleton {
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .dots {
+    :global(.MuiMobileStepper-dot) {
+      height: 6px;
+      width: 6px;
+    }
+  }
+}

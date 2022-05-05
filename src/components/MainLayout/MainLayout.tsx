@@ -9,9 +9,9 @@ const MainLayout = () => {
     return (
         <div className={styles.MainLayout}>
             <Header />
-            <div className={styles.MainLayout__Content}>
+            <main className={styles.MainLayout__Content}>
                 <Outlet />
-            </div>
+            </main>
             <Footer />
         </div>
     )

@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
 import HeaderSearch from "../HeaderSearch/HeaderSearch";
 import PhoneIcon from '../../assets/img/phone.svg'
-import OverflowedSpan from "../OverflowedSpan/OverflowedSpan";
+import OverflowedSpan from "../../ui-kit/OverflowedSpan/OverflowedSpan";
 
 const NavigationLinks = [
     {

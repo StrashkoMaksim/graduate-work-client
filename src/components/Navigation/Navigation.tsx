@@ -2,7 +2,7 @@ import React, {FC, useState} from 'react';
 import styles from "./Navigation.module.scss";
 import {Link} from "react-router-dom";
 import LogoImg from "../../assets/img/logo.svg";
-import Button, {ButtonType} from "../Button/Button";
+import Button, {ButtonType} from "../../ui-kit/Button/Button";
 import cn from 'classnames'
 import {ClickAwayListener} from "@mui/material";
 
