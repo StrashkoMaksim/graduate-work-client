@@ -165,3 +165,88 @@
     }
   }
 }
+
+@media screen and (max-width: 1200px) {
+  .header {
+    position: relative;
+
+    &Socials {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .header {
+    &Top {
+      grid-template-columns: 1fr repeat(4, auto);
+      position: relative;
+    }
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .header {
+    &User {
+      padding: 0 20px;
+
+      svg {
+        margin-right: 0;
+      }
+
+      span {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .header {
+    &Address {
+      padding-right: 0;
+
+      span {
+        font-size: 14px;
+      }
+    }
+
+    &Cart {
+      padding: 0 14px;
+      width: 48px;
+
+      svg {
+        width: 20px;
+      }
+
+      span {
+        bottom: 5px;
+        right: 5px;
+      }
+    }
+
+    &User {
+      padding: 0 14px;
+
+      svg {
+        width: 16.05px;
+      }
+    }
+
+    &Callback {
+      align-items: center;
+      background: none;
+      border: none;
+      display: flex;
+      padding: 0 14px;
+
+      img {
+        width: 17px;
+      }
+    }
+
+    &Phone {
+      display: none;
+    }
+  }
+}
