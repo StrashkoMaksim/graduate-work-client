@@ -1,0 +1,44 @@
+@import "../../assets/styles/variables.scss";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+
+  h2 {
+    color: $black-text;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  a {
+    color: $black-text;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 12px;
+    text-align: right;
+    text-decoration: none;
+    transition: .3s;
+
+    &:hover {
+      color: $blue;
+    }
+  }
+}
+
+@media screen and (max-width: 640px){
+  .header {
+    h2 {
+      font-size: 18px;
+      line-height: 22px;
+    }
+
+    a {
+      font-size: 12px;
+      line-height: 15px;
+      margin-top: 5px;
+    }
+  }
+}

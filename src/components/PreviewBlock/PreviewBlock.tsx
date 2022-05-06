@@ -10,7 +10,7 @@ interface PreviewBlockProps {
         link: string
     },
     additionalClass: string,
-    children: ReactElement[]
+    children: ReactElement
 }
 
 const PreviewBlock: FC<PreviewBlockProps> = ({ allLink, title, additionalClass, children }) => {
