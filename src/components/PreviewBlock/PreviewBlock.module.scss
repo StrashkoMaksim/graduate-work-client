@@ -30,6 +30,8 @@
 
 @media screen and (max-width: 640px){
   .header {
+    margin-bottom: 34px;
+
     h2 {
       font-size: 18px;
       line-height: 22px;
@@ -40,5 +42,11 @@
       line-height: 15px;
       margin-top: 5px;
     }
+  }
+}
+
+@media screen and (max-width: 480px){
+  .header {
+    margin-bottom: 16px;
   }
 }
