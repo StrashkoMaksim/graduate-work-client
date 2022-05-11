@@ -3,6 +3,7 @@ import Banners from "../../../components/Banners/Banners";
 import CategoriesPreviews from "../../../components/CategoriesPreviews/CategoriesPreviews";
 import ReviewsPreviews from "../../../components/ReviewsPreviews/ReviewsPreviews";
 import About from "../../../components/About/About";
+import ArticlesBlock from "../../../components/ArticlesBlock/ArticlesBlock";
 
 const MainPage = () => {
     return (
@@ -11,6 +12,7 @@ const MainPage = () => {
             <CategoriesPreviews />
             <ReviewsPreviews />
             <About />
+            <ArticlesBlock />
         </>
     );
 };

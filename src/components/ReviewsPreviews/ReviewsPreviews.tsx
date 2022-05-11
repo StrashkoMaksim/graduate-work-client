@@ -72,9 +72,7 @@ const ReviewsPreviews: FC = () => {
                 }}
             >
                 {reviews.length ? reviews.map(review =>
-                    <>
-                        <ReviewPreview key={review.id} review={review} />
-                    </>
+                    <ReviewPreview key={review.id} review={review} />
 
                 )
                 :
