@@ -1,0 +1,13 @@
+.reviews {
+  padding: 60px 0;
+}
+
+.addBtn {
+  margin-top: 56px;
+}
+
+@media screen and (max-width: 640px) {
+  .addBtn {
+    margin-top: 60px;
+  }
+}
