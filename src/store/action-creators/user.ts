@@ -32,7 +32,6 @@ export const checkAuthUser = () => {
                 payload: 'Произошла ошибка при проверке авторизации'
             })
             localStorage.removeItem('token')
-            console.log(e)
         }
     }
 }

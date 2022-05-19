@@ -55,6 +55,57 @@ const categories: CategoryPreviewModel[] = [
                 previewImage: 'https://lasercut.ru/assets/images/products/12/preview_webp/0203-1-mini.webp'
             }
         ]
+    },
+    {
+        id: 1,
+        name: 'Лазерные станки',
+        slug: 'lasernie-stanki',
+        products: [
+            {
+                id: 1,
+                name: 'Лазерный станок HT-2520',
+                slug: 'laserniy-stanok-ht-2520',
+                characteristics: {
+                    'Рабочее поле': '250x200мм',
+                    'Мощность излучателя': '40Вт'
+                },
+                price: 75000,
+                previewImage: 'https://lasercut.ru/assets/images/products/12/preview_webp/0203-1-mini.webp'
+            },
+            {
+                id: 2,
+                name: 'Лазерный станок HT-2520 какое-то большое название',
+                slug: 'laserniy-stanok-ht-2520',
+                characteristics: {
+                    'Рабочее поле': '250x200мм',
+                    'Мощность излучателя': '40Вт'
+                },
+                price: 75000,
+                previewImage: 'https://lasercut.ru/assets/images/products/12/preview_webp/0203-1-mini.webp'
+            },
+            {
+                id: 3,
+                name: 'Лазерный станок HT-2520',
+                slug: 'laserniy-stanok-ht-2520',
+                characteristics: {
+                    'Рабочее поле': '250x200мм',
+                    'Мощность излучателя': '40Вт'
+                },
+                price: 75000,
+                previewImage: 'https://lasercut.ru/assets/images/products/12/preview_webp/0203-1-mini.webp'
+            },
+            {
+                id: 4,
+                name: 'Лазерный станок HT-2520',
+                slug: 'laserniy-stanok-ht-2520',
+                characteristics: {
+                    'Рабочее поле': '250x200мм',
+                    'Мощность излучателя': '40Вт'
+                },
+                price: 75000,
+                previewImage: 'https://lasercut.ru/assets/images/products/12/preview_webp/0203-1-mini.webp'
+            }
+        ]
     }
 ]
 

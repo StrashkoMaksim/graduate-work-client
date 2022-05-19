@@ -4,6 +4,8 @@ import CategoriesPreviews from "../../../components/CategoriesPreviews/Categorie
 import ReviewsPreviews from "../../../components/ReviewsPreviews/ReviewsPreviews";
 import About from "../../../components/About/About";
 import ArticlesBlock from "../../../components/ArticlesBlock/ArticlesBlock";
+import VideosBlock from "../../../components/VideosBlock/VideosBlock";
+import MapBlock from "../../../components/MapBlock/MapBlock";
 
 const MainPage = () => {
     return (
@@ -13,6 +15,8 @@ const MainPage = () => {
             <ReviewsPreviews />
             <About />
             <ArticlesBlock />
+            <VideosBlock />
+            <MapBlock />
         </>
     );
 };
