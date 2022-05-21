@@ -5,6 +5,7 @@ import { useActions } from "./useActions";
 import MainPage from "../pages/main/MainPage/MainPage";
 import MainLayout from "../components/MainLayout/MainLayout";
 import AuthPage from "../pages/main/AuthPage/AuthPage";
+import ArticlesPage from "../pages/main/ArticlesPage/ArticlesPage";
 
 export const useRoutes = () => {
     const isAuth = useTypedSelector(state => state.user.isAuth)
@@ -32,6 +33,7 @@ export const useRoutes = () => {
             }
             <Route path="/" element={<MainLayout />}>
                 <Route index element={<MainPage />} />
+                <Route path="articles" element={<ArticlesPage />} />
                 <Route path="*" element={<MainPage />} />
                 {isAuth ?
                     <>

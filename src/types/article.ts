@@ -6,6 +6,8 @@ export interface Article {
     previewText: string,
     content: Object,
     createdAt: string
+    promotionDate?: string
+    sale?: string
 }
 
 export type ArticlePreview = Omit<Article, 'content'>

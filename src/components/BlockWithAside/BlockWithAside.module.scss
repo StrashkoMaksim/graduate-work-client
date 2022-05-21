@@ -1,0 +1,13 @@
+.container {
+  display: grid;
+  grid-gap: 6px;
+  grid-template-columns: 288px 1fr;
+  margin-bottom: 80px;
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    grid-gap: 27px;
+    grid-template: repeat(2, auto)/1fr;
+  }
+}

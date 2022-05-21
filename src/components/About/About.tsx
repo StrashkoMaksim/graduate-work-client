@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './About.module.scss'
 import cn from "classnames";
-import CustomSlider from "../Slider/CustomSlider";
+import CustomSlider from "../CustomSlider/CustomSlider";
 import Slide1 from '../../assets/img/about_slide_1.jpg';
 
 const About = () => {

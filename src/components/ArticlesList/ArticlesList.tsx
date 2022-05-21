@@ -1,9 +1,7 @@
 import React from 'react';
-import styles from './ArticlesBlock.module.scss'
-import PreviewBlock from "../PreviewBlock/PreviewBlock";
-import CustomSlider from "../CustomSlider/CustomSlider";
+import styles from './ArticlesList.module.scss';
 import {ArticlePreview} from "../../types/article";
-import ArticleSlide from "../ArticleSlide/ArticleSlide";
+import Article from "../Article/Article";
 
 const articles: ArticlePreview[] = [
     {
@@ -12,7 +10,9 @@ const articles: ArticlePreview[] = [
         slug: '1',
         previewText: 'Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк',
         previewImage: 'https://i.ytimg.com/vi/UkGO-QBKJEI/maxresdefault.jpg',
-        createdAt: '11 мая 2022'
+        createdAt: '11 мая 2022',
+        promotionDate: '25.11.2021 - 26.11.2021',
+        sale: '-25 %'
     },
     {
         id: 2,
@@ -40,45 +40,25 @@ const articles: ArticlePreview[] = [
     },
 ]
 
-const ArticlesBlock = () => {
+const ArticlesList = () => {
     return (
-        <PreviewBlock
-            title='Новости и акции'
-            allLink={{
-                text: 'Все новости и акции',
-                link: '/news'
-            }}
-            additionalClass={'grey-bg ' + styles.section}
-        >
-            <CustomSlider
-                className={styles.slider}
-                settings={{
-                    arrows: true,
-                    dots: true,
-                    variableWidth: true,
-                    responsive: [
-                        {
-                            breakpoint: 960,
-                            settings: {
-                                arrows: false
-                            }
-                        }
-                    ]
-                }}
-            >
-                {articles.length ? articles.map(article =>
-                    <ArticleSlide article={article} />
-                )
+        <div className={styles.list}>
+            {articles.length > 0
+                ? articles.map(article => <Article article={article} key={article.id} />)
                 :
-                    <>
-                        <ArticleSlide/>
-                        <ArticleSlide/>
-                        <ArticleSlide/>
-                    </>
-                }
-            </CustomSlider>
-        </PreviewBlock>
+                <>
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                </>
+            }
+        </div>
     );
 };
 
-export default ArticlesBlock;
+export default ArticlesList;

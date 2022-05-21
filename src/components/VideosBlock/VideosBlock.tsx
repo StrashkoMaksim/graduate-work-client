@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styles from './VideosBlock.module.scss'
 import PreviewBlock from "../PreviewBlock/PreviewBlock";
-import CustomSlider from "../Slider/CustomSlider";
+import CustomSlider from "../CustomSlider/CustomSlider";
 import {Video} from "../../types/video";
 import VideoPreview from "../VideoPreview/VideoPreview";
 

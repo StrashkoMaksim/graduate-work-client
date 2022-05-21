@@ -5,7 +5,7 @@ import styles from './ReviewsPreviews.module.scss'
 import Button, {ButtonType} from "../../ui-kit/Button/Button";
 import {ReviewPreviewModel} from "../../types/review";
 import ReviewPreview from "../ReviewPreview/ReviewPreview";
-import CustomSlider from "../Slider/CustomSlider";
+import CustomSlider from "../CustomSlider/CustomSlider";
 
 const reviews: ReviewPreviewModel[] = [
     {
