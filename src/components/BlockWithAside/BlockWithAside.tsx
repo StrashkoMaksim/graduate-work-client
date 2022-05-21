@@ -6,7 +6,7 @@ import Aside from "../Aside/Aside";
 interface BlockWithAsideProps {
     aside: ReactNode,
     content: ReactNode,
-    className: string
+    className?: string
 }
 
 const BlockWithAside: FC<BlockWithAsideProps> = ({ aside, content, className }) => {

@@ -22,24 +22,29 @@
 }
 
 .dots {
-  background: none !important;
-  padding: 0 !important;
-  position: absolute !important;
-  left: unset !important;
-  right: 78px !important;
-  bottom: 53px !important;
-  width: fit-content !important;
+  background: none;
+  display: flex !important;
+  position: absolute;
+  right: 78px;
+  bottom: 53px;
+  width: fit-content;
 
-  :global(.MuiMobileStepper-dot) {
-    background: rgba(#FFFFFF, .5) !important;
+  li:global(.slick-active) button {
+    opacity: 1;
   }
 
-  :global(.MuiMobileStepper-dot) + :global(.MuiMobileStepper-dot) {
-    margin: 0 0 0 12px !important;
+  li + li {
+    margin-left: 12px;
   }
 
-  :global(.MuiMobileStepper-dotActive) {
-    background: #FFFFFF !important;
+  button {
+    background: #FFFFFF;
+    border: none;
+    border-radius: 50%;
+    opacity: 0.5;
+    font-size: 0;
+    height: 8px;
+    width: 8px;
   }
 }
 
@@ -57,7 +62,9 @@
 
 @media screen and (max-width: 480px) {
   .dots {
-    :global(.MuiMobileStepper-dot) {
+    right: 40px;
+
+    button {
       height: 6px;
       width: 6px;
     }

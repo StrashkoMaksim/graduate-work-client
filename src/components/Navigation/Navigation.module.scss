@@ -53,6 +53,7 @@
     right: 0;
     transform: translateX(120%);
     transition: .3s;
+    z-index: 100;
 
     &.active {
       transform: translateX(0);

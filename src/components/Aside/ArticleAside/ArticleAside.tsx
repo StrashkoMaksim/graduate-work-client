@@ -1,8 +1,5 @@
 import React, {useCallback, useRef, useState} from 'react';
 import styles from './ArticlesAside.module.scss'
-import {Link} from "react-router-dom";
-import CustomScroll from 'react-custom-scroll';
-import cn from "classnames";
 import {ClickAwayListener, Popper, useMediaQuery} from "@mui/material";
 import AsideLinks from "../AsideLinks/AsideLinks";
 

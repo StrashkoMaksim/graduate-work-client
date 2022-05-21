@@ -107,41 +107,6 @@
     display: none;
   }
 
-  &User {
-    align-items: center;
-    border-right: 0.5px solid $outline;
-    display: flex;
-    padding: 0 11px 0 13px;
-    text-decoration: none;
-
-    svg {
-      height: auto;
-      margin-right: 9.23px;
-      width: 16.77px;
-    }
-
-    path {
-      transition: .3s;
-    }
-
-    &:hover path {
-      fill: $blue;
-    }
-
-    span {
-      color: $grey;
-      transition: .3s;
-    }
-
-    &:hover span {
-      color: $blue;
-    }
-
-    &Dropdown {
-      display: none;
-    }
-  }
-
   &Phone {
     align-items: flex-end;
     display: flex;
@@ -176,27 +141,11 @@
   }
 }
 
-@media screen and (max-width: 1050px) {
+@media screen and (max-width: 840px) {
   .header {
     &Top {
       grid-template-columns: 1fr repeat(4, auto);
       position: relative;
-    }
-  }
-}
-
-@media screen and (max-width: 820px) {
-  .header {
-    &User {
-      padding: 0 20px;
-
-      svg {
-        margin-right: 0;
-      }
-
-      span {
-        display: none;
-      }
     }
   }
 }
@@ -222,14 +171,6 @@
       span {
         bottom: 5px;
         right: 5px;
-      }
-    }
-
-    &User {
-      padding: 0 14px;
-
-      svg {
-        width: 16.05px;
       }
     }
 

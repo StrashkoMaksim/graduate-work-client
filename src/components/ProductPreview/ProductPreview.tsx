@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import styles from './ProductPreview.module.scss'
 import {ProductPreviewModel} from "../../types/product";
+import {Link} from "react-router-dom";
 
 interface ProductPreviewProps {
     product: ProductPreviewModel
@@ -13,7 +14,7 @@ const ProductPreview: FC<ProductPreviewProps> = ({ product }) => {
                 <img src={product.previewImage} alt={product.name} />
             </div>
             <div className={styles.info}>
-                <a>{product.name}</a>
+                <Link to={`/product/${product.slug}`}>{product.name}</Link>
                 <div className={styles.bottom}>
                     <div className={styles.characteristics}>
                         {Object.keys(product.characteristics).map(characteristicName =>

@@ -1,13 +1,10 @@
-import React, {useState} from 'react';
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
+import React from 'react';
 import styles from './Banners.module.scss'
-import {MobileStepper, Skeleton} from "@mui/material";
+import {Skeleton} from "@mui/material";
 import {Link} from "react-router-dom";
 import cn from "classnames";
 import {Banner} from "../../types/banner";
-
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+import Slider from "react-slick";
 
 const banners: Banner[] = [
     {
@@ -27,21 +24,16 @@ const banners: Banner[] = [
 ]
 
 const Banners = () => {
-    const [activeBanner, setActiveBanner] = useState(0)
-
-    const bannerChangeHandler = (step: number) => {
-        setActiveBanner(step);
-    }
-
     return (
         <div className={cn('section grey-bg', styles.banners)}>
             <div className={cn('container', styles.container)}>
                 <div className={styles.wrapper}>
-                    <AutoPlaySwipeableViews
-                        index={activeBanner}
-                        onChangeIndex={bannerChangeHandler}
-                        enableMouseEvents
+                    <Slider
                         className={styles.slider}
+                        dotsClass={styles.dots}
+                        arrows={false}
+                        dots={true}
+                        autoplay={true}
                     >
                         {banners.length ? banners.map(banner =>
                                 <Link className={styles.link} to={banner.link} key={banner.id}>
@@ -58,14 +50,7 @@ const Banners = () => {
                                 animation={'wave'}
                                 className={styles.skeleton} />
                         }
-                    </AutoPlaySwipeableViews>
-                    <MobileStepper backButton={null}
-                                   nextButton={null}
-                                   steps={banners.length}
-                                   activeStep={activeBanner}
-                                   className={styles.dots}
-
-                    />
+                    </Slider>
                 </div>
             </div>
         </div>
