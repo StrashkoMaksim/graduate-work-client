@@ -29,7 +29,7 @@ export const checkAuthUser = () => {
         } catch (e) {
             dispatch({
                 type: UserActionTypes.LOGIN_USER_ERROR,
-                payload: 'Произошла ошибка при проверке авторизации'
+                payload: ''
             })
             localStorage.removeItem('token')
         }

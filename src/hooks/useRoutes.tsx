@@ -17,32 +17,19 @@ export const useRoutes = () => {
 
     return (
         <Routes>
-            {
-                isAuth ? (
-                    <>
-                        {/*<Route path="/admin" element={<AdminLayout />}>*/}
-                        {/*    <Route index element={<AdminNewsPage />} />*/}
-                        {/*    <Route path="*" element={<AdminNewsPage />} />*/}
-                        {/*</Route>*/}
-                    </>
-                ) :
-                    <>
-
-                        <Route path="/admin/*" element={<AuthPage />} />
-                    </>
+            {isAuth &&
+                <>
+                    {/*<Route path="/admin" element={<AdminLayout />}>*/}
+                    {/*    <Route index element={<AdminNewsPage />} />*/}
+                    {/*    <Route path="*" element={<AdminNewsPage />} />*/}
+                    {/*</Route>*/}
+                </>
             }
             <Route path="/" element={<MainLayout />}>
                 <Route index element={<MainPage />} />
                 <Route path="articles" element={<ArticlesPage />} />
+                {!isAuth && <Route path="admin/*" element={<AuthPage />} />}
                 <Route path="*" element={<MainPage />} />
-                {isAuth ?
-                    <>
-                    </>
-                    :
-                    <>
-                        <Route path="/login" element={<AuthPage />} />
-                    </>
-                }
             </Route>
         </Routes>
     )
