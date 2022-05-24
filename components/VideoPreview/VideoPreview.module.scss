@@ -1,0 +1,98 @@
+@import "../../styles/variables";
+
+.slide, .skeleton {
+  border-radius: 6px;
+  margin: 0 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skeleton {
+  height: 326.81px !important;
+}
+
+.preview{
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.mount {
+  align-items: center;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  svg {
+    width: 106px;
+  }
+
+  circle {
+    transition: .3s;
+  }
+
+  &:hover {
+    circle {
+      fill: $blue;
+    }
+  }
+}
+
+.info {
+  color: $white;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 160%;
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+}
+
+@media screen and (max-width: 1200px) {
+  .skeleton {
+    height: calc((100vw - 34px) / 2 * 0.563) !important;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .slide, .skeleton {
+    height: 262px !important;
+    width: 466px;
+  }
+
+  .info {
+    left: 40px;
+    bottom: 40px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .slide, .skeleton {
+    height: 160px !important;
+    width: 286px;
+  }
+
+  .info {
+    font-size: 12px;
+    line-height: 140%;
+    left: 20px;
+    bottom: 24px;
+  }
+
+  .mount svg {
+    width: 75.27px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .slide, .skeleton {
+    height: 143.22px !important;
+    width: 256px;
+  }
+}

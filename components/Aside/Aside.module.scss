@@ -1,0 +1,48 @@
+@import "../../styles/variables";
+
+.aside {
+  align-items: flex-start;
+  display: grid;
+  grid-gap: 6px;
+
+  & > * {
+    background: #F3F5F7;
+    border-radius: 6px;
+    padding: 37px 34px;
+  }
+
+  :global(.asideHeader) {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .aside {
+    & > * {
+      background: none;
+      border-radius: 0;
+      padding: 0;
+    }
+
+    :global(.asideHeader) {
+      cursor: pointer;
+      padding-right: 27px;
+      position: relative;
+      width: fit-content;
+
+      &::after {
+        background: url('../../public/img/aside_arrow.svg') no-repeat center;
+        background-size: contain;
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 8px;
+        width: 14.75px;
+      }
+    }
+  }
+}

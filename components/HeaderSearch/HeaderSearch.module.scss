@@ -1,0 +1,132 @@
+@import "../../styles/variables";
+
+.Search {
+  align-items: center;
+  border-right: 0.5px solid $outline;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  padding-right: 3px;
+
+  &Submit {
+    background: none;
+    border: none;
+    padding: 18px;
+
+    svg {
+      height: auto;
+      width: 21px;
+    }
+
+    path {
+      transition: .3s;
+    }
+
+    &:hover path {
+      fill: $blue;
+    }
+  }
+
+  &Wrapper {
+    align-items: center;
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+
+  input {
+    background: none;
+    border: none;
+    color: #404546;
+    width: 100%;
+
+    &::placeholder {
+      color: #404546;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &Cancel {
+    background: url("../../public/img/cross.svg") no-repeat center;
+    border: none;
+    display: none;
+    padding: 18px;
+
+    &.active {
+      display: block;
+    }
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .Search {
+    grid-template-columns: auto;
+    padding-right: 0;
+
+    &Wrapper {
+      box-shadow: 0px 15px 44px rgba(0, 0, 0, 0.2);
+      display: none;
+      grid-template-columns: 1fr auto;
+
+      &.active {
+        align-items: center;
+        background: $white;
+        border-radius: 6px;
+        display: grid;
+        padding: 14px 17px;
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        right: 0;
+        z-index: 1001;
+
+        input {
+          width: 100%;
+        }
+      }
+    }
+
+    &Cancel {
+      padding: 12px;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .Search {
+
+    &Submit {
+      padding: 13px 14px;
+
+      svg {
+        width: 16.84px;
+      }
+    }
+
+    &Wrapper {
+      display: none;
+      grid-template-columns: 1fr auto;
+
+      &.active {
+        align-items: center;
+        background: $white;
+        border-radius: 6px;
+        display: grid;
+        padding: 14px 17px;
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        right: 0;
+
+        input {
+          width: 100%;
+        }
+      }
+    }
+
+    &Cancel {
+      padding: 12px;
+    }
+  }
+}

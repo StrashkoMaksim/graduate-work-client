@@ -1,0 +1,134 @@
+@import "../../styles/variables";
+
+.Navigation {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 0;
+}
+
+.Logo {
+  span {
+    display: block !important;
+    height: auto;
+    width: 128.83px;
+  }
+}
+
+.Right {
+  align-items: center;
+  display: flex;
+}
+
+.Burger {
+  display: none;
+}
+
+.Nav {
+  display: grid;
+  grid-gap: 30px;
+  grid-auto-flow: column;
+
+  a {
+    color: #404546;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    text-decoration: none;
+    transition: .3s;
+
+    &:hover {
+      color: $blue;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .Nav {
+    background: #F3F5F7;
+    box-shadow: 0px 15px 44px rgba(0, 0, 0, 0.2);
+    grid-auto-flow: row;
+    padding: 20px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    transform: translateX(120%);
+    transition: .3s;
+    z-index: 100;
+
+    &.active {
+      transform: translateX(0);
+    }
+  }
+
+  .Burger {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 20px;
+    padding: 8px 4.71px;
+    height: 34px;
+    width: 34px;
+
+    div {
+      background: #404546;
+      border-radius: 100px;
+      height: 2px;
+      transition: .3s;
+      width: 100%;
+    }
+
+    &.active {
+      div {
+        &:nth-child(1) {
+          transform: translateY(8.2px) rotate(-45deg);
+        }
+
+        &:nth-child(2) {
+          opacity: 0;
+          transform: translateX(-100%);
+        }
+
+        &:nth-child(3) {
+          transform: translateY(-8.2px) rotate(45deg);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .Navigation {
+    padding: 15px 0;
+  }
+
+  .Logo {
+    width: 100px;
+  }
+
+  .BlueBtn {
+    font-size: 12px !important;
+    padding: 10px 20px !important;
+  }
+
+  .Burger {
+    height: 25px;
+    margin-left: 10px;
+    padding: 4.5px 2.5px;
+    width: 25px;
+
+    &.active {
+      div {
+        &:nth-child(1) {
+          transform: translateY(7px) rotate(-45deg);
+        }
+
+        &:nth-child(3) {
+          transform: translateY(-7px) rotate(45deg);
+        }
+      }
+    }
+  }
+}

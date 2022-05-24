@@ -1,0 +1,193 @@
+@import "../../styles/variables";
+
+.header {
+  align-items: center;
+  background: $grey-background;
+  flex-direction: column;
+
+  &Top {
+    border-bottom: 0.5px solid $outline;
+    display: grid;
+    grid-template-columns: auto 1fr repeat(4, auto);
+
+    &.show {
+      position: relative;
+      z-index: 1001;
+    }
+  }
+
+  &Address {
+    align-items: center;
+    border-right: 0.5px solid $outline;
+    display: flex;
+    padding-right: 25.5px;
+    position: relative;
+
+    span {
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      color: $grey;
+      transition: .3s;
+      text-align: left;
+    }
+  }
+
+  &Socials {
+    align-items: center;
+    border-right: 0.5px solid $outline;
+    display: grid;
+    grid-gap: 21px;
+    grid-template-columns: repeat(3, auto);
+    padding: 0 20px;
+
+    a {
+      path {
+        transition: .3s;
+      }
+
+      &:hover path {
+        fill: $blue;
+      }
+    }
+
+    #headerWhatsapp {
+      width: 24px;
+    }
+
+    #headerVk {
+      width: 24px;
+    }
+
+    #headerYoutube {
+      width: 28.3px;
+    }
+  }
+
+  &Cart {
+    background: none;
+    border: none;
+    border-right: 0.5px solid $outline;
+    padding: 15px 13px;
+    position: relative;
+    width: 61px;
+    display: flex;
+    place-content: center;
+
+    svg {
+      width: 24px;
+    }
+
+    path {
+      transition: .3s;
+    }
+
+    &:hover path {
+      fill: $blue;
+    }
+
+    span {
+      background: $blue;
+      border-radius: 50%;
+      color: #FFFFFF;
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 19px;
+      position: absolute;
+      bottom: 11px;
+      right: 11px;
+      text-align: center;
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  &Callback {
+    display: none;
+  }
+
+  &Phone {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 17px;
+
+    a {
+      color: $black-text;
+      display: block;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 24px;
+      text-align: right;
+      text-decoration: none;
+      transition: .3s;
+
+      &:hover {
+        color: $blue;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .header {
+    position: relative;
+
+    &Socials {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .header {
+    &Top {
+      grid-template-columns: 1fr repeat(4, auto);
+      position: relative;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .header {
+    &Address {
+      padding-right: 0;
+
+      span {
+        font-size: 14px;
+      }
+    }
+
+    &Cart {
+      padding: 0 14px;
+      width: 48px;
+
+      svg {
+        width: 20px;
+      }
+
+      span {
+        bottom: 5px;
+        right: 5px;
+      }
+    }
+
+    &Callback {
+      align-items: center;
+      background: none;
+      border: none;
+      display: flex;
+      padding: 0 14px;
+
+      img {
+        width: 17px;
+      }
+    }
+
+    &Phone {
+      display: none;
+    }
+  }
+}
