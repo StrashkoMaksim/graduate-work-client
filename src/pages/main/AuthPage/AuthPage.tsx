@@ -1,24 +1,26 @@
 import React, {FormEvent, useEffect, useState} from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
-import {Alert, FormControl, Input, InputLabel, Snackbar} from "@mui/material";
+import {TextField} from "@mui/material";
 import Button, {ButtonType} from "../../../ui-kit/Button/Button";
 import styles from './AuthPage.module.scss'
 import cn from "classnames";
 import H1 from "../../../ui-kit/H1/H1";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useActions} from "../../../hooks/useActions";
+import CustomSnackbar from "../../../components/CustomSnackbar/CustomSnackbar";
+import {AxiosError} from "axios";
 
 interface AuthData {
-    login: string;
+    email: string;
     password: string;
 }
 
 interface Errors {
-    [key: string]: boolean
+    [key: string]: string | null
 }
 
 const AuthPage = () => {
-    const [authData, setAuthData] = useState<AuthData>({login: '', password: ''})
+    const [authData, setAuthData] = useState<AuthData>({email: '', password: ''})
     const [errors, setErrors] = useState<Errors>({})
     const [isSnackbarOpen, setIsSnackbarOpen] = useState(false)
     const recaptchaRef = React.useRef<ReCAPTCHA>(null);
@@ -27,35 +29,50 @@ const AuthPage = () => {
 
     const submitHandler = async (event: FormEvent) => {
         event.preventDefault()
-        let errorsCount = 0
+        let hasErrors = false
 
-        if (authData.login.length === 0) {
-            errorsCount++
+        if (authData.email.length === 0) {
+            hasErrors= true
             setErrors(prevState => {
-                return ({...prevState, login: true})
+                return ({...prevState, email: 'Обязательно для заполнения'})
             })
         }
 
         if (authData.password.length === 0) {
-            errorsCount++
+            hasErrors= true
             setErrors(prevState => {
-                return ({...prevState, password: true})
+                return ({...prevState, password: 'Обязательно для заполнения'})
             })
         }
 
         if (!recaptchaRef.current?.getValue()) {
-            errorsCount++
+            hasErrors= true
             setErrors(prevState => {
-                return ({...prevState, captcha: true})
+                return ({...prevState, captcha: 'Пройдите проверку'})
             })
         }
 
-        if (errorsCount) {
+        if (hasErrors) {
             return
         }
 
         setErrors({})
-        loginUser(authData.login, authData.password)
+        try {
+            await loginUser(authData.email, authData.password)
+        } catch (e) {
+            if (e instanceof AxiosError && e.response?.status === 400) {
+                setErrors(prevState => {
+                    const newErrors: Errors = {}
+                    // @ts-ignore
+                    e.response.data.forEach(el => {
+                        const error = el.split(' - ')
+                        newErrors[error[0]] = error[1]
+                    })
+                    return newErrors
+                })
+            }
+            setIsSnackbarOpen(true)
+        }
     }
 
     useEffect(() => {
@@ -66,7 +83,7 @@ const AuthPage = () => {
 
     const authDataChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setErrors(prevState => {
-            return ({...prevState, [event.target.name]: false})
+            return ({...prevState, [event.target.name]: null})
         })
         setAuthData(prevState => {
             return ({...prevState, [event.target.name]: event.target.value})
@@ -82,24 +99,27 @@ const AuthPage = () => {
             <div className={cn('container', styles.container)}>
                 <H1 text='Авторизация' className={styles.h1} />
                 <form onSubmit={submitHandler} className={styles.form}>
-                    <FormControl variant="standard" className={styles.control}>
-                        <InputLabel className={styles.label}>Логин</InputLabel>
-                        <Input name="login"
-                               className={cn(styles.input, {[styles.error]: errors.login})}
-                               value={authData.login}
-                               onChange={authDataChangeHandler}
-                        />
-                    </FormControl>
-                    <FormControl variant="standard" className={styles.control}>
-                        <InputLabel className={styles.label}>Пароль</InputLabel>
-                        <Input
-                            name="password"
-                            type='password'
-                            className={cn(styles.input, {[styles.error]: errors.password})}
-                            value={authData.password}
-                            onChange={authDataChangeHandler}
-                        />
-                    </FormControl>
+                    <TextField
+                        label='Электронная почта'
+                        variant={"standard"}
+                        name="email"
+                        className={styles.input}
+                        value={authData.email}
+                        onChange={authDataChangeHandler}
+                        error={Boolean(errors.email)}
+                        helperText={errors.email}
+                    />
+                    <TextField
+                        label='Пароль'
+                        variant={"standard"}
+                        name="password"
+                        type='password'
+                        className={styles.input}
+                        value={authData.password}
+                        onChange={authDataChangeHandler}
+                        error={Boolean(errors.password)}
+                        helperText={errors.password}
+                    />
                     <ReCAPTCHA
                         ref={recaptchaRef}
                         size="normal"
@@ -108,15 +128,7 @@ const AuthPage = () => {
                     />
                     <Button type={ButtonType.blue} text='Войти' additionalClass={styles.btn} />
                 </form>
-                <Snackbar open={isSnackbarOpen}
-                          autoHideDuration={6000}
-                          onClose={closeSnackbar}
-                          anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                >
-                    <Alert onClose={closeSnackbar} severity="error" sx={{ width: '100%' }}>
-                        {error}
-                    </Alert>
-                </Snackbar>
+                <CustomSnackbar isOpen={isSnackbarOpen} onClose={closeSnackbar} text={error} severity='error' />
             </div>
         </div>
     );

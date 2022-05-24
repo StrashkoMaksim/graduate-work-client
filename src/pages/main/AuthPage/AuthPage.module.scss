@@ -27,16 +27,13 @@
   }
 }
 
-.label {
-  font-family: inherit;
-
-  &:global(.Mui-focused) {
-    color: $blue !important;
-  }
-}
-
 .input {
   font-family: inherit;
+  width: 100%;
+
+  & + & {
+    margin-top: 20px;
+  }
 
   &::after {
     border-bottom: 2px solid $blue !important;
