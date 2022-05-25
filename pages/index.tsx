@@ -9,7 +9,11 @@ import MainLayout from "../components/MainLayout/MainLayout";
 
 const MainPage = () => {
     return (
-        <MainLayout>
+        <MainLayout meta={{
+            title: 'Главная',
+            description: 'Пару слов о компании',
+            type: 'website'
+        }}>
             <Banners />
             <CategoriesPreviews />
             <ReviewsPreviews />

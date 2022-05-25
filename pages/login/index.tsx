@@ -12,7 +12,7 @@ import {AxiosError} from "axios";
 import MainLayout from "../../components/MainLayout/MainLayout";
 import {useRouter} from "next/router";
 import {wrapper} from "../../store/store";
-import {Head} from "next/document";
+import Head from "next/head";
 
 interface AuthData {
     email: string;
@@ -101,7 +101,11 @@ const AuthPage = () => {
     }
 
     return (
-        <MainLayout>
+        <MainLayout meta={{
+            title: 'Авторизация',
+            description: 'Страница авторизации',
+            type: 'website',
+        }}>
             <div className={cn('section', styles.section)}>
                 <div className={cn('container', styles.container)}>
                     <H1 text='Авторизация' className={styles.h1} />

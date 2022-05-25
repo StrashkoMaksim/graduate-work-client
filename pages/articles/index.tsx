@@ -7,7 +7,11 @@ import MainLayout from "../../components/MainLayout/MainLayout";
 
 const ArticlesPage = () => {
     return (
-        <MainLayout>
+        <MainLayout meta={{
+            title: 'Статьи',
+            description: 'На нашем сайте размещено множество статей посвященных промышленным станкам и лазерам',
+            type: 'website'
+        }}>
             <Breadcrumbs
                 links={[{link: '/', text: 'Главная'}]}
                 current='Статьи'
