@@ -4,8 +4,8 @@ import type { AppProps } from 'next/app'
 import '../styles/reload.scss'
 import '../styles/global.scss'
 import {Component} from "react";
-import {UserActionTypes} from "../types/user";
 import {Api} from "../utils/api";
+import {loginUser} from "../store/slices/user";
 
 function App ({ Component, pageProps }: AppProps) {
 
@@ -22,20 +22,23 @@ function App ({ Component, pageProps }: AppProps) {
     )
 }
 
-export default wrapper.withRedux(App);
-
 App.getInitialProps = wrapper.getInitialAppProps(
     (store) =>
         async ({ ctx, Component }) => {
             try {
                 await Api(ctx).user.checkAuth();
-                store.dispatch({type: UserActionTypes.LOGIN_USER, payload: true})
-            } catch (e) {}
+                store.dispatch(loginUser())
+            } catch (e) {
+                if (ctx.asPath?.startsWith('/admin')) {
+                    ctx.res?.writeHead(302, { Location: '/login' })
+                    ctx.res?.end()
+                }
+            }
 
             return {
-                pageProps: {
-                    ...(Component.getInitialProps ? await Component.getInitialProps({ ...ctx, store }) : {}),
-                }
+                pageProps: Component.getInitialProps ? await Component.getInitialProps({ ...ctx, store }) : {},
             };
         }
 )
+
+export default wrapper.withRedux(App);

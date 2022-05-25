@@ -12,6 +12,7 @@ import {AxiosError} from "axios";
 import MainLayout from "../../components/MainLayout/MainLayout";
 import {useRouter} from "next/router";
 import {wrapper} from "../../store/store";
+import {Head} from "next/document";
 
 interface AuthData {
     email: string;
@@ -63,7 +64,7 @@ const AuthPage = () => {
         setErrors({})
         try {
             await login(authData)
-            router.push('/');
+            router.push('/admin');
         } catch (e) {
             if (e instanceof AxiosError && e.response?.status === 400) {
                 setErrors(() => {
@@ -142,3 +143,15 @@ const AuthPage = () => {
 };
 
 export default AuthPage;
+
+AuthPage.getInitialProps = wrapper.getInitialPageProps(store => async ({pathname, req, res}) => {
+    if (store.getState().user.isAuth) {
+        if (res) {
+            res.writeHead(302, { Location: '/admin' });
+            res.end();
+        } else {
+            window.location.pathname = '/admin';
+            await new Promise(() => {});
+        }
+    }
+});

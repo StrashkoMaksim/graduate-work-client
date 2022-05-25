@@ -1,9 +1,11 @@
-const ArticlesPage = () => {
+import MainLayout from "../../components/MainLayout/MainLayout";
+
+const AdminPage = () => {
     return (
-        <div>
-            
-        </div>
+        <MainLayout>
+            <h1>Админка</h1>
+        </MainLayout>
     );
 };
 
-export default ArticlesPage;
+export default AdminPage;
