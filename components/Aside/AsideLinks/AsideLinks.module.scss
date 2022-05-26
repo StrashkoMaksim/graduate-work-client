@@ -14,10 +14,32 @@
   line-height: 17px;
   margin-right: 50px;
   text-decoration: none;
+  transition: .3s;
   width: fit-content;
 
   & + & {
     margin-top: 16px;
+  }
+
+  &.hot {
+    color: #FF3A44;
+    padding-left: 23.66px;
+    position: relative;
+
+    &::before {
+      background: url(/img/hot.svg) no-repeat center;
+      background-size: contain;
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 1px;
+      height: 18px;
+      width: 14.18px;
+    }
+  }
+
+  &.active {
+    color: $blue;
   }
 }
 

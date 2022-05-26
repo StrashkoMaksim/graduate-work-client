@@ -12,7 +12,6 @@ import {AxiosError} from "axios";
 import MainLayout from "../../components/MainLayout/MainLayout";
 import {useRouter} from "next/router";
 import {wrapper} from "../../store/store";
-import Head from "next/head";
 
 interface AuthData {
     email: string;

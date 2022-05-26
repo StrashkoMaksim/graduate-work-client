@@ -5,7 +5,8 @@ import styles from "./Button.module.scss";
 interface ButtonProps {
     type: ButtonType,
     text: string,
-    additionalClass: string
+    additionalClass: string,
+    onClick?: () => void
 }
 
 export enum ButtonType {
@@ -15,9 +16,9 @@ export enum ButtonType {
     grey = 'grey'
 }
 
-const Button: FC<ButtonProps> = ({type, text, additionalClass}) => {
+const Button: FC<ButtonProps> = ({type, text, additionalClass, onClick}) => {
     return (
-        <button className={cn(styles[type], additionalClass)}>{text}</button>
+        <button className={cn(styles[type], additionalClass)} onClick={onClick}>{text}</button>
     );
 };
 

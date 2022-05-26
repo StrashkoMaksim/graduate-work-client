@@ -37,6 +37,7 @@ export const login = (dto: LoginUserDto): AppThunk => async dispatch => {
 export const logout = () => {
     return async (dispatch: ThunkDispatch<any, any, any>) => {
         destroyCookie({}, 'token', {path: '/'})
+        destroyCookie({}, 'token', {path: '/admin'})
         await dispatch(logoutUser())
     }
 }

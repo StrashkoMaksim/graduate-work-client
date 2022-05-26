@@ -1,0 +1,41 @@
+@import "../../styles/variables";
+
+.table {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.category {
+  align-items: center;
+  border-bottom: 1px solid $grey-text;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr auto;
+  padding: 10px 0;
+
+  span {
+    color: $black-text;
+    font-size: 16px;
+  }
+}
+
+.delete {
+  background: url("/img/delete.svg") no-repeat center;
+  background-size: contain;
+  border: none;
+  height: 18px;
+  width: 18px;
+}
+
+@media screen and (max-width: 480px) {
+  .category {
+    span {
+      font-size: 12px;
+    }
+  }
+
+  .delete {
+    height: 16px;
+    width: 16px;
+  }
+}

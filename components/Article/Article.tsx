@@ -6,13 +6,14 @@ import Button, {ButtonType} from "../../ui-kit/Button/Button";
 import Link from "next/link";
 
 interface ArticleProps {
-    article?: ArticlePreview
+    article?: ArticlePreview;
+    isAdmin?: boolean
 }
 
-const Article: FC<ArticleProps> = ({ article }) => {
+const Article: FC<ArticleProps> = ({ article, isAdmin }) => {
     if (article) {
         return (
-            <Link href={`/article/${article.slug}`}>
+            <Link href={`${isAdmin ? '/admin' : ''}/article/${article.slug}`}>
                 <a className={styles.article}>
                     <div className={styles.img}>
                         <img src={article.previewImage} alt={article.name} />
@@ -21,7 +22,10 @@ const Article: FC<ArticleProps> = ({ article }) => {
                                 <span className={styles.promotion}>{article.sale}</span>
                             </div>
                         }
-                        <Button type={ButtonType.white} text='Подробнее' additionalClass={styles.btn} />
+                            <Button type={ButtonType.white}
+                                    text={isAdmin ? 'Редактировать' : 'Подробнее'}
+                                    additionalClass={styles.btn}
+                            />
                     </div>
                     <div className={styles.info}>
                         <span className={styles.name}>{article.name}</span>

@@ -1,0 +1,58 @@
+@import "../../styles/variables";
+
+.modal {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.body {
+  align-items: center;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 66px rgba(0, 0, 0, 0.19);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  max-width: 568px;
+  padding: 50px;
+  position: relative;
+  width: 100%;
+}
+
+.close {
+  background: url("/img/close.svg") no-repeat center;
+  background-size: contain;
+  border: none;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  height: 14.4px;
+  width: 14.4px;
+}
+
+.title {
+  color: $black-text;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+}
+
+@media screen and (max-width: 480px) {
+  .body {
+    padding: 20px;
+  }
+
+  .close {
+    top: 10px;
+    right: 10px;
+    height: 10.4px;
+    width: 10.4px;
+  }
+
+  .title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

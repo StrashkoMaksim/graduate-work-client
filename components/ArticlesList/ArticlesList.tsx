@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC, useEffect} from 'react';
 import styles from './ArticlesList.module.scss';
 import {ArticlePreview} from "../../types/article";
 import Article from "../Article/Article";
@@ -40,11 +40,19 @@ const articles: ArticlePreview[] = [
     },
 ]
 
-const ArticlesList = () => {
+interface ArticlesListProps {
+    isAdmin?: boolean
+}
+
+const ArticlesList: FC<ArticlesListProps> = ({ isAdmin }) => {
+    useEffect(() => {
+
+    }, [])
+
     return (
         <div className={styles.list}>
             {articles.length > 0
-                ? articles.map(article => <Article article={article} key={article.id} />)
+                ? articles.map(article => <Article article={article} key={article.id} isAdmin={isAdmin} />)
                 :
                 <>
                     <Article />
