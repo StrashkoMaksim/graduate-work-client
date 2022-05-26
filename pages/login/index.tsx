@@ -146,8 +146,6 @@ const AuthPage = () => {
     );
 };
 
-export default AuthPage;
-
 AuthPage.getInitialProps = wrapper.getInitialPageProps(store => async ({pathname, req, res}) => {
     if (store.getState().user.isAuth) {
         if (res) {
@@ -159,3 +157,5 @@ AuthPage.getInitialProps = wrapper.getInitialPageProps(store => async ({pathname
         }
     }
 });
+
+export default AuthPage;

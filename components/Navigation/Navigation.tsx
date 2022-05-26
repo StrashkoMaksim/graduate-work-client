@@ -6,19 +6,21 @@ import cn from 'classnames'
 import {ClickAwayListener} from "@mui/material";
 import Link from "next/link";
 import Image from 'next/image'
+import {useActions} from "../../hooks/useActions";
 
 interface NavigationProps {
     isAdmin?: boolean;
     links?: NavigationLink[];
 }
 
-type NavigationLink = {
+export type NavigationLink = {
     name: string,
     link: string
 }
 
 const Navigation: FC<NavigationProps> = ({ isAdmin, links }) => {
     const [isOpen, setIsOpen] = useState(false)
+    const {logout} = useActions()
 
     const navToggleHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation()
@@ -27,6 +29,10 @@ const Navigation: FC<NavigationProps> = ({ isAdmin, links }) => {
 
     const closeNavHandler = () => {
         setIsOpen(false)
+    }
+
+    const logoutHandler = async () => {
+        await logout()
     }
 
     return (
@@ -47,7 +53,7 @@ const Navigation: FC<NavigationProps> = ({ isAdmin, links }) => {
             </ClickAwayListener>
             <div className={styles.Right}>
                 {isAdmin ?
-                    <div></div>
+                    <button className={styles.logout} onClick={logoutHandler} />
                     :
                     <Button type={ButtonType.blue} text={'Заказать звонок'} additionalClass={styles.BlueBtn} />
                 }

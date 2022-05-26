@@ -20,6 +20,14 @@
   display: flex;
 }
 
+.logout {
+  background: url("/img/logout.svg");
+  border: none;
+  padding: 0;
+  height: 24px;
+  width: 24px;
+}
+
 .Burger {
   display: none;
 }

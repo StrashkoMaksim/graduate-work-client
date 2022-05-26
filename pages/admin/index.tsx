@@ -1,6 +1,10 @@
+import AdminLayout from "../../components/AdminLayout/AdminLayout";
+
 const AdminPage = () => {
     return (
-        <h1>Админка</h1>
+        <AdminLayout title='Главная'>
+            <h1>Админка</h1>
+        </AdminLayout>
     );
 };
 

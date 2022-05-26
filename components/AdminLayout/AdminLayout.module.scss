@@ -1,0 +1,15 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.header {
+  background: #F3F5F7;
+  position: relative;
+}
+
+.content {
+  flex-grow: 1;
+}
