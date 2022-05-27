@@ -7,6 +7,7 @@ const initialState: ArticlesCategoriesState = {
     loading: false,
     error: null,
     count: 0,
+    selectedId: null,
 }
 
 const articlesCategoriesSlice = createSlice({
@@ -14,10 +15,8 @@ const articlesCategoriesSlice = createSlice({
     initialState,
     reducers: {
         startFetchArticlesCategories: (state: ArticlesCategoriesState) => {
-            state.categories = null;
             state.loading = true;
             state.error = null;
-            state.count = 0;
         },
         endFetchArticlesCategories: (state: ArticlesCategoriesState, action: PayloadAction<GetArticlesCategoriesResponse>) => {
             state.categories = action.payload.rows;
@@ -26,11 +25,12 @@ const articlesCategoriesSlice = createSlice({
             state.count = action.payload.count;
         },
         errorArticlesCategories: (state: ArticlesCategoriesState, action: PayloadAction<string>) => {
-            state.categories = null;
             state.loading = false;
             state.error = action.payload;
-            state.count = 0;
         },
+        selectArticlesCategory: (state: ArticlesCategoriesState, action: PayloadAction<number | null>) =>  {
+            state.selectedId = action.payload
+        }
     },
     extraReducers: {
         [HYDRATE]: (state, action) => {
@@ -42,5 +42,5 @@ const articlesCategoriesSlice = createSlice({
     }
 })
 
-export const { startFetchArticlesCategories, endFetchArticlesCategories, errorArticlesCategories } = articlesCategoriesSlice.actions;
+export const { startFetchArticlesCategories, endFetchArticlesCategories, errorArticlesCategories, selectArticlesCategory } = articlesCategoriesSlice.actions;
 export const articlesCategoriesReducer = articlesCategoriesSlice.reducer;

@@ -6,6 +6,7 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import {Skeleton} from "@mui/material";
 import {ArticleCategory} from "../../../types/article";
+import {useActions} from "../../../hooks/useActions";
 
 interface AsideLinksProps {
     isLoading: boolean;
@@ -17,8 +18,10 @@ interface AsideLinksProps {
 const AsideLinks: FC<AsideLinksProps> = ({ isLoading, links, isAdmin, closeHandler }) => {
     const router = useRouter()
     const { category } = router.query
+    const { changeArticlesCategory } = useActions()
 
-    const clickHandler = () => {
+    const clickHandler = (id: number | null) => () => {
+        changeArticlesCategory(id)
         closeHandler()
     }
 
@@ -35,7 +38,7 @@ const AsideLinks: FC<AsideLinksProps> = ({ isLoading, links, isAdmin, closeHandl
                     </>
                     : <>
                         <Link href={`${isAdmin ? '/admin' : ''}/articles`}>
-                            <a className={cn(styles.link, {[styles.active]: !category})} onClick={clickHandler}>Все</a>
+                            <a className={cn(styles.link, {[styles.active]: !category})} onClick={clickHandler(null)}>Все</a>
                         </Link>
                         {links && links.map(el =>
                             <Link
@@ -47,7 +50,7 @@ const AsideLinks: FC<AsideLinksProps> = ({ isLoading, links, isAdmin, closeHandl
                                         styles.link,
                                         {[styles.hot]: el.slug === 'akcii'},
                                         {[styles.active]: category === el.slug})}
-                                    onClick={clickHandler}
+                                    onClick={clickHandler(el.id)}
                                 >
                                     {el.name}
                                 </a>

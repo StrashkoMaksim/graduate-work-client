@@ -1,60 +1,55 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import styles from './ArticlesList.module.scss';
 import {ArticlePreview} from "../../types/article";
 import Article from "../Article/Article";
-
-const articles: ArticlePreview[] = [
-    {
-        id: 1,
-        name: 'Название',
-        slug: '1',
-        previewText: 'Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк',
-        previewImage: 'https://i.ytimg.com/vi/UkGO-QBKJEI/maxresdefault.jpg',
-        createdAt: '11 мая 2022',
-        promotionDate: '25.11.2021 - 26.11.2021',
-        sale: '-25 %'
-    },
-    {
-        id: 2,
-        name: 'Название',
-        slug: '1',
-        previewText: 'Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк',
-        previewImage: 'https://i.ytimg.com/vi/UkGO-QBKJEI/maxresdefault.jpg',
-        createdAt: '11 мая 2022'
-    },
-    {
-        id: 3,
-        name: 'Название',
-        slug: '1',
-        previewText: 'Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк',
-        previewImage: 'https://i.ytimg.com/vi/UkGO-QBKJEI/maxresdefault.jpg',
-        createdAt: '11 мая 2022'
-    },
-    {
-        id: 4,
-        name: 'Название',
-        slug: '1',
-        previewText: 'Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк',
-        previewImage: 'https://i.ytimg.com/vi/UkGO-QBKJEI/maxresdefault.jpg',
-        createdAt: '11 мая 2022'
-    },
-]
+import {Api} from "../../utils/api";
+import {wrapper} from "../../store/store";
+import {endFetchArticlesCategories, errorArticlesCategories} from "../../store/slices/articles-categories";
+import {GetServerSideProps} from "next";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
 
 interface ArticlesListProps {
+    articlesFromServer: ArticlePreview[] | null
     isAdmin?: boolean
+    limit: number
 }
 
-const ArticlesList: FC<ArticlesListProps> = ({ isAdmin }) => {
-    useEffect(() => {
+const ArticlesList: FC<ArticlesListProps> = ({ isAdmin, articlesFromServer, limit }) => {
+    const [articles, setArticles] = useState<ArticlePreview[] | null>(articlesFromServer)
+    const [offset, setOffset] = useState(0);
+    const [loading, setLoading] = useState(false)
+    const { selectedId: selectedCategory } = useTypedSelector(state => state.articlesCategories)
 
+    useEffect(() => {
+        const fetchArticles = async () => {
+            setLoading(true)
+            const newArticles = await Api().articles.getArticles(limit, offset, selectedCategory)
+            setOffset(newArticles.length)
+            setArticles(newArticles)
+            setLoading(false)
+        }
+        if (!articlesFromServer) {
+            fetchArticles()
+        }
     }, [])
+
+    useEffect(() => {
+        const fetchArticles = async () => {
+            setLoading(true)
+            setArticles(await Api().articles.getArticles(limit, offset, selectedCategory))
+            setLoading(false)
+        }
+        if (selectedCategory) {
+            setOffset(0)
+            fetchArticles()
+        }
+    }, [selectedCategory])
+
 
     return (
         <div className={styles.list}>
-            {articles.length > 0
-                ? articles.map(article => <Article article={article} key={article.id} isAdmin={isAdmin} />)
-                :
-                <>
+            {loading
+                ? <>
                     <Article />
                     <Article />
                     <Article />
@@ -64,6 +59,9 @@ const ArticlesList: FC<ArticlesListProps> = ({ isAdmin }) => {
                     <Article />
                     <Article />
                 </>
+                : articles && articles.map(article =>
+                    <Article article={article} key={article.id} isAdmin={isAdmin} />
+                )
             }
         </div>
     );

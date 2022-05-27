@@ -7,8 +7,11 @@ export interface Article {
     content: Object,
     createdAt: string
     promotionDate?: string
-    sale?: string
+    sale?: string,
+    updatedAt: string
 }
+
+export type ArticlePreview = Omit<Article, 'content' | 'updatedAt'>
 
 export interface ArticleCategory {
     id: number;
@@ -23,11 +26,10 @@ export interface ArticlesCategoriesState {
     loading: boolean;
     error: string | null;
     count: number;
+    selectedId: number | null;
 }
 
 export interface GetArticlesCategoriesResponse {
     count: number;
     rows: ArticleCategory[];
 }
-
-export type ArticlePreview = Omit<Article, 'content'>

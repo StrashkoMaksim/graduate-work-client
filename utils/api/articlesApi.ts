@@ -1,5 +1,5 @@
 import {AxiosInstance} from "axios";
-import {GetArticlesCategoriesResponse} from "../../types/article";
+import {ArticlePreview, GetArticlesCategoriesResponse} from "../../types/article";
 
 export const ArticlesApi = (instance: AxiosInstance) => ({
     async getCategories(): Promise<GetArticlesCategoriesResponse> {
@@ -13,5 +13,9 @@ export const ArticlesApi = (instance: AxiosInstance) => ({
     async addCategory(name: string): Promise<GetArticlesCategoriesResponse> {
         const {data} = await instance.post('articles-categories', {name});
         return data;
+    },
+    async getArticles(limit: number, offset: number, categoryId: number | null): Promise<ArticlePreview[]> {
+        const {data} = await instance.get(`articles?${limit ? `limit=${limit}&` : ''}${offset ? `offset=${offset}&` : ''}${categoryId ? `category=${categoryId}` : ''}`)
+        return data
     },
 })

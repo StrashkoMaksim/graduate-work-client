@@ -16,7 +16,7 @@ const Article: FC<ArticleProps> = ({ article, isAdmin }) => {
             <Link href={`${isAdmin ? '/admin' : ''}/article/${article.slug}`}>
                 <a className={styles.article}>
                     <div className={styles.img}>
-                        <img src={article.previewImage} alt={article.name} />
+                        <img src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${article.previewImage}`} alt={article.name} />
                         {article.sale &&
                             <div className={styles.mount}>
                                 <span className={styles.promotion}>{article.sale}</span>

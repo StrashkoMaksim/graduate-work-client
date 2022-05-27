@@ -13,8 +13,17 @@ import {wrapper} from "../../../store/store";
 import {Api} from "../../../utils/api";
 import {endFetchArticlesCategories, errorArticlesCategories} from "../../../store/slices/articles-categories";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
+import {NextPage} from "next";
+import {ArticlePreview} from "../../../types/article";
+import {changeArticlesCategory} from "../../../store/actions/articles-categories";
 
-const AdminArticlesPage = () => {
+const LIMIT = 8
+
+interface PageProps {
+    articlesFromServer: ArticlePreview[];
+}
+
+const AdminArticlesPage: NextPage<PageProps> = ({ articlesFromServer }) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const {loading} = useTypedSelector(state => state.articlesCategories)
 
@@ -41,7 +50,7 @@ const AdminArticlesPage = () => {
                     <ArticleAside isAdmin={true} />
                 }
                 content={
-                    <ArticlesList isAdmin={true} />
+                    <ArticlesList isAdmin={true} articlesFromServer={articlesFromServer} limit={LIMIT} />
                 }
             />
             <CustomModal open={isModalVisible} onClose={hideModalHandler} title='Менеджер категорий'>
@@ -51,14 +60,20 @@ const AdminArticlesPage = () => {
     );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(store => async ({req, res}) => {
+// @ts-ignore
+export const getServerSideProps = wrapper.getServerSideProps(store => async ({ query}) => {
     try {
         const response = await Api().articles.getCategories()
         store.dispatch(endFetchArticlesCategories(response))
+        const filteredCategories = response.rows.filter(category => category.slug === query.category)
+        const selectedCategory = filteredCategories.length ? filteredCategories[0].id : null
+        store.dispatch(changeArticlesCategory(selectedCategory))
+        const articles = await Api().articles.getArticles(LIMIT, 0, selectedCategory)
+        return { props: { articlesFromServer: articles } }
     } catch (e) {
-        errorArticlesCategories('Произошла ошибка при загрузке категорий')
+        errorArticlesCategories('Произошла ошибка при загрузке страницы')
     }
-    return { props: {} }
+    return { props: { selectedCategory: null, articlesFromServer: null } }
 });
 
 export default AdminArticlesPage;
