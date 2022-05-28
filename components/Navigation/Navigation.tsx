@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import styles from "./Navigation.module.scss";
 import LogoImg from "../../public/img/logo.svg";
-import Button, {ButtonType} from "../../ui-kit/Button/Button";
+import CustomButton, {ButtonType} from "../../ui-kit/CustomButton/CustomButton";
 import cn from 'classnames'
 import {ClickAwayListener} from "@mui/material";
 import Link from "next/link";
@@ -55,7 +55,7 @@ const Navigation: FC<NavigationProps> = ({ isAdmin, links }) => {
                 {isAdmin ?
                     <button className={styles.logout} onClick={logoutHandler} />
                     :
-                    <Button variant={ButtonType.blue} text={'Заказать звонок'} additionalClass={styles.BlueBtn} />
+                    <CustomButton variant={ButtonType.blue} text={'Заказать звонок'} additionalClass={styles.BlueBtn} />
                 }
                 <button className={cn(styles.Burger, {[styles.active]: isOpen})} onClick={navToggleHandler}>
                     <div className={styles.BurgerLine}></div>

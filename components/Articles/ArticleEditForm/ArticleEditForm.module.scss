@@ -1,4 +1,61 @@
+@import "../../../styles/variables";
+
 .container {
   display: grid;
   grid-gap: 30px;
+  margin-bottom: 30px;
+}
+
+.previewImage {
+  margin-bottom: 10px;
+  height: 242px;
+  width: 440px;
+
+  img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+.loadPreviewBtn {
+  background: $blue;
+  text-transform: inherit;
+
+  &:hover {
+    background: $button;
+  }
+}
+
+.btns {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(2, auto);
+}
+
+.addLink {
+  text-decoration: none;
+}
+
+@media screen and (max-width: 640px) {
+  .header {
+    grid-gap: 10px;
+    grid-template-columns: 1fr;
+  }
+
+  .btns {
+    width: fit-content;
+  }
+
+  .btn {
+    font-size: 12px !important;
+    padding: 10px 20px !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .btns {
+    grid-gap: 10px;
+    grid-template-columns: 1fr;
+  }
 }

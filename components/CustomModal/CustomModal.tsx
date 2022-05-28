@@ -11,7 +11,7 @@ interface ModalProps {
 
 const CustomModal: FC<ModalProps> = ({ onClose, open, title, children }) => {
     return (
-        <Modal open={open} onClose={onClose} className={styles.modal} disableScrollLock={true} >
+        <Modal open={open} onClose={onClose} className={styles.modal} >
             <div className={styles.body}>
                 <button className={styles.close} onClick={onClose} />
                 {title && <h3 className={styles.title}>{title}</h3>}

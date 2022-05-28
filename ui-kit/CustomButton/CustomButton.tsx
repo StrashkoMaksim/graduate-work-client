@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import cn from "classnames";
-import styles from "./Button.module.scss";
+import styles from "./CustomButton.module.scss";
 
 interface ButtonProps {
     variant: ButtonType,
@@ -18,10 +18,10 @@ export enum ButtonType {
     red = 'red',
 }
 
-const Button: FC<ButtonProps> = ({variant, text, additionalClass, onClick}) => {
+const CustomButton: FC<ButtonProps> = ({variant, text, additionalClass, onClick}) => {
     return (
         <button className={cn(styles.btn, styles[variant], additionalClass)} onClick={onClick}>{text}</button>
     );
 };
 
-export default Button;
+export default CustomButton;

@@ -1,6 +1,6 @@
 import AdminLayout from "../../../components/AdminLayout/AdminLayout";
 import PageHeader from "../../../components/PageHeader/PageHeader";
-import Button, {ButtonType} from "../../../ui-kit/Button/Button";
+import CustomButton, {ButtonType} from "../../../ui-kit/CustomButton/CustomButton";
 import styles from './styles.module.scss'
 import ArticleAside from "../../../components/Aside/ArticleAside/ArticleAside";
 import ArticlesList from "../../../components/Articles/ArticlesList/ArticlesList";
@@ -42,10 +42,10 @@ const AdminArticlesPage: NextPage<PageProps> = ({ articlesFromServer }) => {
         <AdminLayout title='Статьи'>
             <PageHeader h1='Статьи' className={styles.header}>
                 <div className={styles.btns}>
-                    <Button variant={ButtonType.grey} text='Менеджер категорий' additionalClass={cn(styles.btn, styles.whiteBtn)} onClick={showModalHandler} />
+                    <CustomButton variant={ButtonType.grey} text='Менеджер категорий' additionalClass={cn(styles.btn, styles.whiteBtn)} onClick={showModalHandler} />
                     <Link href='/admin/articles/create' >
                         <a className={styles.addLink}>
-                            <Button variant={ButtonType.blue} text='Добавить статью' additionalClass={cn(styles.btn, styles.blueBtn)} />
+                            <CustomButton variant={ButtonType.blue} text='Добавить статью' additionalClass={cn(styles.btn, styles.blueBtn)} />
                         </a>
                     </Link>
                 </div>

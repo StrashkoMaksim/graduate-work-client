@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Footer.module.scss'
 import cn from "classnames";
-import Button, {ButtonType} from "../../ui-kit/Button/Button";
+import CustomButton, {ButtonType} from "../../ui-kit/CustomButton/CustomButton";
 import YandexIcon from '../../public/img/yandex_star.svg'
 import Link from "next/link";
 import Image from 'next/image'
@@ -45,8 +45,8 @@ const Footer = () => {
                             </div>
                         </div>
                         <div className={styles.buttons}>
-                            <Button variant={ButtonType.blue} text={'Заказать звонок'} additionalClass={styles.buttonsBlueBtn} />
-                            <Button variant={ButtonType.white} text={'Задать вопрос'} additionalClass={styles.buttonsWhiteBtn} />
+                            <CustomButton variant={ButtonType.blue} text={'Заказать звонок'} additionalClass={styles.buttonsBlueBtn} />
+                            <CustomButton variant={ButtonType.white} text={'Задать вопрос'} additionalClass={styles.buttonsWhiteBtn} />
                             <div className={styles.buttonsYandex}>
                                 <h4>Оставьте ваш отзыв</h4>
                                 <a href="yandex.ru" className={styles.contactsReview}>

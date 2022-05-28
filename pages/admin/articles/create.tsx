@@ -1,22 +1,20 @@
 import AdminLayout from "../../../components/AdminLayout/AdminLayout";
-import PageHeader from "../../../components/PageHeader/PageHeader";
-import styles from './styles.module.scss'
-import Button, {ButtonType} from "../../../ui-kit/Button/Button";
 import ArticleEditForm from "../../../components/Articles/ArticleEditForm/ArticleEditForm";
+import {OutputData} from "@editorjs/editorjs";
+import {Api} from "../../../utils/api";
+import {useRouter} from "next/router";
 
 const CreateArticlePage = () => {
-    const submitHandler = () => {
+    const router = useRouter()
 
+    const submitHandler = async (name: string, previewText: string, previewImage: number, content: OutputData['blocks'], categoryId: 1) => {
+        await Api().articles.createArticle({name, previewText, previewImage, content, categoryId})
+        await router.push('/admin/articles')
     }
 
     return (
         <AdminLayout title='Новая статья'>
-            <PageHeader h1='Новая статья'>
-                <div className={styles.btns}>
-                    <Button variant={ButtonType.blue} text='Опубликовать' additionalClass={styles.blueBtn} onClick={submitHandler} />
-                </div>
-            </PageHeader>
-            <ArticleEditForm />
+            <ArticleEditForm pageTitle='Новая статья' onSubmit={submitHandler} />
         </AdminLayout>
     );
 };

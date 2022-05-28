@@ -1,6 +1,6 @@
 import styles from './ArticlesCategoriesAddForm.module.scss'
 import {TextField} from "@mui/material";
-import Button, {ButtonType} from "../../../../ui-kit/Button/Button";
+import CustomButton, {ButtonType} from "../../../../ui-kit/CustomButton/CustomButton";
 import React, {FormEvent, useState} from "react";
 import {useActions} from "../../../../hooks/useActions";
 
@@ -36,7 +36,7 @@ const ArticlesCategoriesAddForm = () => {
                 error={Boolean(isInputError)}
                 helperText={isInputError}
             />
-            <Button variant={ButtonType.blue} text='Добавить' additionalClass={styles.btn} />
+            <CustomButton variant={ButtonType.blue} text='Добавить' additionalClass={styles.btn} />
         </form>
     );
 };

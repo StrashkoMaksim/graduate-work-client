@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import PreviewBlock from "../PreviewBlock/PreviewBlock";
 import cn from "classnames";
 import styles from './ReviewsPreviews.module.scss'
-import Button, {ButtonType} from "../../ui-kit/Button/Button";
+import CustomButton, {ButtonType} from "../../ui-kit/CustomButton/CustomButton";
 import {ReviewPreviewModel} from "../../types/review";
 import ReviewPreview from "../ReviewPreview/ReviewPreview";
 import CustomSlider from "../CustomSlider/CustomSlider";
@@ -84,7 +84,7 @@ const ReviewsPreviews: FC = () => {
                 }
             </CustomSlider>
             <div className={cn('flex-center', styles.addReview)}>
-                <Button variant={ButtonType.white} text='Оставить отзыв' additionalClass={styles.addBtn} />
+                <CustomButton variant={ButtonType.white} text='Оставить отзыв' additionalClass={styles.addBtn} />
             </div>
         </PreviewBlock>
     );

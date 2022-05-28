@@ -1,0 +1,17 @@
+@import "../../styles/variables";
+
+.control {
+  margin: 0 !important;
+}
+
+.label {
+  &:global(.Mui-focused) {
+    color: $blue !important;
+  }
+}
+
+.input {
+  &::after {
+    border-bottom: 2px solid $blue !important;
+  }
+}

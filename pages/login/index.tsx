@@ -1,6 +1,6 @@
 import React, {FormEvent, useEffect, useState} from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
-import Button, {ButtonType} from "../../ui-kit/Button/Button";
+import CustomButton, {ButtonType} from "../../ui-kit/CustomButton/CustomButton";
 import styles from './AuthPage.module.scss'
 import cn from "classnames";
 import H1 from "../../ui-kit/H1/H1";
@@ -134,7 +134,7 @@ const AuthPage = () => {
                             sitekey="6Lefcf8fAAAAAJd1MbznOyS2F59lv-0VXAOY9iLB"
                             className={cn(styles.captcha, {[styles.error]: errors.captcha})}
                         />
-                        <Button variant={ButtonType.blue} text='Войти' additionalClass={styles.btn} />
+                        <CustomButton variant={ButtonType.blue} text='Войти' additionalClass={styles.btn} />
                     </form>
                     <CustomSnackbar isOpen={isSnackbarOpen} onClose={closeSnackbar} text={error} severity='error' />
                 </div>

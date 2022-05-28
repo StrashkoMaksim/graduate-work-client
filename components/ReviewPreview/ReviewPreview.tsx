@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import styles from './ReviewPreview.module.scss'
-import Button, {ButtonType} from "../../ui-kit/Button/Button";
+import CustomButton, {ButtonType} from "../../ui-kit/CustomButton/CustomButton";
 import {ReviewPreviewModel} from "../../types/review";
 import {Skeleton} from "@mui/material";
 
@@ -19,7 +19,7 @@ const ReviewPreview: FC<ReviewPreviewProps> = ({ review }) => {
                 </h2>
                 <span className={styles.date}>{review.createdAt}</span>
                 <p className={styles.text}>{review.text}</p>
-                <Button variant={ButtonType.grey} text='Читать' additionalClass={styles.readBtn} />
+                <CustomButton variant={ButtonType.grey} text='Читать' additionalClass={styles.readBtn} />
             </div>
         )
     } else {

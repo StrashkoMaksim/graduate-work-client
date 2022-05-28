@@ -35,3 +35,5 @@ export interface GetArticlesCategoriesResponse {
     count: number;
     rows: ArticleCategory[];
 }
+
+export type CreateArticleDto = Omit<Article, 'id' | 'slug' | 'createdAt' | 'updatedAt'> & {categoryId: number}
