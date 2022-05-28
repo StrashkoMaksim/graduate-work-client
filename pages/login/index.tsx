@@ -1,6 +1,5 @@
 import React, {FormEvent, useEffect, useState} from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
-import {TextField} from "@mui/material";
 import Button, {ButtonType} from "../../ui-kit/Button/Button";
 import styles from './AuthPage.module.scss'
 import cn from "classnames";
@@ -12,6 +11,7 @@ import {AxiosError} from "axios";
 import MainLayout from "../../components/MainLayout/MainLayout";
 import {useRouter} from "next/router";
 import {wrapper} from "../../store/store";
+import CustomTextField from "../../ui-kit/CustomTextField/CustomTextField";
 
 interface AuthData {
     email: string;
@@ -109,9 +109,8 @@ const AuthPage = () => {
                 <div className={cn('container', styles.container)}>
                     <H1 text='Авторизация' className={styles.h1} />
                     <form onSubmit={submitHandler} className={styles.form}>
-                        <TextField
+                        <CustomTextField
                             label='Электронная почта'
-                            variant={"standard"}
                             name="email"
                             className={styles.input}
                             value={authData.email}
@@ -119,9 +118,8 @@ const AuthPage = () => {
                             error={Boolean(errors.email)}
                             helperText={errors.email}
                         />
-                        <TextField
+                        <CustomTextField
                             label='Пароль'
-                            variant={"standard"}
                             name="password"
                             type='password'
                             className={styles.input}
@@ -136,7 +134,7 @@ const AuthPage = () => {
                             sitekey="6Lefcf8fAAAAAJd1MbznOyS2F59lv-0VXAOY9iLB"
                             className={cn(styles.captcha, {[styles.error]: errors.captcha})}
                         />
-                        <Button type={ButtonType.blue} text='Войти' additionalClass={styles.btn} />
+                        <Button variant={ButtonType.blue} text='Войти' additionalClass={styles.btn} />
                     </form>
                     <CustomSnackbar isOpen={isSnackbarOpen} onClose={closeSnackbar} text={error} severity='error' />
                 </div>

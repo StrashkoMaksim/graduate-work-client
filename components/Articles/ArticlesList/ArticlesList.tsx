@@ -1,12 +1,9 @@
 import React, {FC, useEffect, useState} from 'react';
 import styles from './ArticlesList.module.scss';
-import {ArticlePreview} from "../../types/article";
+import {ArticlePreview} from "../../../types/article";
 import Article from "../Article/Article";
-import {Api} from "../../utils/api";
-import {wrapper} from "../../store/store";
-import {endFetchArticlesCategories, errorArticlesCategories} from "../../store/slices/articles-categories";
-import {GetServerSideProps} from "next";
-import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {Api} from "../../../utils/api";
+import {useTypedSelector} from "../../../hooks/useTypedSelector";
 
 interface ArticlesListProps {
     articlesFromServer: ArticlePreview[] | null

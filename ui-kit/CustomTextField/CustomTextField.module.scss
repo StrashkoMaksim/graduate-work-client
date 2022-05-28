@@ -1,0 +1,21 @@
+@import "../../styles/variables";
+
+.root {
+  width: 100%;
+
+  :global(.MuiInputLabel-root.Mui-focused) {
+    color: $blue;
+  }
+
+  :global(.MuiInput-root::after) {
+    border-bottom: 2px solid $blue;
+  }
+
+  :global(.Mui-error){
+    color: #d32f2f;
+
+    &::after {
+      border-bottom: 2px solid #d32f2f;
+    }
+  }
+}

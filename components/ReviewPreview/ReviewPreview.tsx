@@ -19,7 +19,7 @@ const ReviewPreview: FC<ReviewPreviewProps> = ({ review }) => {
                 </h2>
                 <span className={styles.date}>{review.createdAt}</span>
                 <p className={styles.text}>{review.text}</p>
-                <Button type={ButtonType.grey} text='Читать' additionalClass={styles.readBtn} />
+                <Button variant={ButtonType.grey} text='Читать' additionalClass={styles.readBtn} />
             </div>
         )
     } else {

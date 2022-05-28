@@ -55,7 +55,7 @@ const Navigation: FC<NavigationProps> = ({ isAdmin, links }) => {
                 {isAdmin ?
                     <button className={styles.logout} onClick={logoutHandler} />
                     :
-                    <Button type={ButtonType.blue} text={'Заказать звонок'} additionalClass={styles.BlueBtn} />
+                    <Button variant={ButtonType.blue} text={'Заказать звонок'} additionalClass={styles.BlueBtn} />
                 }
                 <button className={cn(styles.Burger, {[styles.active]: isOpen})} onClick={navToggleHandler}>
                     <div className={styles.BurgerLine}></div>

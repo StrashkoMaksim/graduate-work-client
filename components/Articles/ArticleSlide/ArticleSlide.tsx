@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {ArticlePreview} from "../../types/article";
+import {ArticlePreview} from "../../../types/article";
 import styles from './ArticleSlide.module.scss'
 import Link from "next/link";
 

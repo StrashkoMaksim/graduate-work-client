@@ -1,4 +1,4 @@
-@import "../../styles/variables";
+@import "../../../styles/variables";
 
 .article {
   border-radius: 6px;
@@ -112,7 +112,7 @@
     position: relative;
 
     &::before {
-      background: url('../../public/img/hot.svg') no-repeat center;
+      background: url('../../../public/img/hot.svg') no-repeat center;
       background-size: contain;
       content: "";
       position: absolute;

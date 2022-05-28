@@ -3,22 +3,24 @@ import cn from "classnames";
 import styles from "./Button.module.scss";
 
 interface ButtonProps {
-    type: ButtonType,
+    variant: ButtonType,
     text: string,
     additionalClass: string,
     onClick?: () => void
+    type?: 'submit' | 'button'
 }
 
 export enum ButtonType {
     blue = 'blue',
     white = 'white',
     transparent = 'transparent',
-    grey = 'grey'
+    grey = 'grey',
+    red = 'red',
 }
 
-const Button: FC<ButtonProps> = ({type, text, additionalClass, onClick}) => {
+const Button: FC<ButtonProps> = ({variant, text, additionalClass, onClick}) => {
     return (
-        <button className={cn(styles[type], additionalClass)} onClick={onClick}>{text}</button>
+        <button className={cn(styles.btn, styles[variant], additionalClass)} onClick={onClick}>{text}</button>
     );
 };
 

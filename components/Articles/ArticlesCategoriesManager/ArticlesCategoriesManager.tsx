@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import styles from './ArticlesCategoriesManager.module.scss'
 import {CircularProgress} from "@mui/material";
-import CustomSnackbar from "../CustomSnackbar/CustomSnackbar";
-import {useActions} from "../../hooks/useActions";
+import CustomSnackbar from "../../CustomSnackbar/CustomSnackbar";
+import {useActions} from "../../../hooks/useActions";
 import ArticlesCategoriesAddForm from "./ArticlesCategoriesAddForm/ArticlesCategoriesAddForm";
 
 const ArticlesCategoriesManager = () => {

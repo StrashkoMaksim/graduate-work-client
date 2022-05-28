@@ -1,15 +1,21 @@
 @import "../../styles/variables";
 
-.blue {
-  background: $blue;
-  border: none;
+.btn {
   border-radius: 100px;
-  color: $white;
+  display: block;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
   padding: 15px 35px;
+  text-align: center;
+  text-decoration: none;
   transition: .3s;
+}
+
+.blue {
+  background: $blue;
+  border: none;
+  color: $white;
 
   &:hover {
     background: $button;
@@ -21,11 +27,6 @@
   border: none;
   border-radius: 100px;
   color: $black-text;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  padding: 15px 32px;
-  transition: .3s;
 
   &:hover {
     background: $button-grey;
@@ -35,16 +36,8 @@
 .transparent {
   background: none;
   border: 1px solid $white;
-  border-radius: 100px;
   color: $white;
   display: block;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  transition: .3s;
 
   &:hover {
     background: $button-grey;
@@ -56,16 +49,20 @@
 .grey {
   background: $grey-background;
   border: none;
-  border-radius: 100px;
   color: $black-text;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  text-align: center;
-  padding: 15px 38px;
-  transition: .3s;
 
   &:hover {
     background: $button-grey;
+  }
+}
+
+.red {
+  background: transparent;
+  border: 1px solid $red;
+  color: $red;
+
+  &:hover {
+    background: $red;
+    color: #FFFFFF;
   }
 }

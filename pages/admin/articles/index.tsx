@@ -3,12 +3,12 @@ import PageHeader from "../../../components/PageHeader/PageHeader";
 import Button, {ButtonType} from "../../../ui-kit/Button/Button";
 import styles from './styles.module.scss'
 import ArticleAside from "../../../components/Aside/ArticleAside/ArticleAside";
-import ArticlesList from "../../../components/ArticlesList/ArticlesList";
+import ArticlesList from "../../../components/Articles/ArticlesList/ArticlesList";
 import BlockWithAside from "../../../components/BlockWithAside/BlockWithAside";
 import cn from "classnames";
 import {useCallback, useState} from "react";
 import CustomModal from "../../../components/CustomModal/CustomModal";
-import ArticlesCategoriesManager from "../../../components/ArticlesCategoriesManager/ArticlesCategoriesManager";
+import ArticlesCategoriesManager from "../../../components/Articles/ArticlesCategoriesManager/ArticlesCategoriesManager";
 import {wrapper} from "../../../store/store";
 import {Api} from "../../../utils/api";
 import {endFetchArticlesCategories, errorArticlesCategories} from "../../../store/slices/articles-categories";
@@ -16,6 +16,7 @@ import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {NextPage} from "next";
 import {ArticlePreview} from "../../../types/article";
 import {changeArticlesCategory} from "../../../store/actions/articles-categories";
+import Link from "next/link";
 
 const LIMIT = 8
 
@@ -41,8 +42,12 @@ const AdminArticlesPage: NextPage<PageProps> = ({ articlesFromServer }) => {
         <AdminLayout title='Статьи'>
             <PageHeader h1='Статьи' className={styles.header}>
                 <div className={styles.btns}>
-                    <Button type={ButtonType.grey} text='Менеджер категорий' additionalClass={cn(styles.btn, styles.whiteBtn)} onClick={showModalHandler} />
-                    <Button type={ButtonType.blue} text='Добавить статью' additionalClass={cn(styles.btn, styles.blueBtn)} />
+                    <Button variant={ButtonType.grey} text='Менеджер категорий' additionalClass={cn(styles.btn, styles.whiteBtn)} onClick={showModalHandler} />
+                    <Link href='/admin/articles/create' >
+                        <a className={styles.addLink}>
+                            <Button variant={ButtonType.blue} text='Добавить статью' additionalClass={cn(styles.btn, styles.blueBtn)} />
+                        </a>
+                    </Link>
                 </div>
             </PageHeader>
             <BlockWithAside

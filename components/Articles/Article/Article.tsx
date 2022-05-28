@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 import styles from './Article.module.scss'
-import {ArticlePreview} from "../../types/article";
+import {ArticlePreview} from "../../../types/article";
 import cn from "classnames";
-import Button, {ButtonType} from "../../ui-kit/Button/Button";
+import Button, {ButtonType} from "../../../ui-kit/Button/Button";
 import Link from "next/link";
 
 interface ArticleProps {
@@ -22,7 +22,7 @@ const Article: FC<ArticleProps> = ({ article, isAdmin }) => {
                                 <span className={styles.promotion}>{article.sale}</span>
                             </div>
                         }
-                            <Button type={ButtonType.white}
+                            <Button variant={ButtonType.white}
                                     text={isAdmin ? 'Редактировать' : 'Подробнее'}
                                     additionalClass={styles.btn}
                             />

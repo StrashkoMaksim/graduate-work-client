@@ -1,8 +1,8 @@
 import styles from './ArticlesCategoriesAddForm.module.scss'
 import {TextField} from "@mui/material";
-import Button, {ButtonType} from "../../../ui-kit/Button/Button";
+import Button, {ButtonType} from "../../../../ui-kit/Button/Button";
 import React, {FormEvent, useState} from "react";
-import {useActions} from "../../../hooks/useActions";
+import {useActions} from "../../../../hooks/useActions";
 
 const ArticlesCategoriesAddForm = () => {
     const [inputValue, setInputValue] = useState('')
@@ -36,7 +36,7 @@ const ArticlesCategoriesAddForm = () => {
                 error={Boolean(isInputError)}
                 helperText={isInputError}
             />
-            <Button type={ButtonType.blue} text='Добавить' additionalClass={styles.btn} />
+            <Button variant={ButtonType.blue} text='Добавить' additionalClass={styles.btn} />
         </form>
     );
 };

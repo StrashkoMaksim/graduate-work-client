@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './ArticlesBlock.module.scss'
-import PreviewBlock from "../PreviewBlock/PreviewBlock";
-import CustomSlider from "../CustomSlider/CustomSlider";
-import {ArticlePreview} from "../../types/article";
+import PreviewBlock from "../../PreviewBlock/PreviewBlock";
+import CustomSlider from "../../CustomSlider/CustomSlider";
+import {ArticlePreview} from "../../../types/article";
 import ArticleSlide from "../ArticleSlide/ArticleSlide";
 
 const articles: ArticlePreview[] = [

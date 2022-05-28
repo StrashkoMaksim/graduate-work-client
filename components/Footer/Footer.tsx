@@ -45,8 +45,8 @@ const Footer = () => {
                             </div>
                         </div>
                         <div className={styles.buttons}>
-                            <Button type={ButtonType.blue} text={'Заказать звонок'} additionalClass={styles.buttonsBlueBtn} />
-                            <Button type={ButtonType.white} text={'Задать вопрос'} additionalClass={styles.buttonsWhiteBtn} />
+                            <Button variant={ButtonType.blue} text={'Заказать звонок'} additionalClass={styles.buttonsBlueBtn} />
+                            <Button variant={ButtonType.white} text={'Задать вопрос'} additionalClass={styles.buttonsWhiteBtn} />
                             <div className={styles.buttonsYandex}>
                                 <h4>Оставьте ваш отзыв</h4>
                                 <a href="yandex.ru" className={styles.contactsReview}>

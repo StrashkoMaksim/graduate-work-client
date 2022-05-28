@@ -84,7 +84,7 @@ const ReviewsPreviews: FC = () => {
                 }
             </CustomSlider>
             <div className={cn('flex-center', styles.addReview)}>
-                <Button type={ButtonType.white} text='Оставить отзыв' additionalClass={styles.addBtn} />
+                <Button variant={ButtonType.white} text='Оставить отзыв' additionalClass={styles.addBtn} />
             </div>
         </PreviewBlock>
     );

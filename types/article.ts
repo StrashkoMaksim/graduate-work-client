@@ -1,10 +1,12 @@
+import { OutputData } from '@editorjs/editorjs'
+
 export interface Article {
     id: number
     name: string,
     slug: string,
     previewImage: string,
     previewText: string,
-    content: Object,
+    content: OutputData['blocks'],
     createdAt: string
     promotionDate?: string
     sale?: string,

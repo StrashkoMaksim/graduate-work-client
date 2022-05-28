@@ -4,6 +4,10 @@
   grid-template-columns: repeat(2, auto);
 }
 
+.addLink {
+  text-decoration: none;
+}
+
 @media screen and (max-width: 640px) {
   .header {
     grid-gap: 10px;
