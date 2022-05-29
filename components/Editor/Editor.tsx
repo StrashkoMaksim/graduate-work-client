@@ -3,13 +3,15 @@ import EditorJS, {OutputData} from '@editorjs/editorjs';
 import { FC, useEffect} from "react";
 import styles from './Editor.module.scss'
 import cn from "classnames";
+import ErrorParagraph from "../../ui-kit/ErrorParagraph/ErrorParagraph";
 
 interface EditorProps {
-    blocks: OutputData['blocks']
-    onChange: (blocks: OutputData['blocks']) => void
+    blocks: OutputData['blocks'];
+    onChange: (blocks: OutputData['blocks']) => void;
+    error: string | null;
 }
 
-export const Editor: FC<EditorProps> = ({ blocks, onChange }) => {
+export const Editor: FC<EditorProps> = ({ blocks, onChange, error }) => {
     const {editorTools, localization} = useEditor();
 
     useEffect(() => {
@@ -37,6 +39,7 @@ export const Editor: FC<EditorProps> = ({ blocks, onChange }) => {
     return (
         <div className={cn('section', styles.section)}>
             <div className={cn('container', styles.container)}>
+                {error && <ErrorParagraph>{error}</ErrorParagraph>}
                 <div className={styles.blank}>
                     <div id='editor' className={styles.editor} />
                 </div>

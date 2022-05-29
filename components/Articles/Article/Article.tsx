@@ -13,7 +13,7 @@ interface ArticleProps {
 const Article: FC<ArticleProps> = ({ article, isAdmin }) => {
     if (article) {
         return (
-            <Link href={`${isAdmin ? '/admin' : ''}/article/${article.slug}`}>
+            <Link href={`${isAdmin ? '/admin' : ''}/articles/${article.slug}`}>
                 <a className={styles.article}>
                     <div className={styles.img}>
                         <img src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${article.previewImage}`} alt={article.name} />

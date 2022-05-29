@@ -1,0 +1,179 @@
+@import "../../../styles/variables";
+
+.article {
+  margin-left: 44px;
+}
+
+.h1 {
+  margin-bottom: 24px;
+}
+
+.paragraph {
+  color: $black-text;
+  font-size: 14px;
+  line-height: 17px;
+  margin: 10px 0 20px;
+}
+
+.list {
+  margin: 40px 0 !important;
+
+  .li {
+    color: $black-text;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    min-height: 17px;
+    padding: 0 0 0 25px;
+    position: relative;
+  }
+
+  .li + .li {
+    margin-top: 9px;
+  }
+}
+
+.ul .li::before {
+  background: $blue;
+  border-radius: 50%;
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 0;
+  height: 6px;
+  width: 6px;
+}
+
+.ol {
+  counter-reset: ol-numbers;
+
+  .li::before {
+    counter-increment: ol-numbers;
+    content: counter(ol-numbers) ")";
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.img {
+  margin: 40px 0 40px;
+  width: 100%;
+}
+
+.carousel {
+  display: grid;
+  grid-gap: 6px;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 40px 0;
+}
+
+.carouselImg {
+  height: 273.33px;
+
+  img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+.h2 {
+  color: $black-text;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 30px 0 20px;
+}
+
+.h3 {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.22;
+  margin: 20px 0 10px;
+}
+
+.hr {
+  background: #DDE3E6;
+  height: 1px;
+  margin: 40px 0;
+}
+
+.iframe {
+  height: 467px;
+  width: 100%;
+}
+
+@media screen and (max-width: 1200px) {
+  .article {
+    margin-left: 0;
+  }
+
+  .carouselImg {
+    height: calc((100vw - 30px - 12px) / 3);
+  }
+
+  .iframe {
+    height: calc((100vw - 30px) *  0.56);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .paragraph {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .list {
+    margin: 20px 0 !important;
+
+    .li {
+      font-size: 12px;
+      line-height: 15px;
+      padding-left: 16px;
+    }
+
+    .li + .li {
+      margin-top: 8px;
+    }
+  }
+
+  .ul .li::before {
+    background: $blue;
+    border-radius: 50%;
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 0;
+    height: 5px;
+    width: 5px;
+  }
+
+  .hr {
+    margin: 20px 0;
+  }
+
+  .h2 {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 20px 0 10px;
+  }
+
+  .h3 {
+    font-size: 14px;
+    margin: 10px 0;
+  }
+
+  .img {
+    margin: 20px 0;
+  }
+
+  .carousel {
+    grid-template-columns: repeat(2, 1fr);
+    margin: 20px 0;
+  }
+
+  .carouselImg {
+    height: calc((100vw - 30px - 6px) / 2);
+  }
+}

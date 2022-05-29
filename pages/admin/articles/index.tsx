@@ -78,7 +78,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ q
     } catch (e) {
         errorArticlesCategories('Произошла ошибка при загрузке страницы')
     }
-    return { props: { selectedCategory: null, articlesFromServer: null } }
+    return { props: { selectedCategory: null } }
 });
 
 export default AdminArticlesPage;

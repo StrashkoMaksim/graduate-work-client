@@ -3,19 +3,43 @@
 .root {
   width: 100%;
 
-  :global(.MuiInputLabel-root.Mui-focused) {
-    color: $blue;
+  * {
+    font-family: inherit !important;
+  }
+
+  :global(.MuiInputLabel-root) {
+    &:global(.Mui-focused) {
+      color: $blue;
+    }
+
+    &:global(.Mui-error) {
+      color: #d32f2f;
+    }
   }
 
   :global(.MuiInput-root::after) {
     border-bottom: 2px solid $blue;
   }
 
-  :global(.Mui-error){
-    color: #d32f2f;
-
+  :global(.MuiInput-root.Mui-error){
     &::after {
       border-bottom: 2px solid #d32f2f;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .root {
+    :global(.MuiInputLabel-root) {
+      font-size: 14px;
+    }
+
+    :global(.MuiInput-root) {
+      font-size: 14px;
+    }
+
+    :global(.MuiFormHelperText-root) {
+      font-size: 10px;
     }
   }
 }

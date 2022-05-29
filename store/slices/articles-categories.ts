@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {HYDRATE} from "next-redux-wrapper";
 import {ArticlesCategoriesState, GetArticlesCategoriesResponse} from "../../types/article";
+import _ from "lodash";
 
 const initialState: ArticlesCategoriesState = {
     categories: null,
@@ -34,11 +35,13 @@ const articlesCategoriesSlice = createSlice({
     },
     extraReducers: {
         [HYDRATE]: (state, action) => {
-            return {
-                ...state,
-                ...action.payload.articlesCategories,
-            };
-        }
+            if (!_.isEqual(initialState, action.payload.articlesCategories) && !_.isEqual(state, action.payload.articlesCategories)) {
+                return {
+                    ...state,
+                    ...action.payload.articlesCategories,
+                };
+            }
+        },
     }
 })
 

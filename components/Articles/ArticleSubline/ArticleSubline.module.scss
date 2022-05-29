@@ -1,0 +1,86 @@
+@import "../../../styles/variables";
+
+.subline {
+  border-radius: 6px;
+  margin: 40px 0;
+  padding: 50px 60px 50px 163px;
+  position: relative;
+
+  &::before {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: '';
+    margin-top: 0;
+    position: absolute;
+    top: 41px;
+    left: 51px;
+    height: 76px;
+    width: 76px;
+  }
+
+  &.warning {
+    background: #E1F3F9;
+
+    &::before {
+      background-image: url(/img/article_warning.svg);
+    }
+  }
+
+  &.danger {
+    background: #FFF3F4;
+
+    &::before {
+      background-image: url(/img/article_danger.svg);
+    }
+  }
+}
+
+.title {
+  color: $black-text;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.text {
+  color: $black-text;
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 9px;
+}
+
+@media screen and (max-width: 735px) {
+  .subline {
+    padding: 40px 40px 40px 141px;
+
+    &::before {
+      top: 30px;
+      left: 35px;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .subline {
+    margin: 20px 0;
+    padding: 20px 20px 20px 91px;
+
+    &::before {
+      top: 13px;
+      left: 20px;
+      height: 57px;
+      width: 57px;
+    }
+  }
+
+  .title {
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  .text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

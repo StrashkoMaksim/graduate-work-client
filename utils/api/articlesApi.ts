@@ -1,5 +1,5 @@
 import {AxiosInstance} from "axios";
-import {ArticlePreview, CreateArticleDto, GetArticlesCategoriesResponse} from "../../types/article";
+import {Article, ArticlePreview, CreateArticleDto, GetArticlesCategoriesResponse} from "../../types/article";
 
 export const ArticlesApi = (instance: AxiosInstance) => ({
     async getCategories(): Promise<GetArticlesCategoriesResponse> {
@@ -18,8 +18,15 @@ export const ArticlesApi = (instance: AxiosInstance) => ({
         const {data} = await instance.get(`articles?${limit ? `limit=${limit}&` : ''}${offset ? `offset=${offset}&` : ''}${categoryId ? `category=${categoryId}` : ''}`)
         return data
     },
+    async getAllSlugs(): Promise<{slug: string}[]> {
+        const {data} = await instance.get('articles/slugs')
+        return data
+    },
+    async getArticleBySlug(slug: string): Promise<Article> {
+        const {data} = await instance.get(`articles/${slug}`)
+        return data
+    },
     async createArticle(dto: CreateArticleDto): Promise<string> {
-        console.log(dto)
         const {data} = await instance.post<CreateArticleDto, { data: string }>('articles', dto)
         return data
     },

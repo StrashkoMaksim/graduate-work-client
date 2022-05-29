@@ -5,10 +5,10 @@ import {Skeleton} from "@mui/material";
 import Link from "next/link";
 
 interface BreadcrumbsProps {
-    links: [{
+    links: {
         link: string,
         text: string
-    }],
+    }[],
     current?: string
 }
 
@@ -18,7 +18,7 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ links, current }) => {
             <div className={cn("container", styles.container)}>
                 {links.map(el => <Link href={el.link} key={el.link}><a>{el.text}</a></Link>)}
                 {current
-                    ? <span>Статьи</span>
+                    ? <span>{current}</span>
                     : <Skeleton variant={"text"} animation={"wave"} className={styles.skeleton} />
                 }
             </div>

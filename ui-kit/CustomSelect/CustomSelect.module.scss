@@ -2,16 +2,43 @@
 
 .control {
   margin: 0 !important;
+
+  * {
+    font-family: inherit !important;
+  }
 }
 
 .label {
   &:global(.Mui-focused) {
     color: $blue !important;
   }
+
+  &:global(.Mui-error) {
+    color: #d32f2f !important;
+  }
 }
 
 .input {
   &::after {
     border-bottom: 2px solid $blue !important;
+  }
+
+  &:global(.Mui-error)::after {
+    border-bottom: 2px solid #d32f2f !important;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  .label {
+    font-size: 14px;
+  }
+
+  .input {
+    font-size: 14px;
+  }
+
+  .helperText {
+    font-size: 10px;
   }
 }

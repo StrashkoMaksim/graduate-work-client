@@ -12,14 +12,11 @@ import MainLayout from "../../components/MainLayout/MainLayout";
 import {useRouter} from "next/router";
 import {wrapper} from "../../store/store";
 import CustomTextField from "../../ui-kit/CustomTextField/CustomTextField";
+import {Errors} from "../../types/errors";
 
 interface AuthData {
     email: string;
     password: string;
-}
-
-interface Errors {
-    [key: string]: string | null
 }
 
 const AuthPage = () => {

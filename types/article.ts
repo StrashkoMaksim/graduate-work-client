@@ -36,4 +36,4 @@ export interface GetArticlesCategoriesResponse {
     rows: ArticleCategory[];
 }
 
-export type CreateArticleDto = Omit<Article, 'id' | 'slug' | 'createdAt' | 'updatedAt'> & {categoryId: number}
+export type CreateArticleDto = Omit<Article, 'id' | 'slug' | 'createdAt' | 'updatedAt' | 'previewImage'> & {categoryId: number, previewImage: number}

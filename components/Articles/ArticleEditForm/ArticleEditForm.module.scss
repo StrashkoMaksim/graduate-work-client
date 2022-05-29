@@ -19,11 +19,12 @@
 }
 
 .loadPreviewBtn {
-  background: $blue;
-  text-transform: inherit;
+  background: $blue !important;
+  border-radius: 100px !important;
+  text-transform: inherit !important;
 
   &:hover {
-    background: $button;
+    background: $button !important;
   }
 }
 
@@ -38,6 +39,10 @@
 }
 
 @media screen and (max-width: 640px) {
+  .container {
+    grid-gap: 20px;
+  }
+
   .header {
     grid-gap: 10px;
     grid-template-columns: 1fr;
@@ -50,6 +55,17 @@
   .btn {
     font-size: 12px !important;
     padding: 10px 20px !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    grid-gap: 10px;
+  }
+
+  .previewImage {
+    height: calc((100vw - 30px) * 0.55);
+    width: 100%;
   }
 }
 

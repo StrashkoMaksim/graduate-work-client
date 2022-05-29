@@ -16,6 +16,7 @@ const ArticlesList: FC<ArticlesListProps> = ({ isAdmin, articlesFromServer, limi
     const [offset, setOffset] = useState(0);
     const [loading, setLoading] = useState(false)
     const { selectedId: selectedCategory } = useTypedSelector(state => state.articlesCategories)
+    const [firstRender, setFirstRender] = useState(false)
 
     useEffect(() => {
         const fetchArticles = async () => {
@@ -27,6 +28,8 @@ const ArticlesList: FC<ArticlesListProps> = ({ isAdmin, articlesFromServer, limi
         }
         if (!articlesFromServer) {
             fetchArticles()
+        } else {
+            setFirstRender(true)
         }
     }, [])
 
@@ -36,12 +39,11 @@ const ArticlesList: FC<ArticlesListProps> = ({ isAdmin, articlesFromServer, limi
             setArticles(await Api().articles.getArticles(limit, offset, selectedCategory))
             setLoading(false)
         }
-        if (selectedCategory) {
+        if (!articlesFromServer || (articlesFromServer && firstRender)) {
             setOffset(0)
             fetchArticles()
         }
     }, [selectedCategory])
-
 
     return (
         <div className={styles.list}>
