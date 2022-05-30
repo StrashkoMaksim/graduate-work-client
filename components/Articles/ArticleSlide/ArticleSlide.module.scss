@@ -2,11 +2,11 @@
 
 .card {
   border-radius: 6px;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   margin: 0 2px;
   overflow: hidden;
-  text-decoration: none;
   width: 473px;
 }
 
@@ -48,11 +48,12 @@
   height: 100%;
   padding: 33px 50px 46px;
 
-  h4 {
+  a {
     color: $black-text;
     font-weight: 600;
     font-size: 18px;
     line-height: 22px;
+    text-decoration: none;
   }
 }
 
@@ -100,7 +101,7 @@
   .info {
     padding: 18px 25px 25px;
 
-    h4 {
+    a {
       color: $black-text;
       font-weight: 600;
       font-size: 14px;

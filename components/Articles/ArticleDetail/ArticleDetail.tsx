@@ -58,7 +58,7 @@ const ArticleDetail: FC<ArticleDetailProps> = ({ article }) => {
                     case 'danger':
                         return <ArticleSubline type="danger" title={block.data.title} text={block.data.message} key={block.id} />
                     case 'embed':
-                        return <iframe className={styles.iframe} src={block.data.embed} frameBorder="0"
+                        return <iframe className={styles.iframe} src={block.data.embed} frameBorder="0" key={block.id}
                                 allow="encrypted-media; picture-in-picture"
                                 allowFullScreen
                         />

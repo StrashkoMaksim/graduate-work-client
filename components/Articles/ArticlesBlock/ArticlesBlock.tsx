@@ -1,52 +1,34 @@
-import React from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import styles from './ArticlesBlock.module.scss'
 import PreviewBlock from "../../PreviewBlock/PreviewBlock";
 import CustomSlider from "../../CustomSlider/CustomSlider";
 import {ArticlePreview} from "../../../types/article";
 import ArticleSlide from "../ArticleSlide/ArticleSlide";
+import {Api} from "../../../utils/api";
 
-const articles: ArticlePreview[] = [
-    {
-        id: 1,
-        name: 'Название',
-        slug: '1',
-        previewText: 'Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк',
-        previewImage: 'https://i.ytimg.com/vi/UkGO-QBKJEI/maxresdefault.jpg',
-        createdAt: '11 мая 2022'
-    },
-    {
-        id: 2,
-        name: 'Название',
-        slug: '1',
-        previewText: 'Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк',
-        previewImage: 'https://i.ytimg.com/vi/UkGO-QBKJEI/maxresdefault.jpg',
-        createdAt: '11 мая 2022'
-    },
-    {
-        id: 3,
-        name: 'Название',
-        slug: '1',
-        previewText: 'Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк',
-        previewImage: 'https://i.ytimg.com/vi/UkGO-QBKJEI/maxresdefault.jpg',
-        createdAt: '11 мая 2022'
-    },
-    {
-        id: 4,
-        name: 'Название',
-        slug: '1',
-        previewText: 'Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк Описание на несколько строк',
-        previewImage: 'https://i.ytimg.com/vi/UkGO-QBKJEI/maxresdefault.jpg',
-        createdAt: '11 мая 2022'
-    },
-]
+interface ArticlesBlockProps {
+    articlesFromServer: ArticlePreview[] | null;
+}
 
-const ArticlesBlock = () => {
+const ArticlesBlock: FC<ArticlesBlockProps> = ({ articlesFromServer }) => {
+    const [articles, setArticles] = useState<ArticlePreview[]>(articlesFromServer || [])
+
+    useEffect(() => {
+        const initialFetchArticles = async () => {
+            const newArticles = await Api().articles.getArticles(8, 0, null)
+            setArticles(newArticles)
+        }
+        if (!articlesFromServer) {
+            initialFetchArticles()
+        }
+    }, [])
+
     return (
         <PreviewBlock
             title='Новости и акции'
             allLink={{
                 text: 'Все новости и акции',
-                link: '/news'
+                link: '/articles'
             }}
             additionalClass={'grey-bg ' + styles.section}
         >
@@ -56,6 +38,7 @@ const ArticlesBlock = () => {
                     arrows: true,
                     dots: true,
                     variableWidth: true,
+                    speed: 200,
                     responsive: [
                         {
                             breakpoint: 960,
