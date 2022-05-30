@@ -1,8 +1,8 @@
 import styles from './ArticlesCategoriesAddForm.module.scss'
-import {TextField} from "@mui/material";
 import CustomButton, {ButtonType} from "../../../../ui-kit/CustomButton/CustomButton";
 import React, {FormEvent, useState} from "react";
 import {useActions} from "../../../../hooks/useActions";
+import CustomTextField from "../../../../ui-kit/CustomTextField/CustomTextField";
 
 const ArticlesCategoriesAddForm = () => {
     const [inputValue, setInputValue] = useState('')
@@ -26,7 +26,7 @@ const ArticlesCategoriesAddForm = () => {
 
     return (
         <form className={styles.form} onSubmit={submitHandler}>
-            <TextField
+            <CustomTextField
                 label='Новая категория'
                 variant={"standard"}
                 className={styles.input}

@@ -6,33 +6,27 @@ import CustomTextField from "../../../ui-kit/CustomTextField/CustomTextField";
 import cn from "classnames";
 import dynamic from "next/dynamic";
 import {Api} from "../../../utils/api";
-import {UploadResponse} from "../../../utils/api/filesApi";
 import CustomSelect from "../../../ui-kit/CustomSelect/CustomSelect";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useActions} from "../../../hooks/useActions";
-import CustomButton, {ButtonType} from "../../../ui-kit/CustomButton/CustomButton";
-import PageHeader from "../../PageHeader/PageHeader";
 import {Errors} from "../../../types/errors";
-import {articleValidation} from "../../../utils/validation/article";
 import ErrorParagraph from "../../../ui-kit/ErrorParagraph/ErrorParagraph";
+import {ArticleEditing} from "../../../types/article";
+import _ from "lodash";
 
 const Editor = dynamic(() => {
     return import("../../Editor/Editor")
 }, {ssr: false})
 
 interface ArticleEditFormProps {
-    pageTitle: string;
-    onSubmit: (name: string, previewText: string, previewImage: number, content: OutputData['blocks'], categoryId: number) => void;
+    article: ArticleEditing;
+    setArticle: (value: ArticleEditing) => void;
+    loading: boolean;
+    errors: Errors;
 }
 
-const ArticleEditForm: FC<ArticleEditFormProps> = ({ pageTitle, onSubmit }) => {
-    const [name, setName] = useState('');
-    const [previewText, setPreviewText] = useState('');
-    const [previewImage, setPreviewImage] = useState<UploadResponse | string | null>(null);
-    const [categoryId, setCategoryId] = useState<number | ''>('')
-    const [content, setContent] = useState<OutputData['blocks']>([])
-    const [errors, setErrors] = useState<Errors>({})
-
+const ArticleEditForm: FC<ArticleEditFormProps> = ({ article, setArticle, loading, errors }) => {
+    const [blocks, setBlocks] = useState<OutputData['blocks']>([])
     const {categories} = useTypedSelector(state => state.articlesCategories);
     const {fetchArticlesCategories} = useActions();
 
@@ -43,11 +37,21 @@ const ArticleEditForm: FC<ArticleEditFormProps> = ({ pageTitle, onSubmit }) => {
     }, [])
 
     const changeTitleHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value)
+        const newArticle = _.clone(article);
+        newArticle.name = {
+            text: event.target.value,
+            isChanged: true
+        };
+        setArticle(newArticle);
     }
 
     const changeDescriptionHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPreviewText(event.target.value)
+        const newArticle = _.clone(article);
+        newArticle.previewText = {
+            text: event.target.value,
+            isChanged: true
+        };
+        setArticle(newArticle);
     }
 
     const changePreviewImageHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,66 +60,64 @@ const ArticleEditForm: FC<ArticleEditFormProps> = ({ pageTitle, onSubmit }) => {
             formData.set('file', event.target.files[0]);
             try {
                 const response = await Api().files.uploadImage(formData);
-                setPreviewImage(response);
+                const newArticle = _.clone(article);
+                newArticle.previewImage = response;
+                setArticle(newArticle);
             } catch (e) {
-
+                // TODO: обработать ошибку
             }
         }
     }
 
     const changeCategoryHandler = (categoryId: number) => {
-        setCategoryId(categoryId);
+        const newArticle = _.clone(article);
+        newArticle.category = {
+            id: categoryId,
+            isChanged: true
+        };
+        setArticle(newArticle);
     }
 
     const changeContentHandler = (blocks: OutputData['blocks']) => {
-        setContent(blocks);
+        setBlocks(blocks);
     }
 
-    const submitHandler = async () => {
-        const validationResult = articleValidation(name, previewText, previewImage, content, categoryId)
-
-        if (Object.keys(validationResult).length) {
-            setErrors(validationResult);
-            return;
-        }
-
-        // Валидация уже проведена
-        // @ts-ignore
-        await onSubmit(name, previewText, previewImage.fileId, content, categoryId);
-    }
+    useEffect(() => {
+        const newArticle = _.clone(article);
+        newArticle.content = {
+            blocks,
+            isChanged: true
+        };
+        setArticle(newArticle);
+    }, [blocks])
 
     return (
         <>
-            <PageHeader h1={pageTitle}>
-                <div className={styles.btns}>
-                    <CustomButton variant={ButtonType.blue} text='Опубликовать' additionalClass={styles.blueBtn} onClick={submitHandler} />
-                </div>
-            </PageHeader>
             <div className='section'>
                 <div className={cn("container", styles.container)}>
                     <CustomTextField
                         className={styles.input}
                         label='Заголовок'
-                        value={name}
+                        value={article.name.text}
                         onChange={changeTitleHandler}
                         error={!!errors.name}
                         helperText={errors.name}
+                        disabled={loading}
                     />
                     <CustomTextField
                         className={styles.input}
                         label='Краткое описание'
-                        value={previewText}
+                        value={article.previewText.text}
                         onChange={changeDescriptionHandler}
                         error={!!errors.previewText}
                         helperText={errors.previewText}
+                        disabled={loading}
                         multiline
                     />
                     <div>
-                        {previewImage &&
+                        {article.previewImage.filename &&
                             <div className={styles.previewImage}>
-                                <img src={`${process.env.NEXT_PUBLIC_SERVER_URL}/tmp/${typeof previewImage === 'string'
-                                    ? previewImage
-                                    : previewImage.filename}`}
+                                <img src={`${process.env.NEXT_PUBLIC_SERVER_URL}/${article.previewImage.fileId ? 'tmp' : 'images'}/${article.previewImage.filename}`}
                                 />
                             </div>
                         }
@@ -123,8 +125,9 @@ const ArticleEditForm: FC<ArticleEditFormProps> = ({ pageTitle, onSubmit }) => {
                             variant="contained"
                             component="label"
                             className={styles.loadPreviewBtn}
+                            disabled={loading}
                         >
-                            {previewImage ? 'Заменить превью' : 'Загрузить превью'}
+                            {article.previewImage.filename ? 'Заменить превью' : 'Загрузить превью'}
                             <input
                                 onChange={changePreviewImageHandler}
                                 type="file"
@@ -137,19 +140,20 @@ const ArticleEditForm: FC<ArticleEditFormProps> = ({ pageTitle, onSubmit }) => {
                     </div>
                     <CustomSelect
                         label='Категория'
-                        value={categoryId}
+                        value={article.category.id}
                         // @ts-ignore
                         onChange={changeCategoryHandler}
                         error={!!errors.categoryId}
                         helperText={errors.categoryId}
+                        disabled={loading}
                     >
                         {categories && categories.map(category =>
-                            <MenuItem value={category.id}>{category.name}</MenuItem>
+                            <MenuItem value={category.id} key={category.id}>{category.name}</MenuItem>
                         )}
                     </CustomSelect>
                 </div>
             </div>
-            <Editor blocks={content} onChange={changeContentHandler} error={errors.content} />
+            {!loading && <Editor blocks={article.content.blocks} onChange={changeContentHandler} error={errors.content} />}
         </>
     );
 };

@@ -1,29 +1,72 @@
-import {OutputData} from "@editorjs/editorjs";
 import {Errors} from "../../types/errors";
-import {UploadResponse} from "../api/filesApi";
+import {ArticleEditing, UpdateArticleDto} from "../../types/article";
 
-export const articleValidation = (name: string, previewText: string, previewImage: UploadResponse | string | null, content: OutputData['blocks'], categoryId: number | '') => {
+export const validateNewArticle = (article: ArticleEditing) => {
     const errors: Errors = {};
 
-    if (!name) {
+    if (!article.name.text) {
         errors.name = 'Заголовок не может быть пустым';
     }
 
-    if (!previewText) {
+    if (!article.previewText.text) {
         errors.previewText = 'Описание не может быть пустым';
     }
 
-    if (!previewImage) {
+    if (!article.previewImage.fileId) {
         errors.previewImage = 'Отсутствует изображение для превью'
     }
 
-    if (content.length === 0) {
+    if (article.content.blocks.length === 0) {
         errors.content = 'Контент не может быть пустым'
     }
 
-    if (!categoryId) {
+    if (!article.category.id) {
         errors.categoryId = 'Не выбрана категория статьи'
     }
 
     return errors
+}
+
+export const validateChangedArticle = (article: ArticleEditing) => {
+    const errors: Errors = {};
+    const dto: UpdateArticleDto = {};
+
+    if (article.name.isChanged) {
+        if (!article.name.text) {
+            errors.name = 'Заголовок не может быть пустым';
+        } else {
+            dto.name = article.name.text;
+        }
+    }
+
+    if (article.previewText.isChanged) {
+        if (!article.previewText.text) {
+            errors.previewText = 'Описание не может быть пустым';
+        } else {
+            dto.previewText = article.previewText.text;
+        }
+    }
+
+    if (article.previewImage.fileId) {
+        dto.previewImage = article.previewImage.fileId;
+    }
+
+    if (article.content.isChanged) {
+        if (!article.content.blocks.length) {
+            errors.content = 'Контент не может быть пустым';
+        } else {
+            dto.content = article.content.blocks;
+        }
+    }
+
+    if (article.category.isChanged) {
+        if (!article.category.id) {
+            errors.categoryId = 'Не выбрана категория статьи';
+        } else {
+            dto.categoryId = article.category.id;
+        }
+
+    }
+
+    return {errors, dto}
 }

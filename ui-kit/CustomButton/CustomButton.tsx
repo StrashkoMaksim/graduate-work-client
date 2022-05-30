@@ -3,11 +3,12 @@ import cn from "classnames";
 import styles from "./CustomButton.module.scss";
 
 interface ButtonProps {
-    variant: ButtonType,
-    text: string,
-    additionalClass: string,
-    onClick?: () => void
-    type?: 'submit' | 'button'
+    variant: ButtonType;
+    text: string;
+    additionalClass: string;
+    onClick?: () => void;
+    type?: 'submit' | 'button';
+    disabled?: boolean;
 }
 
 export enum ButtonType {
@@ -18,9 +19,9 @@ export enum ButtonType {
     red = 'red',
 }
 
-const CustomButton: FC<ButtonProps> = ({variant, text, additionalClass, onClick}) => {
+const CustomButton: FC<ButtonProps> = ({variant, text, additionalClass, onClick, disabled}) => {
     return (
-        <button className={cn(styles.btn, styles[variant], additionalClass)} onClick={onClick}>{text}</button>
+        <button className={cn(styles.btn, styles[variant], additionalClass)} onClick={onClick} disabled={disabled}>{text}</button>
     );
 };
 

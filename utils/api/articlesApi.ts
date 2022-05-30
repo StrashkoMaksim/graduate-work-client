@@ -1,5 +1,11 @@
 import {AxiosInstance} from "axios";
-import {Article, ArticlePreview, CreateArticleDto, GetArticlesCategoriesResponse} from "../../types/article";
+import {
+    Article,
+    ArticlePreview,
+    CreateArticleDto,
+    GetArticlesCategoriesResponse,
+    UpdateArticleDto
+} from "../../types/article";
 
 export const ArticlesApi = (instance: AxiosInstance) => ({
     async getCategories(): Promise<GetArticlesCategoriesResponse> {
@@ -28,6 +34,14 @@ export const ArticlesApi = (instance: AxiosInstance) => ({
     },
     async createArticle(dto: CreateArticleDto): Promise<string> {
         const {data} = await instance.post<CreateArticleDto, { data: string }>('articles', dto)
+        return data
+    },
+    async updateArticle(id: number, dto: UpdateArticleDto): Promise<string> {
+        const {data} = await instance.put<CreateArticleDto, { data: string }>(`articles/${id}`, dto)
+        return data
+    },
+    async deleteArticle(id: number): Promise<string> {
+        const {data} = await instance.delete(`articles/${id}`)
         return data
     },
 })

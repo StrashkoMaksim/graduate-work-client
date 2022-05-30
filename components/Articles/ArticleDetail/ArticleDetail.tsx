@@ -40,7 +40,7 @@ const ArticleDetail: FC<ArticleDetailProps> = ({ article }) => {
                     case 'carousel':
                         return <div className={styles.carousel} key={block.id}>
                             {block.data.map((img: {caption: string, url: string}) =>
-                                <div className={styles.carouselImg}>
+                                <div className={styles.carouselImg} key={img.url}>
                                     <img src={img.url} alt={img.caption} />
                                 </div>
                             )}
