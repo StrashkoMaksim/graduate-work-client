@@ -21,16 +21,16 @@ const ArticleDetail: FC<ArticleDetailProps> = ({ article }) => {
                         if (block.data.style === 'ordered') {
                             return (
                                 <ol className={cn(styles.list, styles.ol)} key={block.id}>
-                                    {block.data.items.map((item: string) =>
-                                        <li className={styles.li}>{item}</li>
+                                    {block.data.items.map((item: string, index: number) =>
+                                        <li className={styles.li} key={index}>{item}</li>
                                     )}
                                 </ol>
                             )
                         } else {
                             return (
                                 <ul className={cn(styles.list, styles.ul)} key={block.id}>
-                                    {block.data.items.map((item: string) =>
-                                        <li className={styles.li}>{item}</li>
+                                    {block.data.items.map((item: string, index: number) =>
+                                        <li className={styles.li} key={index}>{item}</li>
                                     )}
                                 </ul>
                             )
