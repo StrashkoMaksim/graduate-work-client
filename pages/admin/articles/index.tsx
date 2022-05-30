@@ -7,7 +7,7 @@ import ArticlesList from "../../../components/Articles/ArticlesList/ArticlesList
 import BlockWithAside from "../../../components/BlockWithAside/BlockWithAside";
 import cn from "classnames";
 import {useCallback, useState} from "react";
-import CustomModal from "../../../components/CustomModal/CustomModal";
+import CustomModal from "../../../ui-kit/CustomModal/CustomModal";
 import ArticlesCategoriesManager from "../../../components/Articles/ArticlesCategoriesManager/ArticlesCategoriesManager";
 import {wrapper} from "../../../store/store";
 import {Api} from "../../../utils/api";
