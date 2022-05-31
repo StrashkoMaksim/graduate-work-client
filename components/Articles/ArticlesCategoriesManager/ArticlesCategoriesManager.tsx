@@ -1,15 +1,15 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import styles from './ArticlesCategoriesManager.module.scss'
 import {CircularProgress} from "@mui/material";
-import CustomSnackbar from "../../CustomSnackbar/CustomSnackbar";
 import {useActions} from "../../../hooks/useActions";
 import ArticlesCategoriesAddForm from "./ArticlesCategoriesAddForm/ArticlesCategoriesAddForm";
+import {useSnackbar} from "notistack";
 
 const ArticlesCategoriesManager = () => {
-    const [isSnackbarOpen, setIsSnackbarOpen] = useState(false)
     const {categories, loading, error} = useTypedSelector(state => state.articlesCategories)
     const {fetchArticlesCategories, deleteArticleCategory} = useActions()
+    const {enqueueSnackbar} = useSnackbar();
 
     useEffect(() => {
         if (!categories) {
@@ -23,13 +23,9 @@ const ArticlesCategoriesManager = () => {
 
     useEffect(() => {
         if (error) {
-            setIsSnackbarOpen(true);
+            enqueueSnackbar(error, {variant: "error"})
         }
     }, [error])
-
-    const closeSnackbar = useCallback(() => {
-        setIsSnackbarOpen(false);
-    }, [])
 
     return (
         <>
@@ -48,7 +44,6 @@ const ArticlesCategoriesManager = () => {
                     <ArticlesCategoriesAddForm />
                 </>
             }
-            <CustomSnackbar isOpen={isSnackbarOpen} onClose={closeSnackbar} text={error} severity='error' />
         </>
     );
 };

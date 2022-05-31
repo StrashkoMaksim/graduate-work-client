@@ -5,6 +5,7 @@ import {Api} from "../../utils/api";
 import {destroyCookie, setCookie} from "nookies";
 import {ThunkDispatch} from "@reduxjs/toolkit";
 import {errorUser, loginUser, logoutUser} from "../slices/user";
+import {useSnackbar} from "notistack";
 
 export const login = (dto: LoginUserDto): AppThunk => async dispatch => {
     try {
@@ -29,7 +30,9 @@ export const login = (dto: LoginUserDto): AppThunk => async dispatch => {
         } else {
             error = 'Непредвиденная ошибка при авторизации'
         }
-        dispatch(errorUser(error))
+        // @ts-ignore
+        e.error = error;
+        await dispatch(errorUser(error))
         throw e;
     }
 }

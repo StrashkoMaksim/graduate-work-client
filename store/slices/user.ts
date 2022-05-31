@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {HYDRATE} from "next-redux-wrapper";
 import {UserState} from "../../types/user";
+import _ from "lodash";
 
 const initialState: UserState = {
     isAuth: false,
@@ -26,10 +27,12 @@ const userSlice = createSlice({
     },
     extraReducers: {
         [HYDRATE]: (state, action) => {
-            return {
-                ...state,
-                ...action.payload.user,
-            };
+            if (!_.isEqual(initialState, action.payload.user) && !_.isEqual(state, action.payload.user)) {
+                return {
+                    ...state,
+                    ...action.payload.user,
+                };
+            }
         }
     }
 })

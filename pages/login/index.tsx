@@ -1,4 +1,4 @@
-import React, {FormEvent, useEffect, useState} from 'react';
+import React, {FormEvent, useState} from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
 import CustomButton, {ButtonType} from "../../ui-kit/CustomButton/CustomButton";
 import styles from './AuthPage.module.scss'
@@ -6,13 +6,13 @@ import cn from "classnames";
 import H1 from "../../ui-kit/H1/H1";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {useActions} from "../../hooks/useActions";
-import CustomSnackbar from "../../components/CustomSnackbar/CustomSnackbar";
 import {AxiosError} from "axios";
 import MainLayout from "../../components/MainLayout/MainLayout";
 import {useRouter} from "next/router";
 import {wrapper} from "../../store/store";
 import CustomTextField from "../../ui-kit/CustomTextField/CustomTextField";
 import {Errors} from "../../types/errors";
+import {useSnackbar} from "notistack";
 
 interface AuthData {
     email: string;
@@ -22,11 +22,10 @@ interface AuthData {
 const AuthPage = () => {
     const [authData, setAuthData] = useState<AuthData>({email: '', password: ''})
     const [errors, setErrors] = useState<Errors>({})
-    const [isSnackbarOpen, setIsSnackbarOpen] = useState(false)
     const recaptchaRef = React.useRef<ReCAPTCHA>(null);
-    const { error } = useTypedSelector(state => state.user)
     const { login } = useActions()
     const router = useRouter()
+    const { enqueueSnackbar } = useSnackbar();
 
     const submitHandler = async (event: FormEvent) => {
         event.preventDefault()
@@ -73,15 +72,10 @@ const AuthPage = () => {
                     return newErrors
                 })
             }
-            setIsSnackbarOpen(true)
+            // @ts-ignore
+            enqueueSnackbar(e.error, { variant: 'error' })
         }
     }
-
-    useEffect(() => {
-        if (error) {
-            setIsSnackbarOpen(true)
-        }
-    }, [error])
 
     const authDataChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setErrors(prevState => {
@@ -90,10 +84,6 @@ const AuthPage = () => {
         setAuthData(prevState => {
             return ({...prevState, [event.target.name]: event.target.value})
         })
-    }
-
-    const closeSnackbar = () => {
-        setIsSnackbarOpen(false)
     }
 
     return (
@@ -133,7 +123,6 @@ const AuthPage = () => {
                         />
                         <CustomButton variant={ButtonType.blue} text='Войти' additionalClass={styles.btn} />
                     </form>
-                    <CustomSnackbar isOpen={isSnackbarOpen} onClose={closeSnackbar} text={error} severity='error' />
                 </div>
             </div>
         </MainLayout>

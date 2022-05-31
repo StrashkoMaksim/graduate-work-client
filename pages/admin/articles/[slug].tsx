@@ -10,6 +10,9 @@ import PageHeader from "../../../components/PageHeader/PageHeader";
 import {Errors} from "../../../types/errors";
 import _ from "lodash";
 import {validateChangedArticle} from "../../../utils/validation/article";
+import {useSnackbar} from "notistack";
+import {AxiosError} from "axios";
+import {logout} from "../../../store/actions/user";
 
 const ArticleUpdatePage = () => {
     const router = useRouter()
@@ -17,6 +20,7 @@ const ArticleUpdatePage = () => {
     const [article, setArticle] = useState<ArticleEditing>(InitialArticleEditing)
     const [loading, setLoading] = useState(true)
     const [errors, setErrors] = useState<Errors>({})
+    const {enqueueSnackbar} = useSnackbar();
 
     useEffect(() => {
         const fetchArticle = async () => {
@@ -46,16 +50,41 @@ const ArticleUpdatePage = () => {
 
         if (Object.keys(errors).length) {
             setErrors(errors);
+            enqueueSnackbar('Проверьте правильность введенных данных', {variant: "error"});
             return;
         }
 
-        await Api().articles.updateArticle(article.id as number, dto);
-        await router.push('/admin/articles')
+        try {
+            await Api().articles.updateArticle(article.id as number, dto);
+            await router.push('/admin/articles')
+        } catch (e) {
+            let error = ''
+            if (e instanceof AxiosError && e.response?.status === 401) {
+                error = 'Вы не авторизованы'
+                logout();
+                router.push('/login')
+            } else {
+                error = 'Непредвиденная ошибка сервера'
+            }
+            enqueueSnackbar(error, { variant: "error" })
+        }
     }
 
     const deleteHandler = async () => {
-        await Api().articles.deleteArticle(article.id as number);
-        await router.push('/admin/articles')
+        try {
+            await Api().articles.deleteArticle(article.id as number);
+            await router.push('/admin/articles')
+        } catch (e) {
+            let error = ''
+            if (e instanceof AxiosError && e.response?.status === 401) {
+                error = 'Вы не авторизованы'
+                logout();
+                router.push('/login')
+            } else {
+                error = 'Непредвиденная ошибка сервера'
+            }
+            enqueueSnackbar(error, { variant: "error" })
+        }
     }
 
     return (
