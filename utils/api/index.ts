@@ -4,11 +4,13 @@ import Cookies, {parseCookies} from "nookies";
 import axios from "axios";
 import {ArticlesApi} from "./articlesApi";
 import {FilesApi} from "./filesApi";
+import {CategoriesApi} from "./categoriesApi";
 
 export type ApiReturnType = {
     user: ReturnType<typeof UserApi>,
     articles: ReturnType<typeof ArticlesApi>
     files: ReturnType<typeof FilesApi>
+    categories: ReturnType<typeof CategoriesApi>
 }
 
 export const Api = (ctx?: NextPageContext | GetServerSidePropsContext): ApiReturnType => {
@@ -26,5 +28,6 @@ export const Api = (ctx?: NextPageContext | GetServerSidePropsContext): ApiRetur
         user: UserApi(instance),
         articles: ArticlesApi(instance),
         files: FilesApi(instance),
+        categories: CategoriesApi(instance)
     }
 }

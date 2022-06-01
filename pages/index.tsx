@@ -6,7 +6,6 @@ import ArticlesBlock from "../components/Articles/ArticlesBlock/ArticlesBlock";
 import VideosBlock from "../components/VideosBlock/VideosBlock";
 import MapBlock from "../components/MapBlock/MapBlock";
 import MainLayout from "../components/MainLayout/MainLayout";
-import {wrapper} from "../store/store";
 
 const MainPage = () => {
     return (

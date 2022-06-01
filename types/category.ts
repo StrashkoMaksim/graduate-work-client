@@ -10,6 +10,9 @@ export interface Category {
     services: Service[]
 }
 
+export type CategoryAside = Omit<Category, 'products' | 'services'>
+export type CategoriesNavigation = Omit<CategoryAside, 'characteristics'>
+
 export type CategoryPreviewModel = Omit<Category, 'services' | 'products' | 'characteristics'> & {
     products: ProductPreviewModel[]
 }
@@ -21,7 +24,7 @@ interface CategoryCharacteristics {
     };
 }
 
-enum CategoryCharacteristicsType {
+export enum CategoryCharacteristicsType {
     String = 'STRING',
     Integer = 'INTEGER',
     Double = 'DOUBLE',

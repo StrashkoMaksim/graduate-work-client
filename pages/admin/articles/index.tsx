@@ -2,7 +2,6 @@ import AdminLayout from "../../../components/AdminLayout/AdminLayout";
 import PageHeader from "../../../components/PageHeader/PageHeader";
 import CustomButton, {ButtonType} from "../../../ui-kit/CustomButton/CustomButton";
 import styles from './styles.module.scss'
-import ArticleAside from "../../../components/Aside/ArticleAside/ArticleAside";
 import ArticlesList from "../../../components/Articles/ArticlesList/ArticlesList";
 import BlockWithAside from "../../../components/BlockWithAside/BlockWithAside";
 import cn from "classnames";
@@ -17,6 +16,9 @@ import {NextPage} from "next";
 import {ArticlePreview} from "../../../types/article";
 import {changeArticlesCategory} from "../../../store/actions/articles-categories";
 import Link from "next/link";
+import AsidePopper from "../../../components/Aside/AsidePopper/AsidePopper";
+import AsideLinks from "../../../components/Aside/AsideLinks/AsideLinks";
+import {useRouter} from "next/router";
 
 const LIMIT = 8
 
@@ -26,7 +28,9 @@ interface PageProps {
 
 const AdminArticlesPage: NextPage<PageProps> = ({ articlesFromServer }) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const {loading} = useTypedSelector(state => state.articlesCategories)
+    const { categories, loading} = useTypedSelector(state => state.articlesCategories)
+    const router = useRouter();
+    const {category} = router.query;
 
     const showModalHandler = useCallback(() => {
         setIsModalVisible(true)
@@ -52,7 +56,9 @@ const AdminArticlesPage: NextPage<PageProps> = ({ articlesFromServer }) => {
             </PageHeader>
             <BlockWithAside
                 aside={
-                    <ArticleAside isAdmin={true} />
+                    <AsidePopper>
+                        <AsideLinks isLoading={loading} links={categories} entity='articles' selectedLinkId={category as string | undefined} />
+                    </AsidePopper>
                 }
                 content={
                     <ArticlesList isAdmin={true} articlesFromServer={articlesFromServer} limit={LIMIT} />

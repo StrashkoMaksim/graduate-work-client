@@ -1,7 +1,6 @@
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import BlockWithAside from "../../components/BlockWithAside/BlockWithAside";
-import ArticleAside from "../../components/Aside/ArticleAside/ArticleAside";
 import ArticlesList from "../../components/Articles/ArticlesList/ArticlesList";
 import MainLayout from "../../components/MainLayout/MainLayout";
 import {wrapper} from "../../store/store";
@@ -10,6 +9,10 @@ import {endFetchArticlesCategories, errorArticlesCategories} from "../../store/s
 import {changeArticlesCategory} from "../../store/actions/articles-categories";
 import {ArticlePreview} from "../../types/article";
 import {NextPage} from "next";
+import AsidePopper from "../../components/Aside/AsidePopper/AsidePopper";
+import AsideLinks from "../../components/Aside/AsideLinks/AsideLinks";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {useRouter} from "next/router";
 
 const LIMIT = 8
 
@@ -18,6 +21,10 @@ interface PageProps {
 }
 
 const ArticlesPage: NextPage<PageProps> = ({ articlesFromServer }) => {
+    const { categories, loading} = useTypedSelector(state => state.articlesCategories)
+    const router = useRouter();
+    const {category} = router.query;
+
     return (
         <MainLayout meta={{
             title: 'Статьи',
@@ -31,7 +38,9 @@ const ArticlesPage: NextPage<PageProps> = ({ articlesFromServer }) => {
             <PageHeader h1="Статьи" />
             <BlockWithAside
                 aside={
-                    <ArticleAside />
+                    <AsidePopper>
+                        <AsideLinks isLoading={loading} links={categories} entity='articles' selectedLinkId={category as string | undefined} />
+                    </AsidePopper>
                 }
                 content={
                     <ArticlesList limit={LIMIT} articlesFromServer={articlesFromServer} />

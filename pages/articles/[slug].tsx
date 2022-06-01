@@ -3,18 +3,22 @@ import {GetStaticPaths, GetStaticProps, NextPage} from "next";
 import {Api} from "../../utils/api";
 import {Article} from "../../types/article";
 import BlockWithAside from "../../components/BlockWithAside/BlockWithAside";
-import ArticleAside from "../../components/Aside/ArticleAside/ArticleAside";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import ArticleDetail from "../../components/Articles/ArticleDetail/ArticleDetail";
 import styles from './slug.module.scss'
 import {wrapper} from "../../store/store";
 import {endFetchArticlesCategories} from "../../store/slices/articles-categories";
+import AsideLinks from "../../components/Aside/AsideLinks/AsideLinks";
+import AsidePopper from "../../components/Aside/AsidePopper/AsidePopper";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
 
 interface ArticlePageProps {
     article: Article;
 }
 
 const ArticlePage: NextPage<ArticlePageProps> = ({ article }) => {
+    const { categories, loading} = useTypedSelector(state => state.articlesCategories)
+
     return (
         <MainLayout
             meta={{
@@ -30,7 +34,9 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article }) => {
             />
             <BlockWithAside
                 aside={
-                    <ArticleAside/>
+                    <AsidePopper>
+                        <AsideLinks isLoading={loading} links={categories} entity='articles' selectedLinkId={undefined} />
+                    </AsidePopper>
                 }
                 content={
                     <ArticleDetail article={article} />

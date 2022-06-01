@@ -3,28 +3,18 @@ import cn from "classnames";
 import styles from './AsideLinks.module.scss'
 import { Scrollbars } from 'react-custom-scrollbars';
 import Link from "next/link";
-import {useRouter} from "next/router";
 import {Skeleton} from "@mui/material";
-import {ArticleCategory} from "../../../types/article";
-import {useActions} from "../../../hooks/useActions";
 
 interface AsideLinksProps {
     isLoading: boolean;
-    links: ArticleCategory[] | null;
+    links: {id: number, name: string, slug: string}[] | null;
     isAdmin?: boolean;
-    closeHandler: () => void;
+    entity: string
+    isNewRoute?: boolean;
+    selectedLinkId?: string | null;
 }
 
-const AsideLinks: FC<AsideLinksProps> = ({ isLoading, links, isAdmin, closeHandler }) => {
-    const router = useRouter()
-    const { category } = router.query
-    const { changeArticlesCategory } = useActions()
-
-    const clickHandler = (id: number | null) => () => {
-        changeArticlesCategory(id)
-        closeHandler()
-    }
-
+const AsideLinks: FC<AsideLinksProps> = ({ isLoading, links, isAdmin, entity, isNewRoute, selectedLinkId }) => {
     return (
         <div className={styles.block}>
             <Scrollbars className={styles.scroll} universal autoHeight autoHeightMax={300}>
@@ -37,20 +27,19 @@ const AsideLinks: FC<AsideLinksProps> = ({ isLoading, links, isAdmin, closeHandl
                         <Skeleton />
                     </>
                     : <>
-                        <Link href={`${isAdmin ? '/admin' : ''}/articles`}>
-                            <a className={cn(styles.link, {[styles.active]: !category})} onClick={clickHandler(null)}>Все</a>
+                        <Link href={`${isAdmin ? '/admin' : ''}/${entity}`}>
+                            <a className={cn(styles.link, {[styles.active]: !selectedLinkId})}>Все</a>
                         </Link>
                         {links && links.map(el =>
                             <Link
-                                href={`${isAdmin ? '/admin' : ''}/articles?category=${el.slug}`}
+                                href={`${isAdmin ? '/admin' : ''}/${entity}${isNewRoute ? `/${el.slug}` : `?category=${el.slug}`}`}
                                 key={el.slug}
                             >
                                 <a
                                     className={cn(
                                         styles.link,
                                         {[styles.hot]: el.slug === 'akcii'},
-                                        {[styles.active]: category === el.slug})}
-                                    onClick={clickHandler(el.id)}
+                                        {[styles.active]: selectedLinkId === el.slug})}
                                 >
                                     {el.name}
                                 </a>
