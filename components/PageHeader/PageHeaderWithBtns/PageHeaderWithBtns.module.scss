@@ -1,0 +1,32 @@
+.header {
+  align-items: flex-start;
+}
+
+.btns {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(2, auto);
+
+  a {
+    text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .header {
+    grid-gap: 10px;
+    grid-template-columns: 1fr;
+  }
+
+  .btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: fit-content;
+  }
+
+  .btn {
+    font-size: 12px !important;
+    padding: 10px 20px !important;
+  }
+}

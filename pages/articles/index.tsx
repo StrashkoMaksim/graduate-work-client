@@ -58,7 +58,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ q
         const filteredCategories = response.rows.filter(category => category.slug === query.category)
         const selectedCategory = filteredCategories.length ? filteredCategories[0].id : null
         store.dispatch(changeArticlesCategory(selectedCategory))
-        const articles = await Api().articles.getArticles(LIMIT, 0, selectedCategory, 's')
+        const articles = await Api().articles.getArticles(LIMIT, 0, selectedCategory)
         return { props: { articlesFromServer: articles } }
     } catch (e) {
         errorArticlesCategories('Произошла ошибка при загрузке страницы')

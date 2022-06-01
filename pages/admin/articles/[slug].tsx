@@ -13,6 +13,7 @@ import {validateChangedArticle} from "../../../utils/validation/article";
 import {useSnackbar} from "notistack";
 import {AxiosError} from "axios";
 import {logout} from "../../../store/actions/user";
+import PageHeaderWithBtns from "../../../components/PageHeader/PageHeaderWithBtns/PageHeaderWithBtns";
 
 const ArticleUpdatePage = () => {
     const router = useRouter()
@@ -89,12 +90,10 @@ const ArticleUpdatePage = () => {
 
     return (
         <AdminLayout title='Редактирование статьи'>
-            <PageHeader h1='Редактирование статьи'>
-                <div className={styles.btns}>
-                    <CustomButton variant={ButtonType.red} text='Удалить' additionalClass={styles.redBtn} disabled={loading} onClick={deleteHandler} />
-                    <CustomButton variant={ButtonType.blue} text='Сохранить' additionalClass={styles.blueBtn} disabled={loading} onClick={updateHandler} />
-                </div>
-            </PageHeader>
+            <PageHeaderWithBtns title='Редактирование статьи'>
+                <CustomButton variant={ButtonType.red} text='Удалить' disabled={loading} onClick={deleteHandler} />
+                <CustomButton variant={ButtonType.blue} text='Сохранить' disabled={loading} onClick={updateHandler} />
+            </PageHeaderWithBtns>
             <ArticleEditForm article={article} setArticle={setStateArticle} loading={loading} errors={errors} />
         </AdminLayout>
     );

@@ -5,7 +5,7 @@ import styles from "./CustomButton.module.scss";
 interface ButtonProps {
     variant: ButtonType;
     text: string;
-    additionalClass: string;
+    additionalClass?: string;
     onClick?: () => void;
     type?: 'submit' | 'button';
     disabled?: boolean;

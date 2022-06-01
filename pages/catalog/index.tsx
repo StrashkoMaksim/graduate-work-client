@@ -5,8 +5,6 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import Catalog from "../../components/Catalog/Catalog";
 
 const CatalogPage: NextPage = () => {
-
-
     return (
         <MainLayout
             meta={{

@@ -4,12 +4,7 @@ import Footer from "../Footer/Footer";
 import styles from './AdminLayout.module.scss'
 import Navigation, {NavigationLink} from "../Navigation/Navigation";
 import cn from "classnames";
-import {wrapper} from "../../store/store";
-import {GetServerSideProps} from "next";
-import {Api} from "../../utils/api";
-import {loginUser} from "../../store/slices/user";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
-import {useSelector} from "react-redux";
 import {useRouter} from "next/router";
 
 const links: NavigationLink[] = [
@@ -30,8 +25,8 @@ const links: NavigationLink[] = [
         link: '/admin/reviews'
     },
     {
-        name: 'Товары',
-        link: '/admin/products'
+        name: 'Каталог',
+        link: '/admin/catalog'
     },
     {
         name: 'Услуги',

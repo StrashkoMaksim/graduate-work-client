@@ -66,3 +66,10 @@
     color: #FFFFFF;
   }
 }
+
+@media screen and (max-width: 640px) {
+  .btn {
+    font-size: 12px;
+    padding: 10px 20px;
+  }
+}

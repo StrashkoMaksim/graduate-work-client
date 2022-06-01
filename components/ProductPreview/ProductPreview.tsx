@@ -5,16 +5,17 @@ import Link from "next/link";
 
 interface ProductPreviewProps {
     product: ProductPreviewModel
+    isAdmin?: boolean
 }
 
-const ProductPreview: FC<ProductPreviewProps> = ({ product }) => {
+const ProductPreview: FC<ProductPreviewProps> = ({ product, isAdmin }) => {
     return (
         <div className={styles.product}>
             <div className={styles.image}>
                 <img src={product.previewImage} alt={product.name} />
             </div>
             <div className={styles.info}>
-                <Link href={`/product/${product.slug}`}><a>{product.name}</a></Link>
+                <Link href={`${isAdmin ? '/admin' : ''}/product/${product.slug}`}><a>{product.name}</a></Link>
                 <div className={styles.bottom}>
                     <div className={styles.characteristics}>
                         {Object.keys(product.characteristics).map(characteristicName =>
@@ -25,7 +26,10 @@ const ProductPreview: FC<ProductPreviewProps> = ({ product }) => {
                         )}
                     </div>
                     <span className={styles.price}>{product.price.toLocaleString()} руб.</span>
-                    <button className={styles.cart}></button>
+                    {isAdmin
+                        ? <button className={styles.cart}></button>
+                        : <button className={styles.update}>Редактировать</button>
+                    }
                 </div>
             </div>
         </div>
