@@ -11,10 +11,11 @@ interface CustomSelectProps {
     onChange: (value: string | readonly string[] | number | undefined) => void;
     error: boolean | undefined;
     helperText: string | null;
+    disabled: boolean;
     children: ReactNode;
 }
 
-const CustomSelect: FC<CustomSelectProps> = ({ label, value, onChange, error, helperText, children }) => {
+const CustomSelect: FC<CustomSelectProps> = ({ label, value, onChange, error, helperText, disabled, children }) => {
     const handleChange = (event: SelectChangeEvent) => {
         onChange(event.target.value)
     }
@@ -34,6 +35,7 @@ const CustomSelect: FC<CustomSelectProps> = ({ label, value, onChange, error, he
                 label={label}
                 labelId={'select-label-' + label}
                 error={error}
+                disabled={disabled}
             >
                 {children}
             </Select>

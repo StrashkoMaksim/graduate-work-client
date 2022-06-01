@@ -1,7 +1,8 @@
 import {AxiosInstance} from "axios";
+import {CategoryAside} from "../../types/category";
 
 export const CategoriesApi = (instance: AxiosInstance) => ({
-    async getCategories(): Promise<any> {
+    async getCategories(): Promise<CategoryAside[]> {
         const {data} = await instance.get('categories')
         return data
     },

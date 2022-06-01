@@ -6,12 +6,18 @@ import cn from "classnames";
 import Link from "next/link";
 import styles from './index.module.scss'
 import {useCallback, useState} from "react";
+import CustomModal from "../../../ui-kit/CustomModal/CustomModal";
+import CategoriesManager from "../../../components/CategoriesManager/CategoriesManager";
 
 const AdminCatalogPage = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModalHandler = useCallback(() => {
         setIsModalVisible(true);
+    }, [])
+
+    const hideModalHandler = useCallback(() => {
+        setIsModalVisible(false);
     }, [])
 
     return (
@@ -27,6 +33,9 @@ const AdminCatalogPage = () => {
                 </div>
             </PageHeader>
             <Catalog isAdmin={true} />
+            <CustomModal open={isModalVisible} onClose={hideModalHandler} title='Менеджер категорий'>
+                <CategoriesManager />
+            </CustomModal>
         </AdminLayout>
     );
 };

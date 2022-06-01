@@ -1,3 +1,6 @@
+import {OutputData} from "@editorjs/editorjs";
+import {ArticleEditing} from "./article";
+
 interface ProductCharacteristics {
     [key: string]: string | number | boolean;
 }
@@ -41,3 +44,56 @@ export interface Product {
 }
 
 export type ProductPreviewModel = Omit<Product, 'description' | 'equipments' | 'examples' | 'images' | 'videos' | 'categoryId'>
+
+export interface ProductEditing {
+    id: number | null;
+    name: {
+        value: string,
+        isChanged: boolean,
+    };
+    description: {
+        value: string,
+        isChanged: boolean,
+    };
+    previewImage: {
+        filename: string,
+        fileId?: number,
+    };
+    price: {
+        value: number | null,
+        isChanged: boolean,
+    };
+    category: {
+        id: number | '',
+        isChanged: boolean,
+    };
+    characteristics: {
+        [key: string]: string | number | boolean;
+    } | null;
+}
+
+export const InitialProductEditing = (): ProductEditing => {
+    return {
+        id: null,
+        name: {
+            value: '',
+            isChanged: false,
+        },
+        description: {
+            value: '',
+            isChanged: false,
+        },
+        previewImage: {
+            filename: '',
+        },
+        price: {
+            value: null,
+            isChanged: false,
+        },
+        category: {
+            id: '',
+            isChanged: false,
+        },
+        characteristics: null,
+    }
+}

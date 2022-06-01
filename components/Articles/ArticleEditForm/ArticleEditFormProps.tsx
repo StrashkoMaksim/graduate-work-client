@@ -13,6 +13,7 @@ import {Errors} from "../../../types/errors";
 import ErrorParagraph from "../../../ui-kit/ErrorParagraph/ErrorParagraph";
 import {ArticleEditing} from "../../../types/article";
 import _ from "lodash";
+import {useSnackbar} from "notistack";
 
 const Editor = dynamic(() => {
     return import("../../Editor/Editor")
@@ -29,6 +30,7 @@ const ArticleEditForm: FC<ArticleEditFormProps> = ({ article, setArticle, loadin
     const [blocks, setBlocks] = useState<OutputData['blocks']>([])
     const {categories} = useTypedSelector(state => state.articlesCategories);
     const {fetchArticlesCategories} = useActions();
+    const {enqueueSnackbar} = useSnackbar();
 
     useEffect(() => {
         if (!categories) {
@@ -64,7 +66,7 @@ const ArticleEditForm: FC<ArticleEditFormProps> = ({ article, setArticle, loadin
                 newArticle.previewImage = response;
                 setArticle(newArticle);
             } catch (e) {
-                // TODO: обработать ошибку
+                enqueueSnackbar('Ошибка при загрузки изображения', {variant: "error"});
             }
         }
     }

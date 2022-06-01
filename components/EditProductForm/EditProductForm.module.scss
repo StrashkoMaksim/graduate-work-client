@@ -1,0 +1,46 @@
+@import "../../styles/variables";
+
+.container {
+  display: grid;
+  grid-gap: 30px;
+  margin-bottom: 30px;
+}
+
+.previewImage {
+  margin-bottom: 10px;
+  height: 242px;
+  width: 440px;
+
+  img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+.loadPreviewBtn {
+  background: $blue !important;
+  border-radius: 100px !important;
+  text-transform: inherit !important;
+
+  &:hover {
+    background: $button !important;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .container {
+    grid-gap: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    grid-gap: 10px;
+  }
+
+  .previewImage {
+    height: calc((100vw - 30px) * 0.55);
+    width: 100%;
+  }
+}

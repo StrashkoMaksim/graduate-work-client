@@ -3,12 +3,14 @@ import {Action} from 'redux';
 import {userReducer} from "./slices/user";
 import {createWrapper} from "next-redux-wrapper";
 import {articlesCategoriesReducer} from "./slices/articles-categories";
+import {loadingReducer} from "./slices/loading";
 
 const makeStore = () =>
     configureStore({
         reducer: {
             user: userReducer,
-            articlesCategories: articlesCategoriesReducer
+            articlesCategories: articlesCategoriesReducer,
+            loading: loadingReducer,
         }
     });
 
