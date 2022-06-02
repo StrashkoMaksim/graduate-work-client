@@ -60,7 +60,7 @@ const CreateCategoryPage = () => {
             <PageHeaderWithBtns title='Новая категория'>
                 <CustomButton variant={ButtonType.blue} text='Опубликовать' disabled={loading} onClick={submitHandler} />
             </PageHeaderWithBtns>
-            <EditCategoryForm category={category} setCategory={setStateCategory} loading={loading} errors={errors} />
+            <EditCategoryForm category={category} setCategory={setStateCategory} errors={errors} />
         </AdminLayout>
     );
 };

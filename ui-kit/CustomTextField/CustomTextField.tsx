@@ -2,7 +2,7 @@ import {TextField, TextFieldProps} from "@mui/material";
 import styles from './CustomTextField.module.scss';
 import {FC} from "react";
 
-const CustomTextField: FC<TextFieldProps> = (props) => {
+const CustomTextField: FC<any> = (props) => {
     return (
         <TextField
             classes={{

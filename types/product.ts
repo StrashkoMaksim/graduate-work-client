@@ -1,7 +1,8 @@
 import {OutputData} from "@editorjs/editorjs";
 import {ArticleEditing} from "./article";
+import {CategoryCharacteristicsType} from "./category";
 
-interface ProductCharacteristics {
+export interface ProductCharacteristics {
     [key: string]: string | number | boolean;
 }
 
@@ -67,9 +68,11 @@ export interface ProductEditing {
         id: number | '',
         isChanged: boolean,
     };
-    characteristics: {
-        [key: string]: string | number | boolean;
-    } | null;
+    characteristics: { [key: string]: {
+        value: string| number | boolean | null;
+        type: CategoryCharacteristicsType
+    }};
+    isCharacteristicsChanged: boolean;
 }
 
 export const InitialProductEditing = (): ProductEditing => {
@@ -94,6 +97,12 @@ export const InitialProductEditing = (): ProductEditing => {
             id: '',
             isChanged: false,
         },
-        characteristics: null,
+        characteristics: {
+            '': {
+                value: null,
+                type: CategoryCharacteristicsType.String
+            },
+        },
+        isCharacteristicsChanged: false,
     }
 }
