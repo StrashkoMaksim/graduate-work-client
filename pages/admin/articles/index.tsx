@@ -57,7 +57,13 @@ const AdminArticlesPage: NextPage<PageProps> = ({ articlesFromServer }) => {
             <BlockWithAside
                 aside={
                     <AsidePopper>
-                        <AsideLinks isLoading={loading} links={categories} entity='articles' selectedLinkId={category as string | undefined} />
+                        <AsideLinks
+                            isLoading={loading}
+                            links={categories}
+                            entity='articles'
+                            selectedLinkId={category as string | undefined}
+                            isAdmin={true}
+                        />
                     </AsidePopper>
                 }
                 content={

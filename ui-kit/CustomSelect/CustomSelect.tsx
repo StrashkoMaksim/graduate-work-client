@@ -8,16 +8,17 @@ import {FormHelperText} from "@mui/material";
 interface CustomSelectProps {
     label: string;
     value: string | readonly string[] | number | undefined;
-    onChange: (value: string | readonly string[] | number | undefined) => void;
-    error: boolean | undefined;
-    helperText: string | null;
+    onChange: (value: string | readonly string[] | number | undefined, name?: string) => void;
+    error?: boolean;
+    helperText?: string | null;
     disabled: boolean;
+    name?: string;
     children: ReactNode;
 }
 
-const CustomSelect: FC<CustomSelectProps> = ({ label, value, onChange, error, helperText, disabled, children }) => {
+const CustomSelect: FC<CustomSelectProps> = ({ label, value, onChange, error, helperText, disabled, name, children }) => {
     const handleChange = (event: SelectChangeEvent) => {
-        onChange(event.target.value)
+        onChange(event.target.value, event.target.name);
     }
 
     return (
@@ -36,6 +37,7 @@ const CustomSelect: FC<CustomSelectProps> = ({ label, value, onChange, error, he
                 labelId={'select-label-' + label}
                 error={error}
                 disabled={disabled}
+                name={name}
             >
                 {children}
             </Select>

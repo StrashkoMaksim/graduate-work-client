@@ -6,6 +6,7 @@ export interface Category {
     name: string,
     slug: string,
     characteristics: CategoryCharacteristics,
+    isMain: boolean,
     products: Product[],
     services: Service[]
 }
@@ -17,7 +18,7 @@ export type CategoryPreviewModel = Omit<Category, 'services' | 'products' | 'cha
     products: ProductPreviewModel[]
 }
 
-interface CategoryCharacteristics {
+export interface CategoryCharacteristics {
     [key: string]: {
         type: CategoryCharacteristicsType,
         isMain: boolean
@@ -30,3 +31,56 @@ export enum CategoryCharacteristicsType {
     Double = 'DOUBLE',
     Boolean = 'BOOLEAN',
 }
+
+export interface CategoryEditing {
+    id: number | null;
+    name: {
+        value: string,
+        isChanged: boolean,
+    };
+    characteristics: {
+        [key: number]: CategoryEditingCharacteristics
+    };
+    isMain: {
+        value: boolean;
+        isChanged: boolean;
+    };
+}
+
+export interface CategoryEditingCharacteristics {
+    name: string;
+    type: CategoryCharacteristicsType;
+    isMain: boolean;
+    isSaved: boolean
+}
+
+export const InitialCategoryEditing = (): CategoryEditing => {
+    return {
+        id: null,
+        name: {
+            value: '',
+            isChanged: false,
+        },
+        characteristics: {
+            1: {
+                name: '',
+                type: CategoryCharacteristicsType.String,
+                isMain: true,
+                isSaved: false,
+            },
+            2: {
+                name: '',
+                type: CategoryCharacteristicsType.String,
+                isMain: true,
+                isSaved: false,
+            },
+        },
+        isMain: {
+            value: false,
+            isChanged: false,
+        },
+    }
+}
+
+export type CreateCategoryDto = Pick<Category, 'name' | 'isMain' | 'characteristics'>
+export type UpdateCategoryDto = Partial<CreateCategoryDto>

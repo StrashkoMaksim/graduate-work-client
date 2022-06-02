@@ -1,0 +1,68 @@
+@import "../../styles/variables";
+
+.container {
+  display: grid;
+  grid-gap: 30px;
+  margin-bottom: 30px;
+}
+
+.characteristics {
+  display: grid;
+  grid-gap: 10px;
+}
+
+.characteristic {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  grid-gap: 10px;
+
+  &.withoutDelete {
+    grid-template-columns: 1fr auto auto;
+  }
+}
+
+.deleteCharacteristic {
+  background: url(/img/delete.svg) no-repeat center;
+  background-size: contain;
+  border: none;
+  height: 20px;
+  width: 20px;
+}
+
+.addCharacteristic {
+  margin-top: 10px;
+  width: fit-content;
+}
+
+@media screen and (max-width: 640px) {
+  .container {
+    grid-gap: 20px;
+  }
+
+  .characteristics {
+    margin-top: 10px;
+  }
+
+  .characteristic {
+    grid-template: repeat(2, auto) / repeat(2, 1fr) auto;
+
+    &.withoutDelete {
+      grid-template: repeat(2, auto) / repeat(2, 1fr);
+    }
+
+    & > div:first-child {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    grid-gap: 10px;
+  }
+
+  .characteristics h4 {
+    font-size: 14px;
+  }
+}

@@ -32,7 +32,7 @@ const AdminCatalogPage = () => {
                     </Link>
                 </div>
             </PageHeader>
-            <Catalog isAdmin={true} />
+            <Catalog isAdmin={true} categoriesFromServer={null} />
             <CustomModal open={isModalVisible} onClose={hideModalHandler} title='Менеджер категорий'>
                 <CategoriesManager />
             </CustomModal>

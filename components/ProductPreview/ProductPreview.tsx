@@ -27,8 +27,8 @@ const ProductPreview: FC<ProductPreviewProps> = ({ product, isAdmin }) => {
                     </div>
                     <span className={styles.price}>{product.price.toLocaleString()} руб.</span>
                     {isAdmin
-                        ? <button className={styles.cart}></button>
-                        : <button className={styles.update}>Редактировать</button>
+                        ? <button className={styles.update}>Редактировать</button>
+                        : <button className={styles.cart}></button>
                     }
                 </div>
             </div>
