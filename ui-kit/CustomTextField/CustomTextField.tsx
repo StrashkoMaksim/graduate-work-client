@@ -1,4 +1,4 @@
-import {TextField, TextFieldProps} from "@mui/material";
+import {TextField} from "@mui/material";
 import styles from './CustomTextField.module.scss';
 import {FC} from "react";
 

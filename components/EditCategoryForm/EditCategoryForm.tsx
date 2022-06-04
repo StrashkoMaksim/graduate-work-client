@@ -46,7 +46,7 @@ const EditCategoryForm: FC<EditProductFormProps> = ({ category, setCategory, err
 
     const changeCharacteristicTypeHandler = (type: string, name: string) => {
         if (type === CategoryCharacteristicsType.String || type === CategoryCharacteristicsType.Integer ||
-            type === CategoryCharacteristicsType.Double || type === CategoryCharacteristicsType.Double
+            type === CategoryCharacteristicsType.Double || type === CategoryCharacteristicsType.Boolean
         ) {
             const newCategory = _.clone(category);
             newCategory.characteristics[Number(name)].type = type;

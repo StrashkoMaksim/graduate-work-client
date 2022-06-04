@@ -4,6 +4,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import {FormHelperText} from "@mui/material";
+import cn from "classnames";
 
 interface CustomSelectProps {
     label: string;
@@ -14,15 +15,16 @@ interface CustomSelectProps {
     disabled: boolean;
     name?: string;
     children: ReactNode;
+    className?: string
 }
 
-const CustomSelect: FC<CustomSelectProps> = ({ label, value, onChange, error, helperText, disabled, name, children }) => {
+const CustomSelect: FC<CustomSelectProps> = ({ label, value, onChange, error, helperText, disabled, name, className, children }) => {
     const handleChange = (event: SelectChangeEvent) => {
         onChange(event.target.value, event.target.name);
     }
 
     return (
-        <FormControl className={styles.control} variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <FormControl className={cn(styles.control, className)} variant="standard" sx={{ m: 1, minWidth: 120 }}>
             <InputLabel
                 id={'select-label-' + label}
                 className={styles.label}

@@ -3,6 +3,8 @@ import {FC} from "react";
 import CustomTextField from "../../ui-kit/CustomTextField/CustomTextField";
 import {IMaskMixin} from "react-imask";
 import CustomSelect from "../../ui-kit/CustomSelect/CustomSelect";
+import {MenuItem} from "@mui/material";
+import styles from './AdminProductCharacteristic.module.scss'
 
 interface AdminProductCharacteristic {
     name: string
@@ -47,6 +49,7 @@ const AdminProductCharacteristic: FC<AdminProductCharacteristic> = ({ name, type
                     value={value === null ? '' : String(value)}
                     disabled={disabled}
                     onChange={textChangeHandler}
+                    className={styles.input}
                 />
             )
         case CategoryCharacteristicsType.Integer:
@@ -59,6 +62,7 @@ const AdminProductCharacteristic: FC<AdminProductCharacteristic> = ({ name, type
                     value={value === null ? '' : String(value)}
                     onAccept={numberChangeHandler}
                     disabled={disabled}
+                    className={styles.input}
                 />
             )
         case CategoryCharacteristicsType.Double:
@@ -71,17 +75,22 @@ const AdminProductCharacteristic: FC<AdminProductCharacteristic> = ({ name, type
                     value={value === null ? '' : String(value)}
                     onAccept={numberChangeHandler}
                     disabled={disabled}
+                    className={styles.input}
                 />
             )
         case CategoryCharacteristicsType.Boolean:
             return (
                 <CustomSelect
                     label={name}
-                    value={value as string}
+                    value={value ? 'Да' : 'Нет'}
                     // @ts-ignore
                     onChange={changeCharacteristicHandler}
                     disabled={disabled}
-                />
+                    className={styles.input}
+                >
+                    <MenuItem value='Да'>Да</MenuItem>
+                    <MenuItem value='Нет'>Нет</MenuItem>
+                </CustomSelect>
             )
     }
 };
