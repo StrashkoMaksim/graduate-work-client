@@ -2,8 +2,16 @@
 
 .container {
   display: grid;
-  grid-gap: 30px;
+  grid-gap: 20px;
   margin-bottom: 30px;
+}
+
+.h4 {
+  color: $black-text;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.21;
+  margin: 20px 0 10px;
 }
 
 .previewImage {
@@ -28,9 +36,104 @@
   }
 }
 
+.gallery {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(6, 1fr);
+  margin: 10px 0 15px;
+}
+
+.galleryImage {
+  height: 186.67px;
+  position: relative;
+
+  img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.changeImage {
+  background: rgba(#000000, .2) url("/img/change_photo.svg") no-repeat center;
+  background-size: 60px;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition: .3s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.deleteImage {
+  background: url("/img/close_white.svg") no-repeat center;
+  background-size: contain;
+  border: none;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 12px;
+  width: 12px;
+}
+
+.deletableInput {
+  align-items: center;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr;
+
+  &.deletable {
+    grid-template-columns: 1fr auto;
+
+    .delete {
+      display: block;
+    }
+  }
+}
+
+.delete {
+  background: url(/img/delete.svg) no-repeat center;
+  background-size: contain;
+  border: none;
+  display: none;
+  height: 20px;
+  width: 20px;
+}
+
+@media screen and (max-width: 1200px) {
+  .galleryImage {
+    height: calc((100vw - 30px) / 6);
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .gallery {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .galleryImage {
+    height: calc((100vw - 30px) / 4);
+  }
+}
+
 @media screen and (max-width: 640px) {
   .container {
     grid-gap: 20px;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .galleryImage {
+    height: calc((100vw - 30px) / 2);
   }
 }
 

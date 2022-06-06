@@ -1,3 +1,3 @@
 export interface Errors {
-    [key: string]: string | null
+    [key: string]: string | string[]
 }

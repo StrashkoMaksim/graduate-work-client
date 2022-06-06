@@ -1,10 +1,10 @@
 import {CategoryCharacteristicsType} from "../../types/category";
 import {FC} from "react";
 import CustomTextField from "../../ui-kit/CustomTextField/CustomTextField";
-import {IMaskMixin} from "react-imask";
 import CustomSelect from "../../ui-kit/CustomSelect/CustomSelect";
 import {MenuItem} from "@mui/material";
 import styles from './AdminProductCharacteristic.module.scss'
+import MaskedTextField from "../../ui-kit/MaskedTextField/MaskedTextField";
 
 interface AdminProductCharacteristic {
     name: string
@@ -12,15 +12,11 @@ interface AdminProductCharacteristic {
     value: string | number | boolean | null;
     disabled: boolean;
     onChange: (value: string | number | boolean, name: string) => void;
+    error?: boolean;
+    helperText?: string;
 }
 
-const MaskedTextField = IMaskMixin(
-    ({ inputRef, defaultValue, ...otherProps }) => (
-        <CustomTextField {...otherProps} inputRef={inputRef} value={defaultValue} />
-    )
-)
-
-const AdminProductCharacteristic: FC<AdminProductCharacteristic> = ({ name, type, value, disabled, onChange }) => {
+const AdminProductCharacteristic: FC<AdminProductCharacteristic> = ({ name, type, value, disabled, onChange, error, helperText }) => {
     const changeCharacteristicHandler = (value: string) => {
         if (value === 'Да') {
             onChange(true, name);
@@ -50,6 +46,8 @@ const AdminProductCharacteristic: FC<AdminProductCharacteristic> = ({ name, type
                     disabled={disabled}
                     onChange={textChangeHandler}
                     className={styles.input}
+                    error={error}
+                    helperText={helperText}
                 />
             )
         case CategoryCharacteristicsType.Integer:
@@ -63,6 +61,9 @@ const AdminProductCharacteristic: FC<AdminProductCharacteristic> = ({ name, type
                     onAccept={numberChangeHandler}
                     disabled={disabled}
                     className={styles.input}
+                    // @ts-ignore
+                    error={error}
+                    helperText={helperText}
                 />
             )
         case CategoryCharacteristicsType.Double:
@@ -76,6 +77,9 @@ const AdminProductCharacteristic: FC<AdminProductCharacteristic> = ({ name, type
                     onAccept={numberChangeHandler}
                     disabled={disabled}
                     className={styles.input}
+                    // @ts-ignore
+                    error={error}
+                    helperText={helperText}
                 />
             )
         case CategoryCharacteristicsType.Boolean:
@@ -87,6 +91,8 @@ const AdminProductCharacteristic: FC<AdminProductCharacteristic> = ({ name, type
                     onChange={changeCharacteristicHandler}
                     disabled={disabled}
                     className={styles.input}
+                    error={error}
+                    helperText={helperText}
                 >
                     <MenuItem value='Да'>Да</MenuItem>
                     <MenuItem value='Нет'>Нет</MenuItem>

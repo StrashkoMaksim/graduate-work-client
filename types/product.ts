@@ -1,6 +1,4 @@
-import {OutputData} from "@editorjs/editorjs";
-import {ArticleEditing} from "./article";
-import {CategoryCharacteristicsType} from "./category";
+import {CategoryCharacteristics, CategoryCharacteristicsType} from "./category";
 
 export interface ProductCharacteristics {
     [key: string]: string | number | boolean;
@@ -41,38 +39,60 @@ export interface Product {
     videos: ProductVideo[],
     images: ProductImage[],
     examples: ProductExample[],
-    equipments: ProductEquipment[]
+    equipments: ProductEquipment[],
+    createdAt: string,
+    updatedAt: string
 }
 
-export type ProductPreviewModel = Omit<Product, 'description' | 'equipments' | 'examples' | 'images' | 'videos' | 'categoryId'>
+export type CreateProductDTO = Pick<Product, 'name' | 'description' | 'price' | 'characteristics' | 'categoryId'> & {
+    previewImage: number;
+    images: number[];
+    examples?: number[];
+    equipments: string[];
+    videos?: string[];
+}
+
+export type ProductPreviewModel = Omit<Product, 'description' | 'equipments' | 'examples' | 'images' | 'videos' | 'characteristics'>
+
+export interface GalleryImage {
+    id?: number;
+    filename: string;
+    fileId?: number;
+}
 
 export interface ProductEditing {
     id: number | null;
     name: {
-        value: string,
-        isChanged: boolean,
+        value: string;
+        isChanged: boolean;
     };
     description: {
-        value: string,
-        isChanged: boolean,
+        value: string;
+        isChanged: boolean;
     };
     previewImage: {
-        filename: string,
-        fileId?: number,
+        filename: string;
+        fileId?: number;
     };
     price: {
-        value: number | null,
-        isChanged: boolean,
+        value: string;
+        isChanged: boolean;
     };
     category: {
-        id: number | '',
-        isChanged: boolean,
+        id: number | '';
+        isChanged: boolean;
     };
     characteristics: { [key: string]: {
         value: string| number | boolean | null;
-        type: CategoryCharacteristicsType
+        type: CategoryCharacteristicsType;
     }};
     isCharacteristicsChanged: boolean;
+    images: GalleryImage[];
+    deletedImages: number[];
+    equipments: string[];
+    examples: GalleryImage[];
+    deletedExamples: number[];
+    videos: string[];
 }
 
 export const InitialProductEditing = (): ProductEditing => {
@@ -90,7 +110,7 @@ export const InitialProductEditing = (): ProductEditing => {
             filename: '',
         },
         price: {
-            value: null,
+            value: '',
             isChanged: false,
         },
         category: {
@@ -104,5 +124,11 @@ export const InitialProductEditing = (): ProductEditing => {
             },
         },
         isCharacteristicsChanged: false,
+        images: [],
+        deletedImages: [],
+        examples: [],
+        deletedExamples: [],
+        equipments: [''],
+        videos: [],
     }
 }
