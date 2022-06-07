@@ -2,6 +2,11 @@ import React, {FC} from 'react';
 import styles from './ProductPreview.module.scss'
 import {ProductPreviewModel} from "../../types/product";
 import Link from "next/link";
+import {useSnackbar} from "notistack";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {useActions} from "../../hooks/useActions";
+import _ from "lodash";
+import {CartEntities} from "../../types/cart";
 
 interface ProductPreviewProps {
     product: ProductPreviewModel
@@ -9,6 +14,17 @@ interface ProductPreviewProps {
 }
 
 const ProductPreview: FC<ProductPreviewProps> = ({ product, isAdmin }) => {
+    const {enqueueSnackbar} = useSnackbar();
+    const {products} = useTypedSelector(state => state.cart)
+    const {dispatchProductsCart} = useActions();
+
+    const addToCartHandler = async () => {
+        const newProductsCart: CartEntities = _.clone(products);
+        newProductsCart[product.id] ? newProductsCart[product.id]++ : newProductsCart[product.id] = 1;
+        await dispatchProductsCart(newProductsCart);
+        enqueueSnackbar('Товар добавлен в корзину', {variant: "success"})
+    }
+
     return (
         <div className={styles.product}>
             <div className={styles.image}>
@@ -28,7 +44,7 @@ const ProductPreview: FC<ProductPreviewProps> = ({ product, isAdmin }) => {
                     <span className={styles.price}>{product.price.toLocaleString()} руб.</span>
                     {isAdmin
                         ? <Link href={`/admin/products/${product.slug}`}><a className={styles.update}/></Link>
-                        : <button className={styles.cart}></button>
+                        : <button className={styles.cart} onClick={addToCartHandler} />
                     }
                 </div>
             </div>
