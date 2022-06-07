@@ -6,7 +6,7 @@ import React, {useEffect, useState} from "react";
 import {InitialProductEditing, ProductEditing} from "../../../types/product";
 import {Errors} from "../../../types/errors";
 import {useSnackbar} from "notistack";
-import {validateNewProduct} from "../../../utils/validation/product";
+import {validateChangedProduct, validateNewProduct} from "../../../utils/validation/product";
 import {Api} from "../../../utils/api";
 import {AxiosError} from "axios";
 import {logout} from "../../../store/actions/user";
@@ -51,7 +51,7 @@ const ProductUpdatePage = () => {
     }
 
     const submitHandler = async () => {
-        const {errors, dto} = validateNewProduct(product);
+        const {errors, dto} = validateChangedProduct(product);
 
         if (Object.keys(errors).length) {
             setErrors(errors);
@@ -62,7 +62,7 @@ const ProductUpdatePage = () => {
         }
 
         try {
-            await Api().products.createArticle(dto)
+            await Api().products.updateProduct(product.id as number, dto);
             await router.push('/admin/catalog')
         } catch (e) {
             let error = ''
@@ -85,6 +85,7 @@ const ProductUpdatePage = () => {
         <AdminLayout title='Редактирование товара'>
             <PageHeader h1='Редактирование товара'>
                 <CustomButton variant={ButtonType.red} text='Удалить' disabled={loading} onClick={deleteHandler} />
+                <CustomButton variant={ButtonType.blue} text='Сохранить' disabled={loading} onClick={submitHandler} />
             </PageHeader>
             <EditProductForm product={product} setProduct={setStateProduct} errors={errors} />
         </AdminLayout>

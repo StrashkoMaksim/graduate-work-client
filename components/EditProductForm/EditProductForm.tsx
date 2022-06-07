@@ -162,42 +162,47 @@ const EditProductForm: FC<EditProductFormProps> = ({ product, setProduct, errors
     const changeCharacteristicHandler = (value: string | number | boolean, name: string) => {
         const newProduct = _.clone(product);
         newProduct.characteristics[name].value = value;
+        newProduct.isCharacteristicsChanged = true;
         setProduct(newProduct);
     }
 
     const changeEquipmentHandler = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
         const newProduct = _.clone(product);
-        newProduct.equipments[index] = event.target.value;
-        setProduct(newProduct)
+        newProduct.equipments.values[index] = event.target.value;
+        newProduct.equipments.isChanged = true;
+        setProduct(newProduct);
     }
 
     const deleteEquipmentHandler = (index: number) => () => {
         const newProduct = _.clone(product);
-        newProduct.equipments.splice(index, 1);
+        newProduct.equipments.values.splice(index, 1);
         setProduct(newProduct);
     }
 
     const addEquipmentHandler = () => {
         const newProduct = _.clone(product);
-        newProduct.equipments.push('');
+        newProduct.equipments.values.push('');
         setProduct(newProduct);
     }
 
     const changeVideoHandler = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
         const newProduct = _.clone(product);
-        newProduct.videos[index] = event.target.value;
+        newProduct.videos.values[index] = event.target.value;
+        newProduct.videos.isChanged = true;
         setProduct(newProduct)
     }
 
     const deleteVideoHandler = (index: number) => () => {
         const newProduct = _.clone(product);
-        newProduct.videos.splice(index, 1);
+        newProduct.videos.values.splice(index, 1);
+        newProduct.videos.isChanged = true;
         setProduct(newProduct);
     }
 
     const addVideoHandler = () => {
         const newProduct = _.clone(product);
-        newProduct.videos.push('');
+        newProduct.videos.values.push('');
+        newProduct.videos.isChanged = true;
         setProduct(newProduct);
     }
 
@@ -318,8 +323,8 @@ const EditProductForm: FC<EditProductFormProps> = ({ product, setProduct, errors
                 <div>
                     <h4 className={styles.h4}>Комплектация</h4>
                     <div className={styles.container}>
-                        {product.equipments.map((value, index) =>
-                            <div className={cn(styles.deletableInput, {[styles.deletable]: product.equipments.length > 1})} key={index}>
+                        {product.equipments.values.map((value, index) =>
+                            <div className={cn(styles.deletableInput, {[styles.deletable]: product.equipments.values.length > 1})} key={index}>
                                 <CustomTextField
                                     name='equipments'
                                     className={styles.input}
@@ -368,7 +373,7 @@ const EditProductForm: FC<EditProductFormProps> = ({ product, setProduct, errors
                 <div>
                     <h4 className={styles.h4}>Видео</h4>
                     <div className={styles.container}>
-                        {product.videos.map((value, index) =>
+                        {product.videos.values.map((value, index) =>
                             <div className={cn(styles.deletableInput, styles.deletable)} key={index}>
                                 <CustomTextField
                                     name='video'

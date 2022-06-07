@@ -30,7 +30,7 @@ const ProductCreatePage = () => {
         }
 
         try {
-            await Api().products.createArticle(dto)
+            await Api().products.createProduct(dto)
             await router.push('/admin/catalog')
         } catch (e) {
             let error = ''

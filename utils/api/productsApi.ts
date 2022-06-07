@@ -1,12 +1,5 @@
 import {AxiosInstance} from "axios";
-import {
-    Article,
-    ArticlePreview,
-    CreateArticleDto,
-    GetArticlesCategoriesResponse,
-    UpdateArticleDto
-} from "../../types/article";
-import {CreateProductDTO, Product, ProductEditing, ProductPreviewModel} from "../../types/product";
+import {CreateProductDTO, ProductEditing, ProductPreviewModel, UpdateProductDTO} from "../../types/product";
 
 export const ProductsApi = (instance: AxiosInstance) => ({
     async getAllSlugs(): Promise<{slug: string}[]> {
@@ -21,12 +14,12 @@ export const ProductsApi = (instance: AxiosInstance) => ({
         const {data} = await instance.get(`products/admin/${slug}`)
         return data
     },
-    async createArticle(dto: CreateProductDTO): Promise<string> {
-        const {data} = await instance.post<CreateArticleDto, { data: string }>('products', dto)
+    async createProduct(dto: CreateProductDTO): Promise<string> {
+        const {data} = await instance.post<CreateProductDTO, { data: string }>('products', dto)
         return data
     },
-    async updateArticle(id: number, dto: UpdateArticleDto): Promise<string> {
-        const {data} = await instance.put<CreateArticleDto, { data: string }>(`products/${id}`, dto)
+    async updateProduct(id: number, dto: UpdateProductDTO): Promise<string> {
+        const {data} = await instance.put<UpdateProductDTO, { data: string }>(`products/${id}`, dto)
         return data
     },
     async deleteProduct(id: number): Promise<string> {

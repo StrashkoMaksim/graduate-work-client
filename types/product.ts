@@ -81,10 +81,16 @@ export interface ProductEditing {
     isCharacteristicsChanged: boolean;
     images: GalleryImage[];
     deletedImages: number[];
-    equipments: string[];
+    equipments: {
+        values: string[];
+        isChanged: boolean;
+    };
     examples: GalleryImage[];
     deletedExamples: number[];
-    videos: string[];
+    videos: {
+        values: string[];
+        isChanged: boolean;
+    };
 }
 
 export type CreateProductDTO = Pick<Product, 'name' | 'description' | 'price' | 'characteristics' | 'categoryId'> & {
@@ -94,7 +100,11 @@ export type CreateProductDTO = Pick<Product, 'name' | 'description' | 'price' | 
     equipments: string[];
     videos?: string[];
 }
-export type UpdateProductDTO = Partial<CreateProductDTO>
+
+export type UpdateProductDTO = Partial<CreateProductDTO> & {
+    deletedImages?: number[];
+    deletedExamples?: number[];
+}
 
 export const InitialProductEditing = (): ProductEditing => {
     return {
@@ -129,7 +139,13 @@ export const InitialProductEditing = (): ProductEditing => {
         deletedImages: [],
         examples: [],
         deletedExamples: [],
-        equipments: [''],
-        videos: [],
+        equipments: {
+            values: [''],
+            isChanged: false,
+        },
+        videos: {
+            values: [],
+            isChanged: false,
+        },
     }
 }

@@ -52,7 +52,6 @@ const Catalog: FC<CatalogProps> = ({ isAdmin, categoriesFromServer, productsFrom
                     router.push('/404');
                 }
             } else if (categories.length) {
-                console.log(1)
                 setProducts(await Api().products.getProducts(null, LIMIT, 0));
             }
             setLoading(false);

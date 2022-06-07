@@ -1,6 +1,6 @@
 import {Errors} from "../../types/errors";
 import {ArticleEditing, UpdateArticleDto} from "../../types/article";
-import {CreateProductDTO, ProductEditing} from "../../types/product";
+import {CreateProductDTO, ProductEditing, UpdateProductDTO} from "../../types/product";
 import {CategoryCharacteristicsType} from "../../types/category";
 
 export const validateNewProduct = (product: ProductEditing) => {
@@ -66,7 +66,7 @@ export const validateNewProduct = (product: ProductEditing) => {
     }
 
     const equipmentsErrors: string[] = []
-    product.equipments.forEach((el, index) => {
+    product.equipments.values.forEach((el, index) => {
         if (!el) {
            equipmentsErrors[index] = 'Поле не заполнено';
         } else {
@@ -77,10 +77,10 @@ export const validateNewProduct = (product: ProductEditing) => {
         errors.equipments = equipmentsErrors;
     }
 
-    if (product.videos.length) {
+    if (product.videos.values.length) {
         const videosErrors: string[] = []
         dto.videos = [];
-        product.videos.forEach((el, index) => {
+        product.videos.values.forEach((el, index) => {
             if (!el) {
                 videosErrors[index] = 'Поле не заполнено';
             } else if (!validateVideo(el)) {
@@ -102,48 +102,128 @@ export const validateNewProduct = (product: ProductEditing) => {
     return {errors, dto};
 }
 
-export const validateChangedProduct = (article: ArticleEditing) => {
+export const validateChangedProduct = (product: ProductEditing) => {
     const errors: Errors = {};
-    const dto: UpdateArticleDto = {};
+    const dto: UpdateProductDTO = {}
 
-    if (article.name.isChanged) {
-        if (!article.name.text) {
-            errors.name = 'Заголовок не может быть пустым';
+    if (product.name.isChanged) {
+        if (!product.name.value) {
+            errors.name = 'Название не может быть пустым';
         } else {
-            dto.name = article.name.text;
+            dto.name = product.name.value;
         }
     }
 
-    if (article.previewText.isChanged) {
-        if (!article.previewText.text) {
-            errors.previewText = 'Описание не может быть пустым';
+    if (product.description.isChanged) {
+        if (!product.description.value) {
+            errors.description = 'Описание не может быть пустым';
         } else {
-            dto.previewText = article.previewText.text;
+            dto.description = product.description.value;
         }
     }
 
-    if (article.previewImage.fileId) {
-        dto.previewImage = article.previewImage.fileId;
+    if (product.previewImage.fileId) {
+        dto.previewImage = product.previewImage.fileId;
     }
 
-    if (article.content.isChanged) {
-        if (!article.content.blocks.length) {
-            errors.content = 'Контент не может быть пустым';
+    if (product.price.isChanged) {
+        if (!product.price.value) {
+            errors.price = 'Цена не может быть пустой';
         } else {
-            dto.content = article.content.blocks;
+            dto.price = Number.parseFloat(product.price.value);
         }
     }
 
-    if (article.category.isChanged) {
-        if (!article.category.id) {
-            errors.categoryId = 'Не выбрана категория статьи';
-        } else {
-            dto.categoryId = article.category.id;
-        }
-
+    if (product.category.isChanged) {
+        dto.categoryId = product.category.id as number;
     }
 
-    return {errors, dto}
+    if (product.isCharacteristicsChanged) {
+        dto.characteristics = {};
+        const characteristicsErrors: string[] = [];
+        Object.entries(product.characteristics).forEach((entry, index) => {
+            if (!entry[1].value) {
+                if (entry[1].type === CategoryCharacteristicsType.Boolean) {
+                    // @ts-ignore
+                    dto.characteristics[entry[0]] = entry[1].value as boolean;
+                } else {
+                    characteristicsErrors[index] = 'Характеристика не заполнена';
+                }
+            } else {
+                // @ts-ignore
+                dto.characteristics[entry[0]] =
+                    entry[1].type === CategoryCharacteristicsType.Double
+                        ? Number.parseFloat(entry[1].value as string)
+                        : entry[1].value
+            }
+        })
+        if (characteristicsErrors.length) {
+            errors.characteristics = characteristicsErrors;
+        }
+    }
+
+    const newImages = product.images.filter(image => image.fileId)
+    if (product.images.length === 0) {
+        errors.images = 'Изображения товара отсутствуют';
+    } else if (newImages.length > 0) {
+        dto.images = [];
+        newImages.forEach(image => {
+            dto.images?.push(image.fileId as number);
+        });
+    }
+
+    if (product.deletedImages.length) {
+        dto.deletedImages = product.deletedImages;
+    }
+
+    const newExamples = product.examples.filter(image => image.fileId)
+    if (newExamples.length !== 0) {
+        dto.examples = [];
+        newExamples.forEach(image => {
+            dto.examples?.push(image.fileId as number);
+        });
+    }
+
+    if (product.deletedExamples.length) {
+        dto.deletedExamples = product.deletedExamples;
+    }
+
+    if (product.equipments.isChanged) {
+        dto.equipments = [];
+        const equipmentsErrors: string[] = []
+        product.equipments.values.forEach((el, index) => {
+            if (!el) {
+                equipmentsErrors[index] = 'Поле не заполнено';
+            } else {
+                dto.equipments?.push(el);
+            }
+        })
+        if (equipmentsErrors.length) {
+            errors.equipments = equipmentsErrors;
+        }
+    }
+
+    if (product.videos.isChanged) {
+        dto.videos = [];
+        if (product.videos.values.length) {
+            const videosErrors: string[] = []
+            dto.videos = [];
+            product.videos.values.forEach((el, index) => {
+                if (!el) {
+                    videosErrors[index] = 'Поле не заполнено';
+                } else if (!validateVideo(el)) {
+                    videosErrors[index] = 'Некорректная ссылка на видео';
+                } else {
+                    dto.videos?.push(el);
+                }
+            })
+            if (videosErrors.length) {
+                errors.videos = videosErrors;
+            }
+        }
+    }
+
+    return {errors, dto};
 }
 
 const validateVideo = (video: string) => {
