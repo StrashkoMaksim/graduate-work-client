@@ -1,115 +1,22 @@
-import React from 'react';
-import {CategoryPreviewModel} from "../../types/category";
+import React, {useEffect, useState} from 'react';
+import {CategoryMain} from "../../types/category";
 import PreviewBlock from "../PreviewBlock/PreviewBlock";
 import styles from './CategoriesPreviews.module.scss'
 import CategoryPreview from '../CategoryPreview/CategoryPreview';
-
-const categories: CategoryPreviewModel[] = [
-    {
-        id: 1,
-        name: 'Лазерные станки',
-        slug: 'lasernie-stanki',
-        products: [
-            {
-                id: 1,
-                name: 'Лазерный станок HT-2520',
-                slug: 'laserniy-stanok-ht-2520',
-                characteristics: {
-                    'Рабочее поле': '250x200мм',
-                    'Мощность излучателя': '40Вт'
-                },
-                price: 75000,
-                previewImage: 'https://lasercut.ru/assets/images/products/12/preview_webp/0203-1-mini.webp'
-            },
-            {
-                id: 2,
-                name: 'Лазерный станок HT-2520 какое-то большое название',
-                slug: 'laserniy-stanok-ht-2520',
-                characteristics: {
-                    'Рабочее поле': '250x200мм',
-                    'Мощность излучателя': '40Вт'
-                },
-                price: 75000,
-                previewImage: 'https://lasercut.ru/assets/images/products/12/preview_webp/0203-1-mini.webp'
-            },
-            {
-                id: 3,
-                name: 'Лазерный станок HT-2520',
-                slug: 'laserniy-stanok-ht-2520',
-                characteristics: {
-                    'Рабочее поле': '250x200мм',
-                    'Мощность излучателя': '40Вт'
-                },
-                price: 75000,
-                previewImage: 'https://lasercut.ru/assets/images/products/12/preview_webp/0203-1-mini.webp'
-            },
-            {
-                id: 4,
-                name: 'Лазерный станок HT-2520',
-                slug: 'laserniy-stanok-ht-2520',
-                characteristics: {
-                    'Рабочее поле': '250x200мм',
-                    'Мощность излучателя': '40Вт'
-                },
-                price: 75000,
-                previewImage: 'https://lasercut.ru/assets/images/products/12/preview_webp/0203-1-mini.webp'
-            }
-        ]
-    },
-    {
-        id: 2,
-        name: 'Лазерные станки',
-        slug: 'lasernie-stanki',
-        products: [
-            {
-                id: 1,
-                name: 'Лазерный станок HT-2520',
-                slug: 'laserniy-stanok-ht-2520',
-                characteristics: {
-                    'Рабочее поле': '250x200мм',
-                    'Мощность излучателя': '40Вт'
-                },
-                price: 75000,
-                previewImage: 'https://lasercut.ru/assets/images/products/12/preview_webp/0203-1-mini.webp'
-            },
-            {
-                id: 2,
-                name: 'Лазерный станок HT-2520 какое-то большое название',
-                slug: 'laserniy-stanok-ht-2520',
-                characteristics: {
-                    'Рабочее поле': '250x200мм',
-                    'Мощность излучателя': '40Вт'
-                },
-                price: 75000,
-                previewImage: 'https://lasercut.ru/assets/images/products/12/preview_webp/0203-1-mini.webp'
-            },
-            {
-                id: 3,
-                name: 'Лазерный станок HT-2520',
-                slug: 'laserniy-stanok-ht-2520',
-                characteristics: {
-                    'Рабочее поле': '250x200мм',
-                    'Мощность излучателя': '40Вт'
-                },
-                price: 75000,
-                previewImage: 'https://lasercut.ru/assets/images/products/12/preview_webp/0203-1-mini.webp'
-            },
-            {
-                id: 4,
-                name: 'Лазерный станок HT-2520',
-                slug: 'laserniy-stanok-ht-2520',
-                characteristics: {
-                    'Рабочее поле': '250x200мм',
-                    'Мощность излучателя': '40Вт'
-                },
-                price: 75000,
-                previewImage: 'https://lasercut.ru/assets/images/products/12/preview_webp/0203-1-mini.webp'
-            }
-        ]
-    }
-]
+import {Api} from "../../utils/api";
 
 const CategoriesPreviews = () => {
+    const [categories, setCategories] = useState<CategoryMain[]>([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            const categories = await Api().categories.getMainCategories();
+            console.log(categories)
+            setCategories(categories);
+        }
+        fetchCategories()
+    }, [])
+
     return (
         <>
             {categories.map(category =>

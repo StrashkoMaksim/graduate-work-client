@@ -1,10 +1,20 @@
 import {AxiosInstance} from "axios";
-import {CategoryAside, CategoryCharacteristics, CreateCategoryDto, UpdateCategoryDto} from "../../types/category";
+import {
+    CategoryAside,
+    CategoryCharacteristics,
+    CategoryMain,
+    CreateCategoryDto,
+    UpdateCategoryDto
+} from "../../types/category";
 
 export const CategoriesApi = (instance: AxiosInstance) => ({
     async getCategories(): Promise<CategoryAside[]> {
         const {data} = await instance.get('categories')
         return data
+    },
+    async getMainCategories(): Promise<CategoryMain[]> {
+        const {data} = await instance.get('categories/main');
+        return data;
     },
     async getCategoryBySlug(slug: string): Promise<CategoryAside> {
         const {data} = await instance.get(`categories/${slug}`)

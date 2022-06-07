@@ -1,5 +1,11 @@
 import {AxiosInstance} from "axios";
-import {CreateProductDTO, ProductEditing, ProductPreviewModel, UpdateProductDTO} from "../../types/product";
+import {
+    CreateProductDTO,
+    ProductDetailModel,
+    ProductEditing,
+    ProductPreviewModel,
+    UpdateProductDTO
+} from "../../types/product";
 
 export const ProductsApi = (instance: AxiosInstance) => ({
     async getAllSlugs(): Promise<{slug: string}[]> {
@@ -9,6 +15,10 @@ export const ProductsApi = (instance: AxiosInstance) => ({
     async getProducts(categoryId: number | null, limit: number, offset: number): Promise<ProductPreviewModel[]> {
         const {data} = await instance.get(`products?limit=${limit}${categoryId ? `&category=${categoryId}` : ''}${offset ? `&offset=${offset}` : ''}`)
         return data;
+    },
+    async getProductBySlug(slug: string): Promise<ProductDetailModel> {
+        const {data} = await instance.get(`products/${slug}`)
+        return data
     },
     async getProductForEditing(slug: string): Promise<ProductEditing> {
         const {data} = await instance.get(`products/admin/${slug}`)

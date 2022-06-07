@@ -66,6 +66,7 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(store => as
 });
 
 export const getStaticPaths: GetStaticPaths = async () => {
+    console.log(1)
     const articles = await Api().articles.getAllSlugs();
     const paths = articles.map((article) => ({
         params: { slug: article.slug },

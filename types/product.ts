@@ -45,6 +45,7 @@ export interface Product {
 }
 
 export type ProductPreviewModel = Omit<Product, 'description' | 'equipments' | 'examples' | 'images' | 'videos'>
+export type ProductDetailModel = Pick<Product, 'id' | 'name' | 'description' | 'price' | 'characteristics' | 'videos' | 'examples' | 'equipments' | 'images'>
 
 export interface GalleryImage {
     id?: number;

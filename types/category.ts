@@ -13,6 +13,7 @@ export interface Category {
 
 export type CategoryAside = Omit<Category, 'products' | 'services'>
 export type CategoriesNavigation = Omit<CategoryAside, 'characteristics'>
+export type CategoryMain = Omit<Category, 'characteristics' | 'isMain' | 'services'>
 
 export type CategoryPreviewModel = Omit<Category, 'services' | 'products' | 'characteristics'> & {
     products: ProductPreviewModel[]

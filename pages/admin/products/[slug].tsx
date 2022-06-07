@@ -1,18 +1,18 @@
 import {useRouter} from "next/router";
 import AdminLayout from "../../../components/AdminLayout/AdminLayout";
-import PageHeader from "../../../components/PageHeader/PageHeader";
 import EditProductForm from "../../../components/EditProductForm/EditProductForm";
 import React, {useEffect, useState} from "react";
 import {InitialProductEditing, ProductEditing} from "../../../types/product";
 import {Errors} from "../../../types/errors";
 import {useSnackbar} from "notistack";
-import {validateChangedProduct, validateNewProduct} from "../../../utils/validation/product";
+import {validateChangedProduct} from "../../../utils/validation/product";
 import {Api} from "../../../utils/api";
 import {AxiosError} from "axios";
 import {logout} from "../../../store/actions/user";
 import {useActions} from "../../../hooks/useActions";
 import CustomButton, {ButtonType} from "../../../ui-kit/CustomButton/CustomButton";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
+import PageHeaderWithBtns from "../../../components/PageHeader/PageHeaderWithBtns/PageHeaderWithBtns";
 
 const ProductUpdatePage = () => {
     const router = useRouter();
@@ -83,10 +83,10 @@ const ProductUpdatePage = () => {
 
     return (
         <AdminLayout title='Редактирование товара'>
-            <PageHeader h1='Редактирование товара'>
+            <PageHeaderWithBtns title='Редактирование товара'>
                 <CustomButton variant={ButtonType.red} text='Удалить' disabled={loading} onClick={deleteHandler} />
                 <CustomButton variant={ButtonType.blue} text='Сохранить' disabled={loading} onClick={submitHandler} />
-            </PageHeader>
+            </PageHeaderWithBtns>
             <EditProductForm product={product} setProduct={setStateProduct} errors={errors} />
         </AdminLayout>
     );

@@ -15,7 +15,7 @@ const ProductPreview: FC<ProductPreviewProps> = ({ product, isAdmin }) => {
                 <img src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${product.previewImage}`} alt={product.name} />
             </div>
             <div className={styles.info}>
-                <Link href={`${isAdmin ? '/admin' : ''}/product/${product.slug}`}><a>{product.name}</a></Link>
+                <Link href={`/products/${product.slug}`}><a>{product.name}</a></Link>
                 <div className={styles.bottom}>
                     <div className={styles.characteristics}>
                         {Object.keys(product.characteristics).map(characteristicName =>
