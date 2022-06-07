@@ -88,7 +88,7 @@
     line-height: 20px;
   }
 
-  button {
+  button, a {
     background: $blue;
     border-radius: 6px;
     border: none;
@@ -102,14 +102,22 @@
     &:hover {
       background: $button;
     }
-
-    &:after {
-      background: url("../../public/img/in_cart.svg");
-      content: '';
-      height: 20px;
-      width: 20px;
-    }
   }
+}
+
+.cart::after {
+  background: url("../../public/img/in_cart.svg");
+  content: '';
+  height: 20px;
+  width: 20px;
+}
+
+.update::after {
+  background: url("/img/edit_white.svg");
+  background: url("/img/edit_white.svg");
+  content: '';
+  height: 20px;
+  width: 20px;
 }
 
 @media screen and (max-width: 1200px) {

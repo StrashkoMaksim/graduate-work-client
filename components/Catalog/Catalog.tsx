@@ -64,7 +64,7 @@ const Catalog: FC<CatalogProps> = ({ isAdmin, categoriesFromServer, productsFrom
         }
     }, [slug, categories])
 
-    useObserver(lastProductRef as MutableRefObject<Element>, isCanLoadMore.current, loading, async () => {
+    useObserver(lastProductRef as MutableRefObject<Element>, isCanLoadMore.current && Boolean(categories.length), loading, async () => {
         setLoading(true);
         const newProducts = await Api().products.getProducts(selectedCategory, LIMIT, products.length);
         if (newProducts.length) {

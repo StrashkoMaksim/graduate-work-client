@@ -44,15 +44,7 @@ export interface Product {
     updatedAt: string
 }
 
-export type CreateProductDTO = Pick<Product, 'name' | 'description' | 'price' | 'characteristics' | 'categoryId'> & {
-    previewImage: number;
-    images: number[];
-    examples?: number[];
-    equipments: string[];
-    videos?: string[];
-}
-
-export type ProductPreviewModel = Omit<Product, 'description' | 'equipments' | 'examples' | 'images' | 'videos' | 'characteristics'>
+export type ProductPreviewModel = Omit<Product, 'description' | 'equipments' | 'examples' | 'images' | 'videos'>
 
 export interface GalleryImage {
     id?: number;
@@ -94,6 +86,15 @@ export interface ProductEditing {
     deletedExamples: number[];
     videos: string[];
 }
+
+export type CreateProductDTO = Pick<Product, 'name' | 'description' | 'price' | 'characteristics' | 'categoryId'> & {
+    previewImage: number;
+    images: number[];
+    examples?: number[];
+    equipments: string[];
+    videos?: string[];
+}
+export type UpdateProductDTO = Partial<CreateProductDTO>
 
 export const InitialProductEditing = (): ProductEditing => {
     return {

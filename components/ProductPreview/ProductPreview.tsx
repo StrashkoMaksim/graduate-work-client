@@ -12,7 +12,7 @@ const ProductPreview: FC<ProductPreviewProps> = ({ product, isAdmin }) => {
     return (
         <div className={styles.product}>
             <div className={styles.image}>
-                <img src={product.previewImage} alt={product.name} />
+                <img src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${product.previewImage}`} alt={product.name} />
             </div>
             <div className={styles.info}>
                 <Link href={`${isAdmin ? '/admin' : ''}/product/${product.slug}`}><a>{product.name}</a></Link>
@@ -27,7 +27,7 @@ const ProductPreview: FC<ProductPreviewProps> = ({ product, isAdmin }) => {
                     </div>
                     <span className={styles.price}>{product.price.toLocaleString()} руб.</span>
                     {isAdmin
-                        ? <button className={styles.update}>Редактировать</button>
+                        ? <Link href={`/admin/products/${product.slug}`}><a className={styles.update}/></Link>
                         : <button className={styles.cart}></button>
                     }
                 </div>

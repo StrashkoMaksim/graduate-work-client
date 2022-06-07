@@ -6,7 +6,7 @@ import {
     GetArticlesCategoriesResponse,
     UpdateArticleDto
 } from "../../types/article";
-import {CreateProductDTO, ProductPreviewModel} from "../../types/product";
+import {CreateProductDTO, Product, ProductEditing, ProductPreviewModel} from "../../types/product";
 
 export const ProductsApi = (instance: AxiosInstance) => ({
     async getAllSlugs(): Promise<{slug: string}[]> {
@@ -17,8 +17,8 @@ export const ProductsApi = (instance: AxiosInstance) => ({
         const {data} = await instance.get(`products?limit=${limit}${categoryId ? `&category=${categoryId}` : ''}${offset ? `&offset=${offset}` : ''}`)
         return data;
     },
-    async getArticleBySlug(slug: string): Promise<Article> {
-        const {data} = await instance.get(`products/${slug}`)
+    async getProductForEditing(slug: string): Promise<ProductEditing> {
+        const {data} = await instance.get(`products/admin/${slug}`)
         return data
     },
     async createArticle(dto: CreateProductDTO): Promise<string> {
@@ -29,7 +29,7 @@ export const ProductsApi = (instance: AxiosInstance) => ({
         const {data} = await instance.put<CreateArticleDto, { data: string }>(`products/${id}`, dto)
         return data
     },
-    async deleteArticle(id: number): Promise<string> {
+    async deleteProduct(id: number): Promise<string> {
         const {data} = await instance.delete(`products/${id}`)
         return data
     },
