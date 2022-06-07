@@ -1,20 +1,25 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {CategoryMain} from "../../types/category";
 import PreviewBlock from "../PreviewBlock/PreviewBlock";
 import styles from './CategoriesPreviews.module.scss'
 import CategoryPreview from '../CategoryPreview/CategoryPreview';
 import {Api} from "../../utils/api";
 
-const CategoriesPreviews = () => {
-    const [categories, setCategories] = useState<CategoryMain[]>([]);
+interface CategoriesPreviewsProps {
+    categoriesFromServer: CategoryMain[] | null;
+}
+
+const CategoriesPreviews: FC<CategoriesPreviewsProps> = ({ categoriesFromServer }) => {
+    const [categories, setCategories] = useState<CategoryMain[] | null>(categoriesFromServer);
 
     useEffect(() => {
         const fetchCategories = async () => {
             const categories = await Api().categories.getMainCategories();
-            console.log(categories)
             setCategories(categories);
         }
-        fetchCategories()
+        if (!categoriesFromServer) {
+            fetchCategories()
+        }
     }, [])
 
     return (
@@ -28,7 +33,7 @@ const CategoriesPreviews = () => {
                                   link: `/catalog/${category.slug}`
                               }}
                 >
-                    <CategoryPreview products={category.products} />
+                    <CategoryPreview products={category.products === null ? [] : category.products} />
                 </PreviewBlock>
             )}
         </>
