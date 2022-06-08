@@ -2,7 +2,7 @@ import AdminLayout from "../../../components/AdminLayout/AdminLayout";
 import ArticleEditForm from "../../../components/Articles/ArticleEditForm/ArticleEditFormProps";
 import {Api} from "../../../utils/api";
 import {useRouter} from "next/router";
-import React, {useState} from "react";
+import React, {ReactElement, useState} from "react";
 import {ArticleEditing, InitialArticleEditing} from "../../../types/article";
 import {Errors} from "../../../types/errors";
 import styles from "../../../components/Articles/ArticleEditForm/ArticleEditForm.module.scss";
@@ -12,8 +12,9 @@ import {validateNewArticle} from "../../../utils/validation/article";
 import {useSnackbar} from "notistack";
 import {AxiosError} from "axios";
 import {logout} from "../../../store/actions/user";
+import {NextPageWithLayout} from "../../_app";
 
-const CreateArticlePage = () => {
+const CreateArticlePage: NextPageWithLayout = () => {
     const router = useRouter()
     const [article, setArticle] = useState<ArticleEditing>(InitialArticleEditing)
     const [errors, setErrors] = useState<Errors>({})
@@ -55,15 +56,23 @@ const CreateArticlePage = () => {
     }
 
     return (
-        <AdminLayout title='Новая статья'>
+        <>
             <PageHeader h1='Новая статья'>
                 <div className={styles.btns}>
                     <CustomButton variant={ButtonType.blue} text='Опубликовать' additionalClass={styles.blueBtn} onClick={submitHandler} />
                 </div>
             </PageHeader>
             <ArticleEditForm article={article} setArticle={setStateArticle} errors={errors} loading={false} />
-        </AdminLayout>
+        </>
     );
+};
+
+CreateArticlePage.getLayout = function getLayout(props, page: ReactElement) {
+    return (
+        <AdminLayout title='Новая статья'>
+            {page}
+        </AdminLayout>
+    )
 };
 
 export default CreateArticlePage;

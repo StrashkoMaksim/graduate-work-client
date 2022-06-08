@@ -8,11 +8,12 @@ import {Api} from "../../utils/api";
 import {endFetchArticlesCategories, errorArticlesCategories} from "../../store/slices/articles-categories";
 import {changeArticlesCategory} from "../../store/actions/articles-categories";
 import {ArticlePreview} from "../../types/article";
-import {NextPage} from "next";
 import AsidePopper from "../../components/Aside/AsidePopper/AsidePopper";
 import AsideLinks from "../../components/Aside/AsideLinks/AsideLinks";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {useRouter} from "next/router";
+import {ReactElement} from "react";
+import {NextPageWithLayout} from "../_app";
 
 const LIMIT = 8
 
@@ -20,17 +21,13 @@ interface PageProps {
     articlesFromServer: ArticlePreview[];
 }
 
-const ArticlesPage: NextPage<PageProps> = ({ articlesFromServer }) => {
+const ArticlesPage: NextPageWithLayout<PageProps> = ({ articlesFromServer }) => {
     const { categories, loading} = useTypedSelector(state => state.articlesCategories)
     const router = useRouter();
     const {category} = router.query;
 
     return (
-        <MainLayout meta={{
-            title: 'Статьи',
-            description: 'На нашем сайте размещено множество статей посвященных промышленным станкам и лазерам',
-            type: 'website'
-        }}>
+        <>
             <Breadcrumbs
                 links={[{link: '/', text: 'Главная'}]}
                 current='Статьи'
@@ -46,9 +43,21 @@ const ArticlesPage: NextPage<PageProps> = ({ articlesFromServer }) => {
                     <ArticlesList limit={LIMIT} articlesFromServer={articlesFromServer} />
                 }
             />
-        </MainLayout>
+        </>
     );
 };
+
+ArticlesPage.getLayout = function getLayout(props, page: ReactElement) {
+    return (
+        <MainLayout meta={{
+            title: 'Статьи',
+            description: 'На нашем сайте размещено множество статей посвященных промышленным станкам и лазерам',
+            type: 'website'
+        }}>
+            {page}
+        </MainLayout>
+    )
+}
 
 // @ts-ignore
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ query, preview}) => {

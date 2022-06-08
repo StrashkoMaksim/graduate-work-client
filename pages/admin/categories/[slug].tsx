@@ -1,25 +1,25 @@
 import AdminLayout from "../../../components/AdminLayout/AdminLayout";
 import PageHeaderWithBtns from "../../../components/PageHeader/PageHeaderWithBtns/PageHeaderWithBtns";
 import CustomButton, {ButtonType} from "../../../ui-kit/CustomButton/CustomButton";
-import React, {useEffect, useState} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {Errors} from "../../../types/errors";
 import {useSnackbar} from "notistack";
 import {
-    CategoryCharacteristics,
     CategoryEditing,
     CategoryEditingCharacteristics,
     InitialCategoryEditing
 } from "../../../types/category";
 import EditCategoryForm from "../../../components/EditCategoryForm/EditCategoryForm";
-import {validateChangedCategory, validateNewCategory} from "../../../utils/validation/categories";
+import {validateChangedCategory} from "../../../utils/validation/categories";
 import {AxiosError} from "axios";
 import {Api} from "../../../utils/api";
 import {logout} from "../../../store/actions/user";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useActions} from "../../../hooks/useActions";
+import {NextPageWithLayout} from "../../_app";
 
-const UpdateCategoryPage = () => {
+const UpdateCategoryPage: NextPageWithLayout = () => {
     const { loading } = useTypedSelector(state => state.loading)
     const {setEnableLoading, setDisableLoading} = useActions();
     const router = useRouter()
@@ -130,14 +130,22 @@ const UpdateCategoryPage = () => {
     }
 
     return (
-        <AdminLayout title='Редактирование категории'>
+        <>
             <PageHeaderWithBtns title='Редактирование категории'>
                 <CustomButton variant={ButtonType.red} text='Удалить' disabled={loading} onClick={deleteHandler} />
                 <CustomButton variant={ButtonType.blue} text='Сохранить' disabled={loading} onClick={submitHandler} />
             </PageHeaderWithBtns>
             <EditCategoryForm category={category} setCategory={setStateCategory} errors={errors} />
-        </AdminLayout>
+        </>
     );
+};
+
+UpdateCategoryPage.getLayout = function getLayout(props, page: ReactElement) {
+    return (
+        <AdminLayout title='Редактирование категории'>
+            {page}
+        </AdminLayout>
+    )
 };
 
 export default UpdateCategoryPage;

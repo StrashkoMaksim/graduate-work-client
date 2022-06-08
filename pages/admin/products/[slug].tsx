@@ -1,7 +1,7 @@
 import {useRouter} from "next/router";
 import AdminLayout from "../../../components/AdminLayout/AdminLayout";
 import EditProductForm from "../../../components/EditProductForm/EditProductForm";
-import React, {useEffect, useState} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import {InitialProductEditing, ProductEditing} from "../../../types/product";
 import {Errors} from "../../../types/errors";
 import {useSnackbar} from "notistack";
@@ -13,8 +13,9 @@ import {useActions} from "../../../hooks/useActions";
 import CustomButton, {ButtonType} from "../../../ui-kit/CustomButton/CustomButton";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import PageHeaderWithBtns from "../../../components/PageHeader/PageHeaderWithBtns/PageHeaderWithBtns";
+import {NextPageWithLayout} from "../../_app";
 
-const ProductUpdatePage = () => {
+const ProductUpdatePage: NextPageWithLayout = () => {
     const router = useRouter();
     const { slug } = router.query;
     const [product, setProduct] = useState<ProductEditing>(InitialProductEditing);
@@ -82,14 +83,22 @@ const ProductUpdatePage = () => {
     }
 
     return (
-        <AdminLayout title='Редактирование товара'>
+        <>
             <PageHeaderWithBtns title='Редактирование товара'>
                 <CustomButton variant={ButtonType.red} text='Удалить' disabled={loading} onClick={deleteHandler} />
                 <CustomButton variant={ButtonType.blue} text='Сохранить' disabled={loading} onClick={submitHandler} />
             </PageHeaderWithBtns>
             <EditProductForm product={product} setProduct={setStateProduct} errors={errors} />
-        </AdminLayout>
+        </>
     );
 };
+
+ProductUpdatePage.getLayout = function getLayout(props, page: ReactElement) {
+    return (
+        <AdminLayout title='Редактирование товара'>
+            {page}
+        </AdminLayout>
+    )
+}
 
 export default ProductUpdatePage;

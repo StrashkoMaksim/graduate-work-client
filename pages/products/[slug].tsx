@@ -1,21 +1,19 @@
 import MainLayout from "../../components/MainLayout/MainLayout";
-import {GetStaticPaths, GetStaticProps, NextPage} from "next";
+import {GetStaticPaths, GetStaticProps, InferGetStaticPropsType} from "next";
 import {Api} from "../../utils/api";
 import {ProductDetailModel} from "../../types/product";
+import {NextPageWithLayout} from "../_app";
+import {ReactElement} from "react";
 
 interface ProductPageProps {
     product: ProductDetailModel
 }
 
-const ProductPage: NextPage<ProductPageProps> = ({ product }) => {
+const ProductPage: NextPageWithLayout<ProductPageProps> = ({ product }) => {
     return (
-        <MainLayout meta={{
-            title: product.name,
-            description: product.description,
-            type: "website",
-        }}>
+        <div>
 
-        </MainLayout>
+        </div>
     );
 };
 
@@ -43,6 +41,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
         paths,
         fallback: 'blocking',
     };
+}
+
+ProductPage.getLayout = function getLayout({ product }: InferGetStaticPropsType<typeof getStaticProps>, page: ReactElement) {
+    return (
+        <MainLayout meta={{
+            title: product.name,
+            description: product.description,
+            type: "website",
+        }}>
+            {page}
+        </MainLayout>
+    )
 }
 
 export default ProductPage;

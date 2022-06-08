@@ -3,12 +3,24 @@ import Head from "next/head";
 import type { AppProps } from 'next/app'
 import '../styles/reload.scss'
 import '../styles/global.scss'
-import {Component} from "react";
+import {Component, ReactElement, ReactNode} from "react";
 import {Api} from "../utils/api";
 import {loginUser} from "../store/slices/user";
 import {SnackbarProvider} from "notistack";
+import {NextPage} from "next";
 
-function App ({ Component, pageProps }: AppProps) {
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+    getLayout?: (pageProps: AppProps, page: ReactElement) => ReactNode
+}
+
+type AppPropsWithLayout = AppProps & {
+    Component: NextPageWithLayout
+}
+
+function App ({ Component, pageProps }: AppPropsWithLayout) {
+    // Use the layout defined at the page level, if available
+    // const getLayout = Component.getLayout ?? ((page) => page)
+
     return (
         <SnackbarProvider
             maxSnack={3}
@@ -30,7 +42,10 @@ function App ({ Component, pageProps }: AppProps) {
                 <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='' />
                 <link href='https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap' />
             </Head>
-            <Component {...pageProps} />
+            {Component.getLayout
+                ? Component.getLayout(pageProps, <Component {...pageProps} />)
+                : <Component {...pageProps} />
+            }
         </SnackbarProvider>
     )
 }

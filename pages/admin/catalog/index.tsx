@@ -5,11 +5,12 @@ import CustomButton, {ButtonType} from "../../../ui-kit/CustomButton/CustomButto
 import cn from "classnames";
 import Link from "next/link";
 import styles from './index.module.scss'
-import {useCallback, useState} from "react";
+import React, {ReactElement, useCallback, useState} from "react";
 import CustomModal from "../../../ui-kit/CustomModal/CustomModal";
 import CategoriesManager from "../../../components/CategoriesManager/CategoriesManager";
+import {NextPageWithLayout} from "../../_app";
 
-const AdminCatalogPage = () => {
+const AdminCatalogPage: NextPageWithLayout = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModalHandler = useCallback(() => {
@@ -21,7 +22,7 @@ const AdminCatalogPage = () => {
     }, [])
 
     return (
-        <AdminLayout title='Каталог товаров'>
+        <>
             <PageHeader h1='Каталог' className={styles.header}>
                 <div className={styles.btns}>
                     <CustomButton variant={ButtonType.grey} text='Менеджер категорий' additionalClass={cn(styles.btn, styles.whiteBtn)} onClick={showModalHandler} />
@@ -32,12 +33,20 @@ const AdminCatalogPage = () => {
                     </Link>
                 </div>
             </PageHeader>
-            <Catalog isAdmin={true} categoriesFromServer={null} />
+            <Catalog isAdmin={true} categoriesFromServer={null} productsFromServer={null} />
             <CustomModal open={isModalVisible} onClose={hideModalHandler} title='Менеджер категорий'>
                 <CategoriesManager />
             </CustomModal>
-        </AdminLayout>
+        </>
     );
+};
+
+AdminCatalogPage.getLayout = function getLayout(props, page: ReactElement) {
+    return (
+        <AdminLayout title='Каталог товаров'>
+            {page}
+        </AdminLayout>
+    )
 };
 
 export default AdminCatalogPage;

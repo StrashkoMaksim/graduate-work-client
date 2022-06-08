@@ -24,7 +24,7 @@ const CategoriesPreviews: FC<CategoriesPreviewsProps> = ({ categoriesFromServer 
 
     return (
         <>
-            {categories.map(category =>
+            {categories && categories.map(category => category.products.length ?
                 <PreviewBlock title={`Новые ${category.name.slice(0, 1).toLowerCase()}${category.name.slice(1, category.name.length)}`}
                               additionalClass={styles.category}
                               key={category.id}
@@ -35,6 +35,7 @@ const CategoriesPreviews: FC<CategoriesPreviewsProps> = ({ categoriesFromServer 
                 >
                     <CategoryPreview products={category.products === null ? [] : category.products} />
                 </PreviewBlock>
+                : ''
             )}
         </>
     );

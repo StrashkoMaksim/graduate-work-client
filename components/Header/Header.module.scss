@@ -65,44 +65,6 @@
     }
   }
 
-  &Cart {
-    background: none;
-    border: none;
-    border-right: 0.5px solid $outline;
-    padding: 15px 13px;
-    position: relative;
-    width: 61px;
-    display: flex;
-    place-content: center;
-
-    svg {
-      width: 24px;
-    }
-
-    path {
-      transition: .3s;
-    }
-
-    &:hover path {
-      fill: $blue;
-    }
-
-    span {
-      background: $blue;
-      border-radius: 50%;
-      color: #FFFFFF;
-      font-weight: 300;
-      font-size: 12px;
-      line-height: 19px;
-      position: absolute;
-      bottom: 11px;
-      right: 11px;
-      text-align: center;
-      height: 18px;
-      width: 18px;
-    }
-  }
-
   &Callback {
     display: none;
   }
@@ -157,20 +119,6 @@
 
       span {
         font-size: 14px;
-      }
-    }
-
-    &Cart {
-      padding: 0 14px;
-      width: 48px;
-
-      svg {
-        width: 20px;
-      }
-
-      span {
-        bottom: 5px;
-        right: 5px;
       }
     }
 

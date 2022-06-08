@@ -1,12 +1,13 @@
-import {useEffect} from "react";
+import {ReactElement, useEffect} from "react";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import MainLayout from "../../components/MainLayout/MainLayout";
 import PageHeaderWithBtns from "../../components/PageHeader/PageHeaderWithBtns/PageHeaderWithBtns";
 import CustomButton, {ButtonType} from "../../ui-kit/CustomButton/CustomButton";
 import {useActions} from "../../hooks/useActions";
+import {NextPageWithLayout} from "../_app";
 
 
-const CartPage = () => {
+const CartPage: NextPageWithLayout = () => {
     const {loading} = useTypedSelector(state => state.loading);
     const {products, services, count} = useTypedSelector(state => state.cart);
     const {setEnableLoading, setDisableLoading} = useActions();
@@ -21,19 +22,25 @@ const CartPage = () => {
     }, [])
 
     return (
+        <PageHeaderWithBtns title='Корзина'>
+            {count ? <>
+                <CustomButton variant={ButtonType.red} text='Очистить' />
+                <CustomButton variant={ButtonType.blue} text='Заказать' />
+            </> : ''}
+        </PageHeaderWithBtns>
+    );
+};
+
+CartPage.getLayout = function getLayout(props, page: ReactElement) {
+    return (
         <MainLayout meta={{
             title: 'Корзина',
             description: 'На этой странице находятся товары и услуги, которые вы положили в корзину. Заполните форму и отправьте нам ваш заказ.',
             type: 'website'
         }}>
-            <PageHeaderWithBtns title='Корзина'>
-                {count ? <>
-                    <CustomButton variant={ButtonType.red} text='Очистить' />
-                    <CustomButton variant={ButtonType.blue} text='Заказать' />
-                </> : ''}
-            </PageHeaderWithBtns>
+            {page}
         </MainLayout>
-    );
-};
+    )
+}
 
 export default CartPage;

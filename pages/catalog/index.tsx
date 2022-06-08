@@ -1,18 +1,15 @@
 import MainLayout from "../../components/MainLayout/MainLayout";
-import {NextPage} from "next";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import Catalog from "../../components/Catalog/Catalog";
+import React, {ReactElement} from "react";
+import {NextPageWithLayout} from "../_app";
 
-const CatalogPage: NextPage = () => {
+// TODO: Категории и товары от сервера
+
+const CatalogPage: NextPageWithLayout = () => {
     return (
-        <MainLayout
-            meta={{
-                title: 'Каталог',
-                type: 'website',
-                description: 'Какое-то описание для каталога'
-            }}
-        >
+        <>
             <Breadcrumbs
                 links={[
                     {link: '/', text: 'Главная'},
@@ -21,8 +18,20 @@ const CatalogPage: NextPage = () => {
             />
             <PageHeader h1='Каталог' />
             <Catalog />
-        </MainLayout>
+        </>
     );
 };
+
+CatalogPage.getLayout = function getLayout(props, page: ReactElement) {
+    return (
+        <MainLayout meta={{
+            title: 'Каталог',
+            type: 'website',
+            description: 'Какое-то описание для каталога'
+        }}>
+            {page}
+        </MainLayout>
+    )
+}
 
 export default CatalogPage;

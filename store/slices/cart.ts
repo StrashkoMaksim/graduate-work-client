@@ -2,13 +2,13 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {HYDRATE} from "next-redux-wrapper";
 import {CartEntities} from "../../types/cart";
 
-interface initialStateType {
+export interface CartState {
     products: CartEntities;
     services: CartEntities;
     count: number;
 }
 
-const initialState: initialStateType = {
+const initialState: CartState = {
     products: {},
     services: {},
     count: 0
@@ -18,23 +18,31 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState: initialState,
     reducers: {
-        setProducts: (state: initialStateType, action: PayloadAction<CartEntities>) => {
+        setCart: (state: CartState, action: PayloadAction<CartState>) => {
+            return {...action.payload}
+        },
+        setProducts: (state: CartState, action: PayloadAction<CartEntities>) => {
             state.products = action.payload;
             state.count = getCount(state.products, state.services);
+            saveCart(state);
         },
-        setServices: (state: initialStateType, action: PayloadAction<CartEntities>) => {
+        setServices: (state: CartState, action: PayloadAction<CartEntities>) => {
             state.services = action.payload;
             state.count = getCount(state.products, state.services);
+            saveCart(state);
         },
-        setEmptyCart: (state: initialStateType) => {
+        setEmptyCart: (state: CartState) => {
             state = initialState;
+            saveCart(state);
         },
     },
     extraReducers: {
         [HYDRATE]: (state, action) => {
-            return {
-                ...state,
-                ...action.payload.cart
+            if (state.count !== action.payload.cart.count && action.payload.cart.count !== 0) {
+                return {
+                    ...state,
+                    ...action.payload.cart
+                }
             }
         },
     }
@@ -46,5 +54,9 @@ const getCount = (products: CartEntities, services: CartEntities) => {
     return productsCount + servicesCount;
 }
 
-export const { setProducts, setServices } = cartSlice.actions;
+const saveCart = (cart: CartState) => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+export const { setProducts, setServices, setCart, setEmptyCart } = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;

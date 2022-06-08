@@ -1,7 +1,7 @@
 import AdminLayout from "../../../components/AdminLayout/AdminLayout";
 import PageHeaderWithBtns from "../../../components/PageHeader/PageHeaderWithBtns/PageHeaderWithBtns";
 import CustomButton, {ButtonType} from "../../../ui-kit/CustomButton/CustomButton";
-import React, {useState} from "react";
+import React, {ReactElement, useState} from "react";
 import {useRouter} from "next/router";
 import {Errors} from "../../../types/errors";
 import {useSnackbar} from "notistack";
@@ -13,8 +13,9 @@ import {Api} from "../../../utils/api";
 import {logout} from "../../../store/actions/user";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useActions} from "../../../hooks/useActions";
+import {NextPageWithLayout} from "../../_app";
 
-const CreateCategoryPage = () => {
+const CreateCategoryPage: NextPageWithLayout = () => {
     const { loading } = useTypedSelector(state => state.loading)
     const {setEnableLoading, setDisableLoading} = useActions();
     const router = useRouter()
@@ -56,13 +57,21 @@ const CreateCategoryPage = () => {
     }
 
     return (
-        <AdminLayout title='Новая категория'>
+        <>
             <PageHeaderWithBtns title='Новая категория'>
                 <CustomButton variant={ButtonType.blue} text='Опубликовать' disabled={loading} onClick={submitHandler} />
             </PageHeaderWithBtns>
             <EditCategoryForm category={category} setCategory={setStateCategory} errors={errors} />
-        </AdminLayout>
+        </>
     );
 };
+
+CreateCategoryPage.getLayout = function getLayout(props, page: ReactElement) {
+    return (
+        <AdminLayout title='Новая категория'>
+            {page}
+        </AdminLayout>
+    )
+}
 
 export default CreateCategoryPage;

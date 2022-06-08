@@ -2,11 +2,9 @@ import AdminLayout from "../../../components/AdminLayout/AdminLayout";
 import ArticleEditForm from "../../../components/Articles/ArticleEditForm/ArticleEditFormProps";
 import {useRouter} from "next/router";
 import {Api} from "../../../utils/api";
-import React, {useEffect, useState} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import {ArticleEditing, InitialArticleEditing} from "../../../types/article";
-import styles from "../../../components/Articles/ArticleEditForm/ArticleEditForm.module.scss";
 import CustomButton, {ButtonType} from "../../../ui-kit/CustomButton/CustomButton";
-import PageHeader from "../../../components/PageHeader/PageHeader";
 import {Errors} from "../../../types/errors";
 import _ from "lodash";
 import {validateChangedArticle} from "../../../utils/validation/article";
@@ -14,8 +12,9 @@ import {useSnackbar} from "notistack";
 import {AxiosError} from "axios";
 import {logout} from "../../../store/actions/user";
 import PageHeaderWithBtns from "../../../components/PageHeader/PageHeaderWithBtns/PageHeaderWithBtns";
+import {NextPageWithLayout} from "../../_app";
 
-const ArticleUpdatePage = () => {
+const ArticleUpdatePage: NextPageWithLayout = () => {
     const router = useRouter()
     const { slug } = router.query
     const [article, setArticle] = useState<ArticleEditing>(InitialArticleEditing)
@@ -89,14 +88,22 @@ const ArticleUpdatePage = () => {
     }
 
     return (
-        <AdminLayout title='Редактирование статьи'>
+        <>
             <PageHeaderWithBtns title='Редактирование статьи'>
                 <CustomButton variant={ButtonType.red} text='Удалить' disabled={loading} onClick={deleteHandler} />
                 <CustomButton variant={ButtonType.blue} text='Сохранить' disabled={loading} onClick={updateHandler} />
             </PageHeaderWithBtns>
             <ArticleEditForm article={article} setArticle={setStateArticle} loading={loading} errors={errors} />
-        </AdminLayout>
+        </>
     );
+};
+
+ArticleUpdatePage.getLayout = function getLayout(props, page: ReactElement) {
+    return (
+        <AdminLayout title='Редактирование статьи'>
+            {page}
+        </AdminLayout>
+    )
 };
 
 export default ArticleUpdatePage;

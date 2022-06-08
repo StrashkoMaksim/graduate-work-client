@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ReactElement, useState} from 'react';
 import AdminLayout from "../../../components/AdminLayout/AdminLayout";
 import CustomButton, {ButtonType} from "../../../ui-kit/CustomButton/CustomButton";
 import PageHeaderWithBtns from "../../../components/PageHeader/PageHeaderWithBtns/PageHeaderWithBtns";
@@ -11,8 +11,9 @@ import {logout} from "../../../store/actions/user";
 import {InitialProductEditing, ProductEditing} from "../../../types/product";
 import EditProductForm from "../../../components/EditProductForm/EditProductForm";
 import {validateNewProduct} from "../../../utils/validation/product";
+import {NextPageWithLayout} from "../../_app";
 
-const ProductCreatePage = () => {
+const ProductCreatePage: NextPageWithLayout = () => {
     const router = useRouter()
     const [product, setProduct] = useState<ProductEditing>(InitialProductEditing)
     const [errors, setErrors] = useState<Errors>({})
@@ -50,13 +51,21 @@ const ProductCreatePage = () => {
     }
 
     return (
-        <AdminLayout title='Новый товар'>
+        <>
             <PageHeaderWithBtns title='Новый товар'>
                 <CustomButton variant={ButtonType.blue} text='Опубликовать' onClick={submitHandler} />
             </PageHeaderWithBtns>
             <EditProductForm product={product} setProduct={setStateProduct} errors={errors} />
-        </AdminLayout>
+        </>
     );
 };
+
+ProductCreatePage.getLayout = function getLayout(props, page: ReactElement) {
+    return (
+        <AdminLayout title='Новый товар'>
+            {page}
+        </AdminLayout>
+    )
+}
 
 export default ProductCreatePage;

@@ -1,5 +1,5 @@
 import MainLayout from "../../components/MainLayout/MainLayout";
-import {GetStaticPaths, GetStaticProps, NextPage} from "next";
+import {GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage} from "next";
 import {Api} from "../../utils/api";
 import {Article} from "../../types/article";
 import BlockWithAside from "../../components/BlockWithAside/BlockWithAside";
@@ -11,23 +11,18 @@ import {endFetchArticlesCategories} from "../../store/slices/articles-categories
 import AsideLinks from "../../components/Aside/AsideLinks/AsideLinks";
 import AsidePopper from "../../components/Aside/AsidePopper/AsidePopper";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {ReactElement} from "react";
+import {NextPageWithLayout} from "../_app";
 
 interface ArticlePageProps {
     article: Article;
 }
 
-const ArticlePage: NextPage<ArticlePageProps> = ({ article }) => {
+const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({ article }) => {
     const { categories, loading} = useTypedSelector(state => state.articlesCategories)
 
     return (
-        <MainLayout
-            meta={{
-                type: "article",
-                description: article.previewText,
-                title: article.name,
-                date: article.createdAt
-            }}
-        >
+        <>
             <Breadcrumbs
                 links={[{link: '/', text: 'Главная'}, {link: '/articles', text: 'Статьи'}]}
                 current={article.name}
@@ -43,7 +38,7 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article }) => {
                 }
                 className={styles.container}
             />
-        </MainLayout>
+        </>
     );
 };
 
@@ -66,7 +61,6 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(store => as
 });
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    console.log(1)
     const articles = await Api().articles.getAllSlugs();
     const paths = articles.map((article) => ({
         params: { slug: article.slug },
@@ -75,6 +69,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
         paths,
         fallback: 'blocking',
     };
+}
+
+ArticlePage.getLayout = function getLayout({ article }: InferGetStaticPropsType<typeof getStaticProps>, page: ReactElement) {
+    return (
+        <MainLayout meta={{
+            type: "article",
+            description: article.previewText,
+            title: article.name,
+            date: article.createdAt,
+        }}>
+            {page}
+        </MainLayout>
+    )
 }
 
 export default ArticlePage;

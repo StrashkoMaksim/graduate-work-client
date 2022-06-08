@@ -1,5 +1,5 @@
 import {AppThunk} from "../store";
-import {setProducts, setServices} from "../slices/cart";
+import {CartState, setCart, setProducts, setServices} from "../slices/cart";
 import {CartEntities} from "../../types/cart";
 
 export const dispatchProductsCart = (products: CartEntities): AppThunk => async dispatch => {
@@ -8,4 +8,8 @@ export const dispatchProductsCart = (products: CartEntities): AppThunk => async 
 
 export const dispatchServicesCart = (services: CartEntities): AppThunk => async dispatch => {
     await dispatch(setServices(services))
+}
+
+export const dispatchSetCart = (cart: CartState): AppThunk => async dispatch => {
+    await dispatch(setCart(cart));
 }

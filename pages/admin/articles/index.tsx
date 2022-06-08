@@ -5,20 +5,20 @@ import styles from './styles.module.scss'
 import ArticlesList from "../../../components/Articles/ArticlesList/ArticlesList";
 import BlockWithAside from "../../../components/BlockWithAside/BlockWithAside";
 import cn from "classnames";
-import {useCallback, useState} from "react";
+import React, {ReactElement, useCallback, useState} from "react";
 import CustomModal from "../../../ui-kit/CustomModal/CustomModal";
 import ArticlesCategoriesManager from "../../../components/Articles/ArticlesCategoriesManager/ArticlesCategoriesManager";
 import {wrapper} from "../../../store/store";
 import {Api} from "../../../utils/api";
 import {endFetchArticlesCategories, errorArticlesCategories} from "../../../store/slices/articles-categories";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
-import {NextPage} from "next";
 import {ArticlePreview} from "../../../types/article";
 import {changeArticlesCategory} from "../../../store/actions/articles-categories";
 import Link from "next/link";
 import AsidePopper from "../../../components/Aside/AsidePopper/AsidePopper";
 import AsideLinks from "../../../components/Aside/AsideLinks/AsideLinks";
 import {useRouter} from "next/router";
+import {NextPageWithLayout} from "../../_app";
 
 const LIMIT = 8
 
@@ -26,7 +26,7 @@ interface PageProps {
     articlesFromServer: ArticlePreview[];
 }
 
-const AdminArticlesPage: NextPage<PageProps> = ({ articlesFromServer }) => {
+const AdminArticlesPage: NextPageWithLayout<PageProps> = ({ articlesFromServer }) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const { categories, loading} = useTypedSelector(state => state.articlesCategories)
     const router = useRouter();
@@ -43,7 +43,7 @@ const AdminArticlesPage: NextPage<PageProps> = ({ articlesFromServer }) => {
     }, [loading])
 
     return (
-        <AdminLayout title='Статьи'>
+        <>
             <PageHeader h1='Статьи' className={styles.header}>
                 <div className={styles.btns}>
                     <CustomButton variant={ButtonType.grey} text='Менеджер категорий' additionalClass={cn(styles.btn, styles.whiteBtn)} onClick={showModalHandler} />
@@ -73,8 +73,16 @@ const AdminArticlesPage: NextPage<PageProps> = ({ articlesFromServer }) => {
             <CustomModal open={isModalVisible} onClose={hideModalHandler} title='Менеджер категорий'>
                 <ArticlesCategoriesManager />
             </CustomModal>
-        </AdminLayout>
+        </>
     );
+};
+
+AdminArticlesPage.getLayout = function getLayout(props, page: ReactElement) {
+    return (
+        <AdminLayout title='Статьи'>
+            {page}
+        </AdminLayout>
+    )
 };
 
 // @ts-ignore
