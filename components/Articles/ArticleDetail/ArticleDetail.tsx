@@ -4,6 +4,7 @@ import H1 from "../../../ui-kit/H1/H1";
 import styles from './ArticleDetail.module.scss'
 import cn from "classnames";
 import ArticleSubline from "../ArticleSubline/ArticleSubline";
+import H2 from "../../../ui-kit/H2/H2";
 
 interface ArticleDetailProps {
     article: Article
@@ -47,7 +48,7 @@ const ArticleDetail: FC<ArticleDetailProps> = ({ article }) => {
                         </div>
                     case 'header':
                         if (block.data.level === 2) {
-                            return <h2 className={styles.h2} key={block.id}>{block.data.text}</h2>
+                            return <H2 text={block.data.text} className={styles.h2} key={block.id} />
                         } else {
                             return <h3 className={styles.h3} key={block.id}>{block.data.text}</h3>
                         }

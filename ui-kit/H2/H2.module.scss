@@ -1,0 +1,26 @@
+@import "../../styles/variables";
+
+.h2 {
+  color: $black-text;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.skeleton {
+  font-size: 28px;
+  line-height: 160%;
+  width: 200px;
+}
+
+@media screen and (max-width: 480px) {
+  .h2 {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .skeleton {
+    font-size: 22px;
+    line-height: 120%;
+  }
+}

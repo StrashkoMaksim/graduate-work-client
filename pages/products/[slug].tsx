@@ -4,6 +4,7 @@ import {Api} from "../../utils/api";
 import {ProductDetailModel} from "../../types/product";
 import {NextPageWithLayout} from "../_app";
 import {ReactElement} from "react";
+import ProductDetail from "../../components/ProductDetail/ProductDetail";
 
 interface ProductPageProps {
     product: ProductDetailModel
@@ -11,9 +12,7 @@ interface ProductPageProps {
 
 const ProductPage: NextPageWithLayout<ProductPageProps> = ({ product }) => {
     return (
-        <div>
-
-        </div>
+        <ProductDetail product={product} />
     );
 };
 

@@ -21,12 +21,6 @@ interface ProductImage {
 
 type ProductExample = Omit<ProductImage, 'mediumImage'>
 
-interface ProductEquipment {
-    id: number,
-    text: string,
-    productId: number
-}
-
 export interface Product {
     id: number,
     name: string,
@@ -39,7 +33,7 @@ export interface Product {
     videos: ProductVideo[],
     images: ProductImage[],
     examples: ProductExample[],
-    equipments: ProductEquipment[],
+    equipments: string[],
     createdAt: string,
     updatedAt: string
 }

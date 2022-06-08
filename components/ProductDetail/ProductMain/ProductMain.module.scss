@@ -1,0 +1,181 @@
+@import "../../../styles/variables";
+
+.container {
+  display: grid;
+  grid-gap: 60px;
+}
+
+.characteristics {
+  background: $grey-background;
+  border-radius: 6px;
+  padding: 40px;
+
+  div {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr auto;
+
+    span {
+      color: $black-text;
+      font-size: 14px;
+      line-height: 17px;
+
+      &:first-child {
+        font-weight: 600;
+      }
+    }
+  }
+
+  div + div {
+    border-top: 1px solid #DDE3E5;
+    margin-top: 15px;
+    padding-top: 15px;
+  }
+}
+
+.h2 {
+  margin-bottom: 40px;
+}
+
+.equipments {
+  li {
+    color: $black-text;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    min-height: 17px;
+    padding: 0 0 0 25px;
+    position: relative;
+
+    &::before {
+      background: $blue;
+      border-radius: 50%;
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 0;
+      height: 6px;
+      width: 6px;
+    }
+  }
+
+  li + li {
+    margin-top: 9px;
+  }
+}
+
+.examples {
+  display: grid;
+  grid-gap: 20px 30px;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.example {
+  cursor: pointer;
+  height: 99.33px;
+
+  img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.bigExample {
+  object-fit: contain;
+  max-height: calc(100vh - 100px);
+  width: 100%;
+}
+
+@media screen and (max-width: 1200px) {
+  .examples {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .example {
+    height: calc((100vw - 30px - 50px - 374px - 120px) / 5);
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .examples {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .example {
+    height: calc((100vw - 30px - 50px - 374px - 90px) / 4);
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .examples {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .example {
+    height: calc((100vw - 30px - 150px) / 6);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .examples {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .example {
+    height: calc((100vw - 30px - 120px) / 5);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .characteristics {
+    padding: 30px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .examples {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .example {
+    height: calc((100vw - 30px - 90px) / 4);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .characteristics {
+    padding: 20px;
+
+    div span {
+      font-size: 12px;
+      line-height: 15px;
+    }
+  }
+
+  .h2 {
+    margin-bottom: 20px;
+  }
+
+  .equipments {
+    margin: 20px 0 !important;
+
+    li {
+      font-size: 12px;
+      line-height: 15px;
+      padding-left: 16px;
+    }
+
+    li + li {
+      margin-top: 8px;
+    }
+  }
+
+  .examples {
+    grid-gap: 15px;
+  }
+
+  .example {
+    height: calc((100vw - 30px - 45px) / 4);
+  }
+}

@@ -18,6 +18,18 @@
   padding: 50px;
   position: relative;
   width: 100%;
+  outline: none;
+
+  &.bigContent {
+    background: none;
+    box-shadow: none;
+    max-width: unset;
+    width: fit-content;
+
+    .close {
+      filter: brightness(0) saturate(100%) invert(95%) sepia(100%) saturate(21%) hue-rotate(339deg) brightness(103%) contrast(101%);
+    }
+  }
 }
 
 .close {

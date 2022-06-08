@@ -1,0 +1,87 @@
+@import "../../styles/variables";
+
+.container {
+  display: grid;
+  grid-gap: 50px;
+  grid-template: repeat(2, auto) / 1fr 374px;
+  margin-bottom: 80px;
+}
+
+.sliders {
+
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoTop {
+  flex-grow: 1;
+  margin-bottom: 25px;
+}
+
+.description {
+  color: $black-text;
+  font-size: 14px;
+  line-height: 17px;
+  margin-top: 25px;
+}
+
+.characteristicsLink {
+  color: $black-text;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.price {
+  color: $black-text;
+  display: block;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  margin-top: 25px;
+}
+
+.cart {
+  margin-top: 25px;
+  min-width: 229px;
+}
+
+.help {
+  align-items: center;
+  background: $grey-background;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  position: sticky;
+  top: 0;
+
+  h3 {
+    color: $black-text;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  p {
+    color: $black-text;
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+.helpBtn {
+  margin-top: 30px;
+  width: 100%;
+}
+
+@media screen and (max-width: 960px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
