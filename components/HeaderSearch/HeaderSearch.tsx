@@ -33,7 +33,6 @@ const HeaderSearch = () => {
     }
 
     const clickAwayHandler = () => {
-        setInputText('')
         setIsOpen(false)
     }
 
