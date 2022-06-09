@@ -24,7 +24,7 @@
     &:global(.slick-prev) {
       left: -22.5px;
 
-      &::after {
+      &::before {
         background: url("../../public/img/arrow_slider.svg");
         content: '';
         height: 16px;
@@ -38,7 +38,7 @@
     &:global(.slick-next) {
       right: -22.5px;
 
-      &::after {
+      &::before {
         background: url("../../public/img/arrow_slider.svg");
         content: '';
         height: 16px;

@@ -34,20 +34,18 @@ const ArticlesBlock: FC<ArticlesBlockProps> = ({ articlesFromServer }) => {
         >
             <CustomSlider
                 className={styles.slider}
-                settings={{
-                    arrows: true,
-                    dots: true,
-                    variableWidth: true,
-                    speed: 200,
-                    responsive: [
-                        {
-                            breakpoint: 960,
-                            settings: {
-                                arrows: false
-                            }
+                arrows={true}
+                dots={true}
+                variableWidth={true}
+                speed={200}
+                responsive={[
+                    {
+                        breakpoint: 960,
+                        settings: {
+                            arrows: false
                         }
-                    ]
-                }}
+                    }
+                ]}
             >
                 {articles.length ? articles.map(article =>
                     <ArticleSlide article={article} key={article.id} />

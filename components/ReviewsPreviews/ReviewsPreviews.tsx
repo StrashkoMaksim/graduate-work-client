@@ -57,19 +57,17 @@ const ReviewsPreviews: FC = () => {
         >
             <CustomSlider
                 className={styles.slider}
-                settings={{
-                    arrows: true,
-                    dots: true,
-                    variableWidth: true,
-                    responsive: [
-                        {
-                            breakpoint: 960,
-                            settings: {
-                                arrows: false
-                            }
+                arrows={true}
+                dots={true}
+                variableWidth={true}
+                responsive={[
+                    {
+                        breakpoint: 960,
+                        settings: {
+                            arrows: false
                         }
-                    ]
-                }}
+                    }
+                ]}
             >
                 {reviews.length ? reviews.map(review =>
                     <ReviewPreview key={review.id} review={review} />

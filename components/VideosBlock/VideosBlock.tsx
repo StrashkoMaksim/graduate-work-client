@@ -40,22 +40,20 @@ const VideosBlock = () => {
         >
             <CustomSlider
                 className={styles.slider}
-                settings={{
-                    arrows: true,
-                    dots: true,
-                    slidesToScroll: 1,
-                    slidesToShow: 2,
-                    responsive: [
-                        {
-                            breakpoint: 960,
-                            settings: {
-                                arrows: false,
-                                slidesToShow: 1,
-                                variableWidth: true
-                            }
+                arrows={true}
+                dots={true}
+                slidesToScroll={1}
+                slidesToShow={2}
+                responsive={[
+                    {
+                        breakpoint: 960,
+                        settings: {
+                            arrows: false,
+                            slidesToShow: 1,
+                            variableWidth: true
                         }
-                    ]
-                }}
+                    }
+                ]}
             >
                 {videos.length ? videos.map(video =>
                     <VideoPreview video={video} key={video.id} />

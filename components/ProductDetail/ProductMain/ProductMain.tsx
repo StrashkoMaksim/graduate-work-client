@@ -50,6 +50,36 @@ const ProductMain: FC<ProductMainProps> = ({ product }) => {
             }
             <div className={styles.block}>
                 <H2 text='Сервис' className={styles.h2} />
+                <div className={styles.characteristics}>
+                    <div>
+                        <span>Диагностика</span>
+                        <span>1500 руб.</span>
+                    </div>
+                    <div>
+                        <span>Дополнительная диагностика (расширенная) электро-компонентов</span>
+                        <span>1500 руб.</span>
+                    </div>
+                    <div>
+                        <span>Чистка и смазка направляющих</span>
+                        <span>1500 руб.</span>
+                    </div>
+                    <div>
+                        <span>Чистка и смазка ШВП</span>
+                        <span>1500 руб.</span>
+                    </div>
+                    <div>
+                        <span>Замена шпинделя</span>
+                        <span>1500 руб.</span>
+                    </div>
+                    <div>
+                        <span>Замена шагового драйвера на идентичный</span>
+                        <span>1500 руб.</span>
+                    </div>
+                    <div>
+                        <span>Замена концевого датчика без проводки в кабель-канал</span>
+                        <span>1500 руб.</span>
+                    </div>
+                </div>
             </div>
         </div>
     );

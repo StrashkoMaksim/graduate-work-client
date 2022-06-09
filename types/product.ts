@@ -4,19 +4,24 @@ export interface ProductCharacteristics {
     [key: string]: string | number | boolean;
 }
 
-interface ProductVideo {
-    id: number,
-    videoId: string,
-    source: string,
-    productId: number
+export interface ProductVideo {
+    id: number;
+    videoId: string;
+    source: string;
+    productId: number;
+    url: string;
+    title: string;
+    smallPreview: string;
+    mediumPreview: string;
+    rawUrl: string;
 }
 
-interface ProductImage {
-    id: number,
-    smallImage: string,
-    mediumImage: string,
-    bigImage: string,
-    productId: number
+export interface ProductImage {
+    id: number;
+    smallImage: string;
+    mediumImage: string;
+    bigImage: string;
+    productId: number;
 }
 
 type ProductExample = Omit<ProductImage, 'mediumImage'>

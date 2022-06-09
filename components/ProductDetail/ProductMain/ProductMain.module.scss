@@ -108,6 +108,10 @@
 }
 
 @media screen and (max-width: 960px) {
+  .container {
+    grid-gap: 50px;
+  }
+
   .examples {
     grid-template-columns: repeat(6, 1fr);
   }
@@ -128,6 +132,10 @@
 }
 
 @media screen and (max-width: 640px) {
+  .container {
+    grid-gap: 40px;
+  }
+
   .characteristics {
     padding: 30px;
   }
@@ -144,6 +152,10 @@
 }
 
 @media screen and (max-width: 480px) {
+  .container {
+    grid-gap: 30px;
+  }
+
   .characteristics {
     padding: 20px;
 

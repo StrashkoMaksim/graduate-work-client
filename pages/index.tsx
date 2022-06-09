@@ -6,7 +6,7 @@ import ArticlesBlock from "../components/Articles/ArticlesBlock/ArticlesBlock";
 import VideosBlock from "../components/VideosBlock/VideosBlock";
 import MapBlock from "../components/MapBlock/MapBlock";
 import MainLayout from "../components/MainLayout/MainLayout";
-import {GetStaticProps, InferGetStaticPropsType} from "next";
+import {GetStaticProps} from "next";
 import {CategoryMain} from "../types/category";
 import {Api} from "../utils/api";
 import {ReactElement} from "react";

@@ -1,12 +1,17 @@
 import styles from './ProductDetail.module.scss';
 import {ProductDetailModel} from "../../types/product";
-import {FC} from "react";
+import React, {FC} from "react";
 import cn from "classnames";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import H1 from "../../ui-kit/H1/H1";
 import CustomButton, {ButtonType} from "../../ui-kit/CustomButton/CustomButton";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import ProductMain from "./ProductMain/ProductMain";
+import ProductSliders from "./ProductSliders/ProductSliders";
+import {useSnackbar} from "notistack";
+import {useActions} from "../../hooks/useActions";
+import {CartEntities} from "../../types/cart";
+import _ from "lodash";
 
 interface ProductDetailProps {
     product: ProductDetailModel
@@ -14,6 +19,16 @@ interface ProductDetailProps {
 
 const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
     const {loading} = useTypedSelector(state => state.loading)
+    const {enqueueSnackbar} = useSnackbar();
+    const {products} = useTypedSelector(state => state.cart)
+    const {dispatchProductsCart} = useActions();
+
+    const addToCartHandler = async () => {
+        const newProductsCart: CartEntities = _.clone(products);
+        newProductsCart[product.id] ? newProductsCart[product.id]++ : newProductsCart[product.id] = 1;
+        await dispatchProductsCart(newProductsCart);
+        enqueueSnackbar('Товар добавлен в корзину', {variant: "success"})
+    }
 
     return (
         <>
@@ -25,12 +40,11 @@ const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
                 current={product.name} />
             <div className={cn('section', styles.section)}>
                 <div className={cn('container', styles.container)}>
-                    <div className={styles.sliders}>
-
-                    </div>
+                    <H1 text={product.name} className={styles.mobileH1} />
+                    <ProductSliders images={product.images} videos={product.videos} />
                     <div className={styles.info}>
                         <div className={styles.infoTop}>
-                            <H1 text={product.name} />
+                            <H1 text={product.name} className={styles.desktopH1} />
                             <p className={styles.description}>{product.description}</p>
                         </div>
                         <div className={styles.infoBottom}>
@@ -41,6 +55,7 @@ const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
                                 text='В корзину'
                                 disabled={loading}
                                 additionalClass={styles.cart}
+                                onClick={addToCartHandler}
                             />
                         </div>
                     </div>

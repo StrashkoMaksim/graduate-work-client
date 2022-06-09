@@ -19,12 +19,10 @@ const About = () => {
                 </div>
                 <CustomSlider
                     className={styles.slider}
-                    settings={{
-                        arrows: true,
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                        fade: true
-                    }}
+                    arrows={true}
+                    slidesToShow={1}
+                    slidesToScroll={1}
+                    fade={true}
                 >
                     <div className={styles.slide}>
                         <Image src={Slide1} alt="Описание слайда"/>

@@ -1,26 +1,21 @@
-import React, {FC, ReactNode} from 'react';
+import React, {FC, ForwardedRef} from 'react';
 import Slider, {Settings} from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styles from './CustomSlider.module.scss'
 import cn from "classnames";
 
-interface CustomSliderProps {
-    children: ReactNode,
-    className: string,
-    settings: Settings
-}
-
-const CustomSlider: FC<CustomSliderProps> = ({ settings, className, children }) => {
+const CustomSlider = React.forwardRef((props: Settings, ref: ForwardedRef<any>) => {
     return (
         <Slider
-            {...settings}
-            className={cn(styles.slider, className)}
-            dotsClass={styles.dots}
+            {...props}
+            className={cn(styles.slider, props.className)}
+            dotsClass={cn(styles.dots, props.dotsClass)}
+            ref={ref}
         >
-            {children}
+            {props.children}
         </Slider>
     );
-};
+});
 
 export default CustomSlider;

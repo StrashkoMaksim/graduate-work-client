@@ -240,7 +240,7 @@ const validateVideo = (video: string) => {
     ) !== -1) return true;
 
     if (video.search(
-        /([http|https]+:\/\/)?(?:www\.|)zen\.yandex\.ru\/video\/watch\/([a-zA-Z0-9_\-]{24})(?:.*)?/i,
+        /https:\/\/frontend.vh.yandex.ru\/player\/([a-zA-Z0-9_\-]{12})(?:.*)?/i,
     ) !== -1) return true;
 
     if (video.search(
