@@ -106,14 +106,35 @@
   width: 100%;
 
   table {
-    border: 3px solid #DDE3E5;
+    border: 2px solid #DDE3E5;
     border-collapse: collapse;
     table-layout: fixed;
     width: 100%;
+
+    * {
+      font-size: 14px;
+    }
+  }
+
+  tr {
+    border-bottom: 1px solid $grey-background;
   }
 
   th {
+    padding: 5px 10px;
     width: 150px;
+
+    &:not(:last-child) {
+      border-right: 1px solid $grey-background;
+    }
+  }
+
+  td {
+    padding: 5px 10px;
+
+    &:not(:last-child) {
+      border-right: 1px solid $grey-background;
+    }
   }
 }
 
@@ -186,5 +207,9 @@
 
   .carouselImg {
     height: calc((100vw - 30px - 6px) / 2);
+  }
+
+  .table * {
+    font-size: 12px;
   }
 }
