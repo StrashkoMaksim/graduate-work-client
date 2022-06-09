@@ -5,6 +5,7 @@ import Underline from "@editorjs/underline";
 import Embed from '@editorjs/embed';
 import Warning from '@editorjs/warning';
 import Delimiter from '@editorjs/delimiter';
+import Table from '@editorjs/table';
 import Carousel from '@vietlongn/editorjs-carousel';
 import Danger from '../components/Editor/Danger'
 import {Api} from "../utils/api";
@@ -101,6 +102,14 @@ export const useEditor = () => {
             }
         },
         delimiter: Delimiter,
+        table: {
+            class: Table,
+            inlineToolbar: true,
+            config: {
+                rows: 2,
+                cols: 3,
+            },
+        },
     }
 
     const localization = {
@@ -134,7 +143,8 @@ export const useEditor = () => {
                 "Italic": "Курсив",
                 "InlineCode": "Моноширинный",
                 "Image": "Картинка",
-                "Carousel": "Галерея"
+                "Carousel": "Галерея",
+                "Table": "Таблица"
             },
             tools: {
                 "warning": { // <-- 'Warning' tool will accept this dictionary section
@@ -149,6 +159,16 @@ export const useEditor = () => {
                 },
                 "carousel": {
                     " Add Image": "Вставьте картинку"
+                },
+                "table": {
+                    "Delete column": "Удалить колонку",
+                    "Add column to left": "Добавить колонку слева",
+                    "Add column to right": "Добавить колонку справа",
+                    "Add row above": "Добавить строку выше",
+                    "Add row below": "Добавить строку ниже",
+                    "Delete row": "Удалить строку",
+                    "With headings": "С заголовками",
+                    "Without headings": "Без заголовков"
                 }
             },
             blockTunes: {

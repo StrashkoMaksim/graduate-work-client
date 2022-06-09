@@ -63,6 +63,30 @@ const ArticleDetail: FC<ArticleDetailProps> = ({ article }) => {
                                 allow="encrypted-media; picture-in-picture"
                                 allowFullScreen
                         />
+                    case 'table':
+                        return <div className={styles.table} key={block.id}>
+                            <table>
+                                {block.data.withHeadings ?
+                                    <thead>
+                                        <tr>
+                                            {block.data.content[0].map((cell: string, index: number) =>
+                                                <th key={index}>{cell}</th>
+                                            )}
+                                        </tr>
+                                    </thead> : ''
+                                }
+                                <tbody>
+                                {block.data.content.map((row: string[], index: number) => {
+                                    if (index === 0 && block.data.withHeadings) return;
+                                    return <tr key={index}>
+                                        {row.map((cell: string, index) =>
+                                            <td key={index}>{cell}</td>
+                                        )}
+                                    </tr>
+                                })}
+                                </tbody>
+                            </table>
+                        </div>
                 }
             })}
         </article>

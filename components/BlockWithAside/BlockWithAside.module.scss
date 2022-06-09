@@ -4,6 +4,9 @@
   grid-template-columns: 288px 1fr;
   margin-bottom: 80px;
 }
+.content {
+  overflow-x: hidden;
+}
 
 @media screen and (max-width: 1200px) {
   .container {

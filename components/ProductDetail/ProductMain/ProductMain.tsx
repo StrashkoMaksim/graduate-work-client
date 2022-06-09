@@ -18,7 +18,7 @@ const ProductMain: FC<ProductMainProps> = ({ product }) => {
         <div className={styles.container}>
             <div className={styles.characteristics} id='characteristics'>
                 {Object.entries(product.characteristics).map(entry =>
-                    <div>
+                    <div key={entry[0]}>
                         <span>{entry[0]}</span>
                         <span>{entry[1]}</span>
                     </div>
@@ -37,7 +37,7 @@ const ProductMain: FC<ProductMainProps> = ({ product }) => {
                     <H2 text='Примеры работ' className={styles.h2} />
                     <div className={styles.examples}>
                         {product.examples.map(example =>
-                            <div className={styles.example} onClick={openModal(example.bigImage)}>
+                            <div className={styles.example} onClick={openModal(example.bigImage)} key={example.id}>
                                 <img src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${example.smallImage}`} />
                             </div>
                         )}

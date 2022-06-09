@@ -100,6 +100,23 @@
   width: 100%;
 }
 
+.table {
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+
+  table {
+    border: 3px solid #DDE3E5;
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  th {
+    width: 150px;
+  }
+}
+
 @media screen and (max-width: 1200px) {
   .article {
     margin-left: 0;
