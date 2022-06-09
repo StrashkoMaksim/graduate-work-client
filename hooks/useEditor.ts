@@ -168,7 +168,8 @@ export const useEditor = () => {
                     "Add row below": "Добавить строку ниже",
                     "Delete row": "Удалить строку",
                     "With headings": "С заголовками",
-                    "Without headings": "Без заголовков"
+                    "Without headings": "Без заголовков",
+                    "Heading": "Заголовок"
                 }
             },
             blockTunes: {

@@ -8,7 +8,10 @@ import Image from 'next/image'
 
 const Footer = () => {
     const scrollTop = useCallback(() => {
-        window.scrollTo({top: 0, left: 0, behavior: "smooth"})
+        const body = document.querySelector('body')
+        if (body) {
+            body.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+        }
     }, [])
 
     return (
