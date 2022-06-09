@@ -35,9 +35,11 @@ const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
             <Breadcrumbs
                 links={[
                     {link: '/', text: 'Главная'},
-                    {link: '/catalog', text: 'Каталог'}
+                    {link: '/catalog', text: 'Каталог'},
+                    {link: `/catalog/${product.category.slug}`, text: product.category.name},
                 ]}
-                current={product.name} />
+                current={product.name}
+            />
             <div className={cn('section', styles.section)}>
                 <div className={cn('container', styles.container)}>
                     <H1 text={product.name} className={styles.mobileH1} />

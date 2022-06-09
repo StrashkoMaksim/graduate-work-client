@@ -7,7 +7,7 @@ import Link from "next/link";
 interface BreadcrumbsProps {
     links: {
         link: string,
-        text: string
+        text?: string
     }[],
     current?: string
 }
@@ -16,7 +16,11 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ links, current }) => {
     return (
         <div className={cn("section", styles.block)}>
             <div className={cn("container", styles.container)}>
-                {links.map(el => <Link href={el.link} key={el.link}><a>{el.text}</a></Link>)}
+                {links.map(el => {
+                    if (el.text) {
+                        return (<Link href={el.link} key={el.link}><a>{el.text}</a></Link>)
+                    }
+                })}
                 {current
                     ? <span>{current}</span>
                     : <Skeleton variant={"text"} animation={"wave"} className={styles.skeleton} />

@@ -1,4 +1,4 @@
-import {CategoryCharacteristics, CategoryCharacteristicsType} from "./category";
+import {CategoryAside, CategoryCharacteristics, CategoryCharacteristicsType} from "./category";
 
 export interface ProductCharacteristics {
     [key: string]: string | number | boolean;
@@ -44,7 +44,9 @@ export interface Product {
 }
 
 export type ProductPreviewModel = Omit<Product, 'description' | 'equipments' | 'examples' | 'images' | 'videos'>
-export type ProductDetailModel = Pick<Product, 'id' | 'name' | 'description' | 'price' | 'characteristics' | 'videos' | 'examples' | 'equipments' | 'images'>
+export type ProductDetailModel = Pick<Product, 'id' | 'name' | 'description' | 'price' | 'characteristics' | 'videos' | 'examples' | 'equipments' | 'images'> & {
+    category: CategoryAside
+}
 
 export interface GalleryImage {
     id?: number;
