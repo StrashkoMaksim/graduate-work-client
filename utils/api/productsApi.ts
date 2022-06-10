@@ -2,7 +2,7 @@ import {AxiosInstance} from "axios";
 import {
     CreateProductDTO,
     ProductDetailModel,
-    ProductEditing,
+    ProductEditing, ProductForCart,
     ProductPreviewModel,
     UpdateProductDTO
 } from "../../types/product";
@@ -14,6 +14,11 @@ export const ProductsApi = (instance: AxiosInstance) => ({
     },
     async getProducts(categoryId: number | null, limit: number, offset: number): Promise<ProductPreviewModel[]> {
         const {data} = await instance.get(`products?limit=${limit}${categoryId ? `&category=${categoryId}` : ''}${offset ? `&offset=${offset}` : ''}`)
+        return data;
+    },
+    async getProductsForCart(ids: string[]): Promise<ProductForCart[]> {
+        let query = ids.reduce((prev, current) => `${prev}ids=${current}&`, '');
+        const {data} = await instance.get(`products/cart?${query.substring(-1)}`);
         return data;
     },
     async getProductBySlug(slug: string): Promise<ProductDetailModel> {

@@ -15,7 +15,7 @@
 @media screen and (max-width: 640px) {
   .header {
     grid-gap: 10px;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
 
   .btns {
