@@ -1,0 +1,30 @@
+@import "../../styles/variables";
+
+.controlLabel {
+  align-items: flex-start;
+  display: grid;
+  grid-template-columns: auto 1fr;
+
+  & > span {
+    color: $black-text;
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 120%;
+
+    a {
+      color: $blue;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.checkbox:global(.Mui-checked) {
+  color: $blue;
+}
+
+.error {
+  margin-left: 30px;
+}

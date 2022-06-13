@@ -70,7 +70,7 @@ const AdminArticlesPage: NextPageWithLayout<PageProps> = ({ articlesFromServer }
                     <ArticlesList isAdmin={true} articlesFromServer={articlesFromServer} limit={LIMIT} />
                 }
             />
-            <CustomModal open={isModalVisible} onClose={hideModalHandler} title='Менеджер категорий'>
+            <CustomModal isOpen={isModalVisible} onClose={hideModalHandler} title='Менеджер категорий'>
                 <ArticlesCategoriesManager />
             </CustomModal>
         </>

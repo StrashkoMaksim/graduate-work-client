@@ -123,7 +123,7 @@ const ReviewsPreviews: FC = () => {
                     onClick={openAddModal}
                 />
             </div>
-            <CustomModal open={selectedReview !== null} onClose={closeReadModal}>
+            <CustomModal isOpen={selectedReview !== null} onClose={closeReadModal}>
                 {selectedReview !== null &&
                     <>
                         <span className={styles.surname}>{reviews[selectedReview].surname}</span>

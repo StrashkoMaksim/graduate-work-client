@@ -30,7 +30,7 @@ const AddReviewModal: FC<ReviewModalProps> = ({ open, onClose }) => {
 
     return (
         <CustomModal
-            open={open}
+            isOpen={open}
             onClose={onClose}
             title={isSent ? 'Спасибо за ваш отзыв, скоро он появится на сайте!' : 'Оставить отзыв'}
         >

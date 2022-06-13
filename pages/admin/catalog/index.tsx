@@ -34,7 +34,7 @@ const AdminCatalogPage: NextPageWithLayout = () => {
                 </div>
             </PageHeader>
             <Catalog isAdmin={true} categoriesFromServer={null} productsFromServer={null} />
-            <CustomModal open={isModalVisible} onClose={hideModalHandler} title='Менеджер категорий'>
+            <CustomModal isOpen={isModalVisible} onClose={hideModalHandler} title='Менеджер категорий'>
                 <CategoriesManager />
             </CustomModal>
         </>

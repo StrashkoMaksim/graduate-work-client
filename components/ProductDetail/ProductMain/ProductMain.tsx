@@ -42,7 +42,7 @@ const ProductMain: FC<ProductMainProps> = ({ product }) => {
                             </div>
                         )}
                     </div>
-                    <CustomModal open={Boolean(currentExample)} onClose={closeModal} isBigContent={true}>
+                    <CustomModal isOpen={Boolean(currentExample)} onClose={closeModal} isBigContent={true}>
                             <img src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${currentExample}`}
                                  className={styles.bigExample} />
                     </CustomModal>

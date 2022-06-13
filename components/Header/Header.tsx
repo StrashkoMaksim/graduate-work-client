@@ -5,9 +5,7 @@ import Navigation from "../Navigation/Navigation";
 import HeaderSearch from "../HeaderSearch/HeaderSearch";
 import PhoneIcon from '../../public/img/phone.svg'
 import OverflowedSpan from "../../ui-kit/OverflowedSpan/OverflowedSpan";
-import Link from "next/link";
 import Image from 'next/image'
-import {useTypedSelector} from "../../hooks/useTypedSelector";
 import CartIcon from "../CartIcon/CartIcon";
 
 const NavigationLinks = [

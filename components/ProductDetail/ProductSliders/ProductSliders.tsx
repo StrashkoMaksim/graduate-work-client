@@ -79,14 +79,14 @@ const ProductSliders: FC<ProductSliders> = ({ images, videos }) => {
                     </div>
                 )}
             </CustomSlider>
-            <CustomModal open={Boolean(currentVideo)} onClose={closeModal} isBigContent={true}>
+            <CustomModal isOpen={Boolean(currentVideo)} onClose={closeModal} isBigContent={true}>
                 <iframe width="480" height="270" className={styles.iframe}
                         src={`${currentVideo}?from_block=partner&from=zen&autoplay=1&tv=0`}
                         allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media"
                         frameBorder="0" scrolling="no" allowFullScreen=""
                 />
             </CustomModal>
-            <CustomModal open={Boolean(currentImage)} onClose={closeModal} isBigContent={true}>
+            <CustomModal isOpen={Boolean(currentImage)} onClose={closeModal} isBigContent={true}>
                 <img src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${currentImage}`}
                      className={styles.bigModal} />
             </CustomModal>

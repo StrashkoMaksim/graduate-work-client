@@ -20,7 +20,7 @@ export type NavigationLink = {
 
 const Navigation: FC<NavigationProps> = ({ isAdmin, links }) => {
     const [isOpen, setIsOpen] = useState(false)
-    const {logout} = useActions()
+    const { logout, setOpenedCallbackModal } = useActions()
 
     const navToggleHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation()
@@ -55,7 +55,12 @@ const Navigation: FC<NavigationProps> = ({ isAdmin, links }) => {
                 {isAdmin ?
                     <button className={styles.logout} onClick={logoutHandler} />
                     :
-                    <CustomButton variant={ButtonType.blue} text={'Заказать звонок'} additionalClass={styles.BlueBtn} />
+                    <CustomButton
+                        variant={ButtonType.blue}
+                        text={'Заказать звонок'}
+                        additionalClass={styles.BlueBtn}
+                        onClick={setOpenedCallbackModal}
+                    />
                 }
                 <button className={cn(styles.Burger, {[styles.active]: isOpen})} onClick={navToggleHandler}>
                     <div className={styles.BurgerLine}></div>
