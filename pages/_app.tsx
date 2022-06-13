@@ -3,11 +3,12 @@ import Head from "next/head";
 import type { AppProps } from 'next/app'
 import '../styles/reload.scss'
 import '../styles/global.scss'
-import {Component, ReactElement, ReactNode} from "react";
+import {Component, ReactElement, ReactNode, useEffect} from "react";
 import {Api} from "../utils/api";
 import {loginUser} from "../store/slices/user";
 import {SnackbarProvider} from "notistack";
 import {NextPage} from "next";
+import {Router} from "next/router";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (pageProps: AppProps, page: ReactElement) => ReactNode
@@ -18,8 +19,14 @@ type AppPropsWithLayout = AppProps & {
 }
 
 function App ({ Component, pageProps }: AppPropsWithLayout) {
-    // Use the layout defined at the page level, if available
-    // const getLayout = Component.getLayout ?? ((page) => page)
+    useEffect(() => {
+        Router.events.on('routeChangeComplete', () => {
+            const body = document.querySelector('body')
+            if (body) {
+                body.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+            }
+        });
+    }, [])
 
     return (
         <SnackbarProvider

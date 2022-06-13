@@ -1,0 +1,104 @@
+.item {
+  display: grid;
+  grid-gap: 17px;
+  grid-template-columns: 177px 1fr;
+}
+
+.surname {
+  display: block;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 160%;
+}
+
+.fullname {
+  display: block;
+  font-size: 14px;
+  line-height: 160%;
+}
+
+.date {
+  color: #A3ACAF;
+  display: block;
+  font-size: 14px;
+  line-height: 160%;
+  margin-top: 14px;
+}
+
+.text {
+  background: #F3F5F7;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  padding: 31px 35px;
+  min-height: 198px;
+
+  p {
+    font-size: 14px;
+    line-height: 17px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    max-height: 102px;
+  }
+
+  button {
+    align-self: center;
+    background: url(/img/reviews_down.svg) no-repeat center;
+    background-size: contain;
+    border: none;
+    display: none;
+    margin: 26px auto 0;
+    height: 8px;
+    width: 14.75px;
+  }
+
+  &.withArrow {
+    button {
+      display: block;
+    }
+  }
+
+  &.active {
+    p {
+      display: block;
+      max-height: unset;
+    }
+
+    button {
+      background-image: url(/img/reviews_up.svg);
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .item {
+    grid-template: auto 1fr / 1fr;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .text {
+    min-height: 168px;
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .surname {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .fullname {
+    font-size: 12px;
+    line-height: 16.8px;
+  }
+
+  .date {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+}

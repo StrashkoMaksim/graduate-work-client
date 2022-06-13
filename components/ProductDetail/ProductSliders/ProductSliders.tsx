@@ -54,6 +54,7 @@ const ProductSliders: FC<ProductSliders> = ({ images, videos }) => {
                 speed={200}
                 afterChange={onSliderChange}
                 beforeChange={() => setClickable(false)}
+                infinite={false}
                 responsive={[
                     {
                         breakpoint: 640,
@@ -98,6 +99,7 @@ const ProductSliders: FC<ProductSliders> = ({ images, videos }) => {
                 slidesToShow={7}
                 speed={200}
                 focusOnSelect={true}
+                infinite={false}
                 responsive={[
                     {
                         breakpoint: 1200,

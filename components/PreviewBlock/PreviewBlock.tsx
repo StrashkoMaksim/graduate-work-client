@@ -19,7 +19,7 @@ const PreviewBlock: FC<PreviewBlockProps> = ({ allLink, title, additionalClass, 
             <div className='container'>
                 <div className={styles.header}>
                     <h2>{title}</h2>
-                    {allLink && <Link href={allLink.link}><a>{allLink.text}</a></Link>}
+                    {allLink && <Link href={allLink.link} scroll={true}><a>{allLink.text}</a></Link>}
                 </div>
                 {children}
             </div>

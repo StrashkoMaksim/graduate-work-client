@@ -1,9 +1,33 @@
+@import "../../styles/variables";
+
 .reviews {
   padding: 60px 0;
 }
 
 .addBtn {
   margin-top: 56px;
+}
+
+.surname {
+  align-self: flex-start;
+  color: $black-text;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 160%;
+}
+
+.name {
+  align-self: flex-start;
+  color: $black-text;
+  font-size: 14px;
+  line-height: 160%;
+}
+
+.text {
+  color: $black-text;
+  font-size: 14px;
+  line-height: 17px;
+  margin-top: 20px;
 }
 
 @media screen and (max-width: 640px) {
