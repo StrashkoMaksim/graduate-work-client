@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './Banners.module.scss'
 import {Skeleton} from "@mui/material";
 import cn from "classnames";
@@ -9,21 +9,32 @@ import Link from "next/link";
 const banners: Banner[] = [
     {
         id: 1,
-        link: '1',
-        smallImage: 'https://lasercut.ru/assets/files/flamingo/akcii/sot5.jpg',
-        mediumImage: 'https://lasercut.ru/assets/files/flamingo/akcii/sot5.jpg',
-        bigImage: 'https://lasercut.ru/assets/files/flamingo/akcii/sot5.jpg',
+        link: '/1',
+        smallImage: '/img/banner_2.jpg',
+        mediumImage: '/img/banner_2.jpg',
+        bigImage: '/img/banner_2.jpg',
     },
     {
         id: 2,
-        link: '2',
-        smallImage: 'https://lasercut.ru/assets/files/flamingo/akcii/sot5.jpg',
-        mediumImage: 'https://lasercut.ru/assets/files/flamingo/akcii/sot5.jpg',
-        bigImage: 'https://lasercut.ru/assets/files/flamingo/akcii/sot5.jpg',
+        link: '/2',
+        smallImage: '/img/banner_1.jpg',
+        mediumImage: '/img/banner_1.jpg',
+        bigImage: '/img/banner_1.jpg',
     },
 ]
 
 const Banners = () => {
+    const [clickable, setClickable] = useState(true);
+    const onSliderChange = () => {
+        setClickable(true);
+    };
+
+    const onLinkClickHandler = (event: MouseEvent) => {
+        if (!clickable) {
+            event.preventDefault();
+        }
+    }
+
     return (
         <div className={cn('section grey-bg', styles.banners)}>
             <div className={cn('container', styles.container)}>
@@ -34,10 +45,12 @@ const Banners = () => {
                         arrows={false}
                         dots={true}
                         autoplay={true}
+                        afterChange={onSliderChange}
+                        beforeChange={() => setClickable(false)}
                     >
                         {banners.length ? banners.map(banner =>
-                                <Link href={`/${banner.link}`} key={banner.id}>
-                                    <a className={styles.link}>
+                                <Link href={banner.link} key={banner.id}>
+                                    <a className={styles.link} onClick={onLinkClickHandler}>
                                         <picture>
                                             <source srcSet={banner.smallImage} media='(max-width: 768px)'/>
                                             <source srcSet={banner.mediumImage} media='(max-width: 1000px)'/>
