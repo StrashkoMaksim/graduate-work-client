@@ -1,0 +1,28 @@
+@import "../../styles/variables";
+
+.header {
+  color: $black-text;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.description {
+  color: $black-text;
+  font-size: 14px;
+  line-height: 17px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.btn {
+  margin-top: 30px;
+  width: 100%;
+}
+
+@media screen and (max-width: 1200px) {
+  .wrapper {
+    display: none;
+  }
+}

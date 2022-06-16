@@ -7,9 +7,10 @@ import Link from "next/link";
 import Image from 'next/image'
 import CallbackModal from "../CallbackModal/CallbackModal";
 import {useActions} from "../../hooks/useActions";
+import QuestionModal from "../QuestionModal/QuestionModal";
 
 const Footer = () => {
-    const { setOpenedCallbackModal } = useActions();
+    const { setOpenedCallbackModal, setOpenedQuestionModal } = useActions();
 
     const scrollTop = useCallback(() => {
         const body = document.querySelector('body')
@@ -58,11 +59,16 @@ const Footer = () => {
                         <div className={styles.buttons}>
                             <CustomButton
                                 variant={ButtonType.blue}
-                                text={'Заказать звонок'}
+                                text='Заказать звонок'
                                 additionalClass={styles.buttonsBlueBtn}
                                 onClick={setOpenedCallbackModal}
                             />
-                            <CustomButton variant={ButtonType.white} text={'Задать вопрос'} additionalClass={styles.buttonsWhiteBtn} />
+                            <CustomButton
+                                variant={ButtonType.white}
+                                text='Задать вопрос'
+                                additionalClass={styles.buttonsWhiteBtn}
+                                onClick={setOpenedQuestionModal}
+                            />
                             <div className={styles.buttonsYandex}>
                                 <h4>Оставьте ваш отзыв</h4>
                                 <a href="yandex.ru" className={styles.contactsReview}>
@@ -139,6 +145,7 @@ const Footer = () => {
                 </button>
             </div>
             <CallbackModal />
+            <QuestionModal />
         </footer>
     );
 };

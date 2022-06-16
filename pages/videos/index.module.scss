@@ -1,0 +1,36 @@
+@import "../../styles/variables";
+
+.searchHeader {
+  color: $black-text;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.search {
+  margin-top: 15px;
+}
+
+@media screen and (max-width: 1200px) {
+  .searchHeader {
+    display: none;
+  }
+
+  .search {
+    margin-top: 0;
+    padding-left: 28.23px;
+    position: relative;
+    width: 250px;
+
+    &::before {
+      background: url(/img/search.svg);
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      height: 18.23px;
+      width: 18.23px;
+    }
+  }
+}

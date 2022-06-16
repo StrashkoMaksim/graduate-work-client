@@ -1,18 +1,34 @@
-import React, {FC} from 'react';
+import React, {FC, useCallback, useState} from 'react';
 import styles from './VideoPreview.module.scss'
 import {Video} from "../../types/video";
 import {Skeleton} from "@mui/material";
+import VideoModal from "../VideoModal/VideoModal";
+import cn from "classnames";
 
 interface VideoPreviewProps {
-    video?: Video
+    video?: Video;
+    onClick?: () => boolean;
+    inList?: boolean;
 }
 
-const VideoPreview: FC<VideoPreviewProps> = ({ video }) => {
+const VideoPreview: FC<VideoPreviewProps> = ({ video, onClick, inList }) => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const onClickHandler = () => {
+        if (video && onClick && onClick() || inList) {
+            setIsModalVisible(true)
+        }
+    }
+
+    const closeModalHandler = useCallback(() => {
+        setIsModalVisible(false);
+    }, [])
+
     if (video) {
         return (
-            <div className={styles.slide}>
+            <div className={cn(styles.slide, {[styles.inList]: inList})}>
                 <img src={video.image} alt={video.name} className={styles.preview} />
-                <div className={styles.mount}>
+                <div className={styles.mount} onClick={onClickHandler}>
                     <svg viewBox="0 0 106 106" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle opacity="0.3" cx="53" cy="53" r="53" fill="#F3F5F7"/>
                         <path
@@ -21,11 +37,12 @@ const VideoPreview: FC<VideoPreviewProps> = ({ video }) => {
                     </svg>
                     <div className={styles.info}>{video.name}</div>
                 </div>
+                <VideoModal isOpen={isModalVisible} onClose={closeModalHandler} link={video.link} />
             </div>
         )
     } else {
         return (
-            <div className={styles.slide}>
+            <div className={cn(styles.slide, {[styles.inList]: inList})}>
                 <Skeleton variant={"rectangular"} animation={"wave"} className={styles.skeleton} />
             </div>
         )

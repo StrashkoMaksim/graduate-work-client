@@ -5,6 +5,7 @@ import React, {FC, useState} from "react";
 import {ProductImage, ProductVideo} from "../../../types/product";
 import styles from './ProductSliders.module.scss'
 import cn from "classnames";
+import VideoModal from "../../VideoModal/VideoModal";
 
 interface ProductSliders {
     images: ProductImage[];
@@ -65,7 +66,7 @@ const ProductSliders: FC<ProductSliders> = ({ images, videos }) => {
                 ]}
             >
                 {videos.map(video =>
-                    <div className={cn(styles.mainSlide, styles.video)} key={video.id} onClick={() => console.log(video.smallPreview)}>
+                    <div className={cn(styles.mainSlide, styles.video)} key={video.id}>
                         <img src={video.mediumPreview} />
                     </div>
                 )}
@@ -79,13 +80,7 @@ const ProductSliders: FC<ProductSliders> = ({ images, videos }) => {
                     </div>
                 )}
             </CustomSlider>
-            <CustomModal isOpen={Boolean(currentVideo)} onClose={closeModal} isBigContent={true}>
-                <iframe width="480" height="270" className={styles.iframe}
-                        src={`${currentVideo}?from_block=partner&from=zen&autoplay=1&tv=0`}
-                        allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media"
-                        frameBorder="0" scrolling="no" allowFullScreen=""
-                />
-            </CustomModal>
+            <VideoModal isOpen={Boolean(currentVideo)} onClose={closeModal} link={currentVideo} />
             <CustomModal isOpen={Boolean(currentImage)} onClose={closeModal} isBigContent={true}>
                 <img src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${currentImage}`}
                      className={styles.bigModal} />

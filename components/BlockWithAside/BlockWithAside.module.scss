@@ -1,4 +1,5 @@
 .container {
+  align-items: flex-start;
   display: grid;
   grid-gap: 6px;
   grid-template-columns: 288px 1fr;
@@ -12,5 +13,23 @@
   .container {
     grid-gap: 27px;
     grid-template: repeat(2, auto)/1fr;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .container {
+    margin-bottom: 60px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .container {
+    margin-bottom: 40px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    margin-bottom: 20px;
   }
 }

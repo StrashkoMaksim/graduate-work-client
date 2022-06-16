@@ -65,11 +65,6 @@
   width: 100%;
 }
 
-.iframe {
-  height: calc((100vw - 100px) * 0.56);
-  width: calc(100vw - 100px);
-}
-
 @media screen and (max-width: 1200px) {
   .mainSlider, .navSlider {
     width: calc(100vw - 30px - 50px - 374px);
@@ -83,12 +78,5 @@
 
   .mainSlide {
     height: calc((100vw - 30px) * 0.54);
-  }
-}
-
-@media screen and (max-width: 960px) {
-  .iframe {
-    height: calc((100vw - 40px) * 0.56);
-    width: calc(100vw - 40px);
   }
 }

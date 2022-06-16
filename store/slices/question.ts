@@ -10,24 +10,24 @@ const initialState: initialStateType = {
 }
 
 const loadingSlice = createSlice({
-    name: 'callback',
+    name: 'question',
     initialState: initialState,
     reducers: {
-        openCallbackModal: (state: initialStateType) => {
+        openQuestionModal: (state: initialStateType) => {
             state.isOpen = true;
         },
-        closeCallbackModal: (state: initialStateType) => {
+        closeQuestionModal: (state: initialStateType) => {
             state.isOpen = false;
         },
     },
     extraReducers: {
         [HYDRATE]: (state, action) => {
-            if (action.payload.callback.isOpen !== state.isOpen) {
-                return action.payload.callback;
+            if (action.payload.question.isOpen !== state.isOpen) {
+                return action.payload.question;
             }
         },
     }
 })
 
-export const { openCallbackModal, closeCallbackModal } = loadingSlice.actions;
-export const callbackReducer = loadingSlice.reducer;
+export const { openQuestionModal, closeQuestionModal } = loadingSlice.actions;
+export const questionReducer = loadingSlice.reducer;

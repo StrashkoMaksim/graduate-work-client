@@ -6,6 +6,7 @@ import {articlesCategoriesReducer} from "./slices/articles-categories";
 import {loadingReducer} from "./slices/loading";
 import {cartReducer} from "./slices/cart";
 import {callbackReducer} from "./slices/callback";
+import {questionReducer} from "./slices/question";
 
 const makeStore = () =>
     configureStore({
@@ -15,6 +16,7 @@ const makeStore = () =>
             loading: loadingReducer,
             cart: cartReducer,
             callback: callbackReducer,
+            question: questionReducer,
         }
     });
 
