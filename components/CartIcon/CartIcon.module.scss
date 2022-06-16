@@ -1,14 +1,15 @@
 @import "../../styles/variables";
 
 .cart {
+  align-items: center;
   background: none;
   border: none;
   border-right: 0.5px solid $outline;
+  justify-content: center;
   padding: 15px 13px;
   position: relative;
   width: 61px;
   display: flex;
-  place-content: center;
 
   svg {
     width: 24px;
