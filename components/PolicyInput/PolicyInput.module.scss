@@ -21,6 +21,10 @@
   }
 }
 
+.checkbox {
+  padding-top: 0 !important;
+}
+
 .checkbox:global(.Mui-checked) {
   color: $blue !important;
 }

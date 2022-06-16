@@ -1,7 +1,7 @@
 import CustomModal from "../../ui-kit/CustomModal/CustomModal";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {useActions} from "../../hooks/useActions";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {CallbackDTO, initialCallbackDTO} from "../../types/callback";
 import styles from './CallbackModal.module.scss'
 import CustomTextField from "../../ui-kit/CustomTextField/CustomTextField";
@@ -10,6 +10,8 @@ import PolicyInput from "../PolicyInput/PolicyInput";
 import CustomButton, {ButtonType} from "../../ui-kit/CustomButton/CustomButton";
 import {Errors} from "../../types/errors";
 import {validateCallback} from "../../utils/validation/callback";
+import cn from "classnames";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const CallbackModal = () => {
     const { isOpen } = useTypedSelector(state => state.callback);
@@ -17,6 +19,7 @@ const CallbackModal = () => {
     const [callbackDto, setCallbackDto] = useState<CallbackDTO>(initialCallbackDTO);
     const [isSent, setIsSent] = useState(false);
     const [errors, setErrors] = useState<Errors>({})
+    const captchaRef = useRef<ReCAPTCHA>(null)
 
     useEffect(() => {
         setCallbackDto(initialCallbackDTO);
@@ -41,6 +44,10 @@ const CallbackModal = () => {
     const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const errors = validateCallback(callbackDto);
+
+        if (!captchaRef.current?.getValue()) {
+            errors.captcha = 'Пройдите проверку';
+        }
 
         if (Object.keys(errors).length) {
             setErrors(errors);
@@ -77,7 +84,13 @@ const CallbackModal = () => {
                         helperText={errors.name}
                     />
                     <PolicyInput checked={callbackDto.isAgreed} onChange={changeAcceptedHandler} error={errors.isAgreed as string} />
-                    <CustomButton variant={ButtonType.blue} text='Заказать' type='submit' />
+                    <ReCAPTCHA
+                        ref={captchaRef}
+                        size="normal"
+                        sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY}
+                        className={cn(styles.captcha, {[styles.error]: errors.captcha})}
+                    />
+                    <CustomButton variant={ButtonType.blue} text='Заказать' type='submit' additionalClass={styles.btn} />
                 </form> : ''
             }
         </CustomModal>

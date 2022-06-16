@@ -1,6 +1,28 @@
+@import "../../styles/variables";
+
 .form {
   display: grid;
   grid-gap: 20px;
   margin-top: 20px;
   width: 100%;
+}
+
+.captcha {
+  justify-self: center;
+
+  &.error {
+    border: 2px solid $red;
+  }
+}
+
+.btn {
+  justify-self: center;
+  width: 200px;
+}
+
+@media screen and (max-width: 480px) {
+  .form {
+    grid-gap: 15px;
+    margin-top: 10px;
+  }
 }

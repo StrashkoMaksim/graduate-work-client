@@ -110,7 +110,7 @@ const AuthPage: NextPageWithLayout = () => {
                     <ReCAPTCHA
                         ref={recaptchaRef}
                         size="normal"
-                        sitekey="6Lefcf8fAAAAAJd1MbznOyS2F59lv-0VXAOY9iLB"
+                        sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY}
                         className={cn(styles.captcha, {[styles.error]: errors.captcha})}
                     />
                     <CustomButton variant={ButtonType.blue} text='Войти' additionalClass={styles.btn} />
