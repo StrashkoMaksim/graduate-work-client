@@ -10,7 +10,7 @@
   border-radius: 6px;
 }
 
-.link, .skeleton {
+.skeleton {
   display: block;
   height: 460px;
 }
@@ -49,20 +49,21 @@
 }
 
 @media screen and (max-width: 1000px) {
-  .link, .skeleton {
+  .skeleton {
     height: 400px;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .link, .skeleton {
+  .skeleton {
     height: 300px;
   }
 }
 
 @media screen and (max-width: 480px) {
   .dots {
-    right: 40px;
+    bottom: 30px;
+    right: 30px;
 
     button {
       height: 6px;

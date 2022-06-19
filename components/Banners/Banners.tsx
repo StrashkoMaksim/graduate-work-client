@@ -10,15 +10,15 @@ const banners: Banner[] = [
     {
         id: 1,
         link: 'http://cnc-solutions.ru/articles/sajt-zapustilsya',
-        smallImage: '/img/banner_2.jpg',
-        mediumImage: '/img/banner_2.jpg',
+        smallImage: '/img/banner_2_small.jpg',
+        mediumImage: '/img/banner_2_middle.jpg',
         bigImage: '/img/banner_2.jpg',
     },
     {
         id: 2,
         link: 'http://cnc-solutions.ru/articles/sajt-zapustilsya',
-        smallImage: '/img/banner_1.jpg',
-        mediumImage: '/img/banner_1.jpg',
+        smallImage: '/img/banner_1_small.jpg',
+        mediumImage: '/img/banner_1_middle.jpg',
         bigImage: '/img/banner_1.jpg',
     },
 ]
