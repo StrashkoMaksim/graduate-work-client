@@ -11,6 +11,7 @@ import {useSnackbar} from "notistack";
 import {CartEntities} from "../../types/cart";
 import Cart from "../../components/Cart/Cart";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
+import CartModal from "../../components/CartModal/CartModal";
 
 const CartPage: NextPageWithLayout = () => {
     const {loading} = useTypedSelector(state => state.loading);
@@ -18,6 +19,7 @@ const CartPage: NextPageWithLayout = () => {
     const {setEnableLoading, setDisableLoading, dispatchProductsCart} = useActions();
     const [productsCart, setProductsCart] = useState<ProductForCart[]>([])
     const {enqueueSnackbar} = useSnackbar();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchCart = async () => {
@@ -44,6 +46,14 @@ const CartPage: NextPageWithLayout = () => {
         await dispatchProductsCart({})
     }, [])
 
+    const openModal = useCallback(() => {
+        setIsModalOpen(true);
+    }, [])
+
+    const closeModal = useCallback(() => {
+        setIsModalOpen(false);
+    }, [])
+
     return (
         <>
             {count && !loading ?
@@ -52,12 +62,13 @@ const CartPage: NextPageWithLayout = () => {
                     <PageHeaderWithBtns title='Корзина'>
                         <>
                             <CustomButton variant={ButtonType.red} text='Очистить' onClick={clearCartHandler} />
-                            <CustomButton variant={ButtonType.blue} text='Заказать' />
+                            <CustomButton variant={ButtonType.blue} text='Заказать' onClick={openModal} />
                         </>
                     </PageHeaderWithBtns>
                 </> : ''
             }
             <Cart products={productsCart}/>
+            <CartModal isOpen={isModalOpen} onClose={closeModal} cart={products} />
         </>
     );
 };

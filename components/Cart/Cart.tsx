@@ -1,5 +1,5 @@
 import {ProductForCart} from "../../types/product";
-import {FC} from "react";
+import {FC, useState} from "react";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import styles from './Cart.module.scss'
 import {useActions} from "../../hooks/useActions";

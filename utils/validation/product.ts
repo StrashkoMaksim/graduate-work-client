@@ -7,7 +7,7 @@ export const validateNewProduct = (product: ProductEditing) => {
     const errors: Errors = {};
     const dto: CreateProductDTO = {
         name: product.name.value,
-        description: product.name.value,
+        description: product.description.value,
         price: Number.parseFloat(product.price.value),
         previewImage: 0,
         categoryId: 0,
