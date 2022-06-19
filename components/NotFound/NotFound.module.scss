@@ -1,0 +1,172 @@
+@import "../../styles/variables";
+
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 80px 0 80px;
+
+  picture {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  h1 {
+    color: $black-text;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    margin-top: 60px;
+    text-align: center;
+  }
+
+  p {
+    color: $black-text;
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 16px;
+    text-align: center;
+
+    a {
+      color: $blue;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  p + p {
+    margin-top: 4px;
+  }
+}
+
+.search {
+  display: grid;
+  grid-gap: 11px;
+  grid-template-columns: 1fr auto;
+  margin-top: 40px;
+  max-width: 595px;
+  width: 100%;
+}
+
+.input {
+  align-items: center;
+  border: 1px solid #85999F;
+  border-radius: 100px;
+  display: grid;
+  grid-gap: 19px;
+  grid-template-columns: auto 1fr auto;
+  padding: 12px 19px;
+
+  img {
+    width: 22.23px;
+  }
+
+  input {
+    background: none;
+    border: none;
+    color: $black-text;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 0;
+    outline: none;
+  }
+}
+
+.clear {
+  background: url(/img/clear_1.svg) no-repeat center;
+  background-size: contain;
+  border: none;
+  padding: 0;
+  height: 8.83px;
+  width: 8.85px;
+}
+
+.submit {
+  background: $blue;
+  border: none;
+  border-radius: 100px;
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  height: 48px;
+  width: 182px;
+
+  &:disabled {
+    background: #D0EDF5;
+    cursor: auto;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .container {
+    margin: 60px 0 60px;
+
+    h1 {
+      margin-top: 40px;
+    }
+  }
+
+  .search {
+    display: flex;
+    max-width: unset;
+  }
+
+  .input {
+    flex-grow: 1;
+  }
+
+  .submit {
+    background: none;
+    color: #00A9D0;
+    display: block;
+    padding: 0;
+    width: fit-content;
+
+    &:disabled {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    margin: 40px 0;
+
+    h1 {
+      font-size: 18px;
+      line-height: 22px;
+      margin-top: 20px;
+    }
+
+    p {
+      font-size: 12px;
+      line-height: 15px;
+      margin-top: 10px;
+    }
+  }
+
+  .input {
+    grid-gap: 10px;
+    padding: 13px 18px;
+
+    img {
+      height: 17.84px;
+      width: 17.84px;
+    }
+
+    input {
+      font-size: 12px;
+      line-height: 160%;
+    }
+  }
+
+  .submit {
+    font-size: 12px;
+    line-height: 160%;
+  }
+}
