@@ -3,6 +3,7 @@ import styles from './About.module.scss'
 import cn from "classnames";
 import CustomSlider from "../CustomSlider/CustomSlider";
 import Slide1 from '../../public/img/about_slide_1.jpg';
+import Slide2 from '../../public/img/about_slide_2.jpg';
 import {FC} from "react";
 
 interface AboutProps {
@@ -16,10 +17,11 @@ const About: FC<AboutProps> = ({ className }) => {
                 <div className={styles.text}>
                     <h2>О нас</h2>
                     <p>
-                        Тут какое-то красивое описание о компании. Тут какое-то красивое описание о компании.
-                        Тут какое-то красивое описание о компании. Тут какое-то красивое описание о компании.
-                        <br /> <br />
-                        Тут какое-то красивое описание о компании. Тут какое-то красивое описание о компании.
+                        CNC Solutions с 2009 года поставляет на российский рынок лазерные СО2 станки, лазерные станки по
+                        металлу, маркираторы и фрезерные станки с ЧПУ.<br/>
+                        <br/>
+                        Мы развиваем профессиональный и экспертный сервис, наши склады укомплектованы оригинальными
+                        комплектующими, которые в наличии на складе, либо доступны под заказ.
                     </p>
                 </div>
                 <CustomSlider
@@ -33,7 +35,7 @@ const About: FC<AboutProps> = ({ className }) => {
                         <Image src={Slide1} alt="Описание слайда"/>
                     </div>
                     <div className={styles.slide}>
-                        <img src={Slide1} alt="Описание слайда"/>
+                        <Image src={Slide2} alt="Описание слайда"/>
                     </div>
                 </CustomSlider>
             </div>

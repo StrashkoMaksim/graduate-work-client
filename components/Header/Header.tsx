@@ -17,17 +17,17 @@ const NavigationLinks = [
         name: 'Сервис',
         link: '/services',
     },
-    {
-        name: 'SprutCAM',
-        link: '/sprut-cam',
-    },
+    // {
+    //     name: 'SprutCAM',
+    //     link: '/sprut-cam',
+    // },
     {
         name: 'Статьи',
         link: '/articles',
     },
     {
         name: 'Покупателям',
-        link: '/for-for-buyers',
+        link: '/for-buyers',
     },
     {
         name: 'Контакты',
