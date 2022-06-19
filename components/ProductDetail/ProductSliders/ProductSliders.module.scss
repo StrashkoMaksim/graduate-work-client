@@ -61,8 +61,47 @@
 
 .bigModal {
   object-fit: contain;
-  max-height: calc(100vh - 100px);
+  max-height: calc(100vh - 200px);
   width: 100%;
+}
+
+.video img {
+  object-fit: cover;
+}
+
+.mount {
+  align-items: center;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  svg {
+    width: 106px;
+  }
+
+  circle {
+    transition: .3s;
+  }
+
+  &:hover {
+    circle {
+      fill: $blue;
+    }
+  }
+}
+
+.mainSlider:hover {
+  cursor: pointer;
+
+  circle {
+    fill: $blue;
+  }
 }
 
 @media screen and (max-width: 1200px) {

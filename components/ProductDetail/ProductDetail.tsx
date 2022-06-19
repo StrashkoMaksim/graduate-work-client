@@ -22,6 +22,7 @@ const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
     const {enqueueSnackbar} = useSnackbar();
     const {products} = useTypedSelector(state => state.cart)
     const {dispatchProductsCart} = useActions();
+    const { setOpenedQuestionModal } = useActions();
 
     const addToCartHandler = async () => {
         const newProductsCart: CartEntities = _.clone(products);
@@ -70,6 +71,7 @@ const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
                                 variant={ButtonType.blue}
                                 text='Оставить заявку'
                                 additionalClass={styles.helpBtn}
+                                onClick={setOpenedQuestionModal}
                             />
                         </div>
                     </div>
