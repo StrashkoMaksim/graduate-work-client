@@ -49,11 +49,13 @@ export const getStaticProps: GetStaticProps = async () => {
         return {
             props: {
                 categoriesFromServer,
-            }
+            },
+            revalidate: 60,
         }
     } catch (e) {
         return  {
-            props: { categoriesFromServer: null }
+            props: { categoriesFromServer: null },
+            revalidate: 60,
         }
     }
 }
