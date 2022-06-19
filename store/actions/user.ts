@@ -5,7 +5,6 @@ import {Api} from "../../utils/api";
 import {destroyCookie, setCookie} from "nookies";
 import {ThunkDispatch} from "@reduxjs/toolkit";
 import {errorUser, loginUser, logoutUser} from "../slices/user";
-import {useSnackbar} from "notistack";
 
 export const login = (dto: LoginUserDto): AppThunk => async dispatch => {
     try {

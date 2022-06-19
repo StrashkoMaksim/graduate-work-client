@@ -4,6 +4,8 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import Catalog from "../../components/Catalog/Catalog";
 import React, {ReactElement} from "react";
 import {NextPageWithLayout} from "../_app";
+import {GetServerSideProps, GetStaticProps} from "next";
+import {Api} from "../../utils/api";
 
 // TODO: Категории и товары от сервера
 
@@ -33,5 +35,21 @@ CatalogPage.getLayout = function getLayout(props, page: ReactElement) {
         </MainLayout>
     )
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ params}) => {
+    try {
+        const products = await Api().products.getProducts(null, 8, 0);
+        if (!products) {
+            throw new Error();
+        }
+        return {
+            props: { products },
+            revalidate: 60,
+        }
+    } catch (e) {
+        return { notFound: true }
+    }
+};
+
 
 export default CatalogPage;
