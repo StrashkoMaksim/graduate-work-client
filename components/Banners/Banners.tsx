@@ -9,14 +9,14 @@ import Link from "next/link";
 const banners: Banner[] = [
     {
         id: 1,
-        link: '/1',
+        link: 'http://cnc-solutions.ru/articles/sajt-zapustilsya',
         smallImage: '/img/banner_2.jpg',
         mediumImage: '/img/banner_2.jpg',
         bigImage: '/img/banner_2.jpg',
     },
     {
         id: 2,
-        link: '/2',
+        link: 'http://cnc-solutions.ru/articles/sajt-zapustilsya',
         smallImage: '/img/banner_1.jpg',
         mediumImage: '/img/banner_1.jpg',
         bigImage: '/img/banner_1.jpg',

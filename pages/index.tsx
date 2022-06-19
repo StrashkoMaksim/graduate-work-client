@@ -23,7 +23,7 @@ const MainPage: NextPageWithLayout<MainPageProps> = ({ categoriesFromServer }) =
             <CategoriesPreviews categoriesFromServer={categoriesFromServer} />
             <ReviewsPreviews />
             <About />
-            <ArticlesBlock />
+            <ArticlesBlock articlesFromServer={null} />
             <VideosBlock />
             <MapBlock />
         </>
