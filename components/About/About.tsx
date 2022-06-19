@@ -3,10 +3,15 @@ import styles from './About.module.scss'
 import cn from "classnames";
 import CustomSlider from "../CustomSlider/CustomSlider";
 import Slide1 from '../../public/img/about_slide_1.jpg';
+import {FC} from "react";
 
-const About = () => {
+interface AboutProps {
+    className?: string;
+}
+
+const About: FC<AboutProps> = ({ className }) => {
     return (
-        <section className={cn('section', 'grey-bg', styles.section)}>
+        <section className={cn('section', 'grey-bg', styles.section, className)}>
             <div className={cn("container", styles.container)}>
                 <div className={styles.text}>
                     <h2>О нас</h2>

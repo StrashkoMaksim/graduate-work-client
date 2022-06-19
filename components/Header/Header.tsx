@@ -79,11 +79,11 @@ const Header = () => {
                         </a>
                     </div>
                     <CartIcon />
-                    <a href="tel:+7 (495) 721-90-60" className={styles.headerCallback}>
+                    <a href="tel:+7 (914) 421-10-90" className={styles.headerCallback}>
                         <Image src={PhoneIcon} alt="Позвонить" />
                     </a>
                     <div className={styles.headerPhone}>
-                        <a href="tel:+7 (495) 721-90-60">+7 (495) 721-90-60</a>
+                        <a href="tel:+7 (914) 421-10-90">+7 (914) 421-10-90</a>
                     </div>
                 </div>
                 <Navigation links={NavigationLinks} />

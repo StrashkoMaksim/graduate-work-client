@@ -1,0 +1,96 @@
+@import "../../styles/variables";
+
+.container {
+  align-items: stretch;
+  display: grid;
+  grid-gap: 4px;
+  grid-template-columns: auto 1fr;
+  margin-bottom: 50px;
+}
+
+.info {
+  background: $grey-background;
+  border-radius: 6px;
+  padding: 50px;
+  width: 473px;
+}
+
+.item + .item {
+  margin-top: 42px;
+}
+
+.header {
+  color: $black-text;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  margin-right: 15px;
+}
+
+.text {
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 13px;
+}
+
+.link {
+  color: $black-text;
+  display: block;
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 23px;
+  text-decoration: none;
+  transition: 0.3s;
+  width: fit-content;
+
+  &:hover {
+    color: $blue;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .container {
+    grid-template: repeat(2, auto)/1fr;
+    margin-bottom: 40px;
+
+    iframe {
+      height: 400px;
+    }
+  }
+
+  .info {
+    padding: 30px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    margin-bottom: 30px;
+  }
+
+  .info {
+    padding: 20px;
+  }
+
+  .item + .item {
+    margin-top: 25px;
+  }
+
+  .header {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .text {
+    font-size: 12px;
+    line-height: 15px;
+    margin-top: 14px;
+  }
+
+  .link {
+    font-size: 12px;
+    line-height: 15px;
+    margin-top: 14px;
+  }
+}

@@ -32,17 +32,17 @@
   width: 583px;
 
   :global(.slick-arrow) {
-    top: unset;
-    bottom: 32px;
-    transform: none;
+    top: unset !important;
+    bottom: 32px !important;
+    transform: none !important;
 
     &:global(.slick-prev) {
-      left: calc(-100% + 36px);
+      left: calc(-100% + 36px) !important;
     }
 
     &:global(.slick-next) {
-      right: unset;
-      left: calc(-100% + 81px);
+      right: unset !important;
+      left: calc(-100% + 81px) !important;
     }
   }
 }
@@ -53,10 +53,14 @@
   overflow: hidden;
   height: 432px;
 
+  & > span {
+    position: static !important;
+  }
+
   img {
-    height: 100%;
-    object-fit: cover;
-    width: 100%;
+    height: 100% !important;
+    object-fit: cover !important;
+    width: 100% !important;
   }
 }
 
@@ -74,12 +78,12 @@
   .slider {
     :global(.slick-arrow) {
       &:global(.slick-prev) {
-        left: calc(-100% + 21px);
+        left: calc(-100% + 21px) !important;
       }
 
       &:global(.slick-next) {
         right: unset;
-        left: calc(-100% + 86px);
+        left: calc(-100% + 86px) !important;
       }
     }
   }
@@ -109,17 +113,17 @@
     width: 100%;
 
     :global(.slick-arrow) {
-      top: -60px;
-      bottom: unset;
+      top: -60px !important;
+      bottom: unset !important;
 
       &:global(.slick-prev) {
-        left: 50%;
-        transform: translateX(-100%);
+        left: 50% !important;
+        transform: translateX(-100%) !important;
       }
 
       &:global(.slick-next) {
-        right: unset;
-        left: 50%;
+        right: unset !important;
+        left: 50% !important;
       }
     }
   }

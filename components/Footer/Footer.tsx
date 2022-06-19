@@ -48,12 +48,12 @@ const Footer = () => {
                             </div>
                             <div className={styles.contactsItem}>
                                 <h4>Телефон</h4>
-                                <a href="tel:8 (495) 721-90-60" className={styles.contactsLink}>8 (495) 721-90-60</a>
+                                <a href="tel:+7 (914) 421-10-90" className={styles.contactsLink}>+7 (914) 421-10-90</a>
                             </div>
                             <div className={styles.contactsItem}>
                                 <h4>Электронная почта</h4>
-                                <a href="mailto:info@osteopoint.ru"
-                                   className={styles.contactsLink}>info@osteopoint.ru</a>
+                                <a href="mailto:importstanok@gmail.com"
+                                   className={styles.contactsLink}>importstanok@gmail.com</a>
                             </div>
                         </div>
                         <div className={styles.buttons}>
