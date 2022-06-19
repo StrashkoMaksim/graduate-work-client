@@ -27,7 +27,7 @@ const NavigationLinks = [
     },
     {
         name: 'Покупателям',
-        link: '/for-buyers',
+        link: '/for-for-buyers',
     },
     {
         name: 'Контакты',

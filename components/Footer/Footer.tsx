@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import styles from './Footer.module.scss'
 import cn from "classnames";
 import CustomButton, {ButtonType} from "../../ui-kit/CustomButton/CustomButton";
@@ -8,9 +8,19 @@ import Image from 'next/image'
 import CallbackModal from "../CallbackModal/CallbackModal";
 import {useActions} from "../../hooks/useActions";
 import QuestionModal from "../QuestionModal/QuestionModal";
+import {CategoryAside} from "../../types/category";
+import {Api} from "../../utils/api";
 
 const Footer = () => {
+    const [categories, setCategories] = useState<CategoryAside[]>([])
     const { setOpenedCallbackModal, setOpenedQuestionModal } = useActions();
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            setCategories(await Api().categories.getCategories());
+        }
+        fetchCategories()
+    }, [])
 
     const scrollTop = useCallback(() => {
         const body = document.querySelector('body')
@@ -25,18 +35,20 @@ const Footer = () => {
                 <div className={cn('container', styles.container)}>
                     <div className={styles.grid}>
                         <div className={styles.links}>
-                            <Link href="#"><a>Сервис</a></Link>
-                            <Link href="#"><a>SprutCAM</a></Link>
+                            <Link href="/services"><a>Сервис</a></Link>
+                            {/*<Link href="/sprut-cam"><a>SprutCAM</a></Link>*/}
                             <Link href="/articles"><a>Статьи</a></Link>
-                            <Link href="#"><a>Покупателям</a></Link>
-                            <Link href="#"><a>Контакты</a></Link>
-                            <Link href="#"><a>Корзина</a></Link>
+                            <Link href="/for-buyers"><a>Покупателям</a></Link>
+                            <Link href="/contacts"><a>Контакты</a></Link>
+                            <Link href="/cart"><a>Корзина</a></Link>
                         </div>
                         <div className={styles.services}>
-                            <Link href="#"><a className={styles.servicesMain}>Каталог</a></Link>
-                            <Link href="#"><a className={styles.servicesItem}>Лазерные станки</a></Link>
-                            <Link href="#"><a className={styles.servicesItem}>Фрейзерные станки</a></Link>
-                            <Link href="#"><a className={styles.servicesItem}>Режущие плоттеры</a></Link>
+                            <Link href="/catalog"><a className={styles.servicesMain}>Каталог</a></Link>
+                            {categories.map(category =>
+                                <Link href={`/catalog/${category.slug}`} key={category.id}>
+                                    <a className={styles.servicesItem}>{category.name}</a>
+                                </Link>
+                            )}
                         </div>
                         <div className={styles.contacts}>
                             <h3 className={styles.contactsHeader}>Контакты</h3>

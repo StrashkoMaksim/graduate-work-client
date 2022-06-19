@@ -1,0 +1,122 @@
+@import "../../styles/variables";
+
+.container {
+  display: grid;
+  grid-gap: 50px;
+  margin-bottom: 80px;
+}
+
+.wrapper {
+  background: #F3F5F7;
+  border-radius: 6px;
+  padding: 50px;
+}
+
+.header {
+  color: $black-text;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  margin-right: 15px;
+}
+
+.grid {
+  display: grid;
+  grid-gap: 50px;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 34px;
+}
+
+.ul {
+  li {
+    padding-left: 25px;
+    position: relative;
+
+    &::before {
+      background: $blue;
+      border-radius: 50%;
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 9px;
+      height: 6px;
+      width: 6px;
+    }
+
+    &.pdf {
+      min-height: 30px;
+      padding-left: 43px;
+
+      &::before {
+        background: transparent url(/img/blue_pdf.svg) no-repeat center;
+        background-size: contain;
+        border-radius: 0;
+        top: 6px;
+        height: 30px;
+        width: 26px;
+      }
+    }
+
+    a {
+      color: $blue;
+      font-size: 14px;
+      line-height: 17px;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  li + li {
+    margin-top: 26px;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .wrapper {
+    padding: 40px;
+  }
+
+  .grid {
+    grid-gap: 26px;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .container {
+    grid-gap: 20px;
+    margin-bottom: 60px;
+  }
+
+  .wrapper {
+    padding: 20px;
+  }
+
+  .grid {
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    margin-bottom: 40px;
+  }
+
+  .grid {
+    grid-gap: 15px;
+  }
+
+  .ul  {
+    li a {
+      font-size: 12px;
+      line-height: 15px;
+    }
+
+    li + li {
+      margin-top: 15px;
+    }
+  }
+}

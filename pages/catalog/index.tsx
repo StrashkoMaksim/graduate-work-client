@@ -19,7 +19,7 @@ const CatalogPage: NextPageWithLayout = () => {
                 current='Каталог'
             />
             <PageHeader h1='Каталог' />
-            <Catalog />
+            <Catalog categoriesFromServer={null} productsFromServer={null} />
         </>
     );
 };
