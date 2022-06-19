@@ -1,0 +1,46 @@
+@import "../../styles/variables";
+
+.list {
+  background: $grey-background;
+  border-radius: 6px;
+  padding: 40px;
+
+  div {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr auto;
+
+    span {
+      color: $black-text;
+      font-size: 14px;
+      line-height: 17px;
+
+      &:first-child {
+        font-weight: 600;
+      }
+    }
+  }
+
+  div + div {
+    border-top: 1px solid #DDE3E5;
+    margin-top: 15px;
+    padding-top: 15px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .list {
+    padding: 30px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .list {
+    padding: 20px;
+
+    div span {
+      font-size: 12px;
+      line-height: 15px;
+    }
+  }
+}

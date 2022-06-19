@@ -36,7 +36,7 @@ CatalogPage.getLayout = function getLayout(props, page: ReactElement) {
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params}) => {
+export const getStaticProps: GetStaticProps = async ({ params}) => {
     try {
         const products = await Api().products.getProducts(null, 8, 0);
         if (!products) {
