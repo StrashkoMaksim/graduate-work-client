@@ -54,6 +54,12 @@
     font-size: 18px;
     line-height: 22px;
     text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    height: 16px;
+    -webkit-line-clamp: 1;
   }
 }
 
