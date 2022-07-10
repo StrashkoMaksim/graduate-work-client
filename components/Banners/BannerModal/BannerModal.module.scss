@@ -1,0 +1,13 @@
+@import "../../../styles/variables";
+
+.container {
+  display: grid;
+  grid-gap: 20px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.btns {
+  display: flex;
+  margin-top: 20px;
+}

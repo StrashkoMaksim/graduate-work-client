@@ -72,6 +72,6 @@
     "@types/react-google-recaptcha": "^2.1.5",
     "@types/react-slick": "^0.23.8",
     "eslint": "^8.18.0",
-    "sass": "^1.52.1"
+    "sass": "^1.53.0"
   }
 }

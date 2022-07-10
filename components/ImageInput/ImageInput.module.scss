@@ -1,0 +1,16 @@
+@import "../../styles/variables";
+
+.image {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.loadPreviewBtn {
+  background: $blue !important;
+  border-radius: 100px !important;
+  text-transform: inherit !important;
+
+  &:hover {
+    background: $button !important;
+  }
+}

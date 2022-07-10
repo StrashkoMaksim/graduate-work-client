@@ -5,3 +5,22 @@ export interface Banner {
     mediumImage: string,
     bigImage: string
 }
+
+export interface BannerEdit {
+    link: {
+        value: string,
+        isChanged: boolean,
+    },
+    bigImage: {
+        filename: string,
+        fileId?: number,
+    },
+    mediumImage: {
+        filename: string,
+        fileId?: number,
+    },
+    smallImage: {
+        filename: string,
+        fileId?: number,
+    },
+}

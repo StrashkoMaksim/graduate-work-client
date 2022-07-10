@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import styles from './ReviewPreview.module.scss'
+import styles from './ReviewPreview.module.scss';
 import CustomButton, {ButtonType} from "../../ui-kit/CustomButton/CustomButton";
 import {Review} from "../../types/review";
 import {Skeleton} from "@mui/material";
