@@ -1,5 +1,5 @@
 import {NextPageWithLayout} from "../../_app";
-import React, {ReactElement, useCallback, useEffect, useState} from "react";
+import React, {ReactElement, useCallback, useEffect, useRef, useState} from "react";
 import AdminLayout from "../../../components/AdminLayout/AdminLayout";
 import CustomButton, {ButtonType} from "../../../ui-kit/CustomButton/CustomButton";
 import cn from "classnames";
@@ -16,14 +16,24 @@ const AdminBannersPage: NextPageWithLayout = () => {
     const [loading, setLoading] = useState(true);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectedBanner, setSelectedBanner] = useState<Banner | undefined>(undefined);
+    const [update, setUpdate] = useState(false);
+
+    const editBanner = (banner: Banner) => {
+        setSelectedBanner(banner);
+        setIsModalVisible(true);
+    }
 
     const showModalHandler = useCallback(() => {
         setIsModalVisible(true);
     }, [])
 
-    const hideModalHandler = useCallback(() => {
+    const hideModalHandler = useCallback((reload?: boolean) => {
+        setSelectedBanner(undefined);
         setIsModalVisible(false);
-    }, [])
+        if (reload) {
+            setUpdate(prevState => !prevState);
+        }
+    }, [update])
 
     useEffect(() => {
         const fetchBanners = async () => {
@@ -31,7 +41,7 @@ const AdminBannersPage: NextPageWithLayout = () => {
             setLoading(false)
         }
         fetchBanners();
-    }, [])
+    }, [update])
 
     return (
         <>
@@ -45,13 +55,13 @@ const AdminBannersPage: NextPageWithLayout = () => {
                     />
                 </div>
             </PageHeader>
-            <BannersList banners={banners} loading={loading} />
+            <BannersList banners={banners} loading={loading} editBanner={editBanner} />
             <CustomModal
                 isOpen={isModalVisible}
                 onClose={hideModalHandler}
                 title={selectedBanner ? 'Редактирование баннера' : 'Новый баннер'}
             >
-                <BannerModal bannerForEditing={selectedBanner} />
+                <BannerModal bannerForEditing={selectedBanner} hideModal={hideModalHandler} />
             </CustomModal>
         </>
     );

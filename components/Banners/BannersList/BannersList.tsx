@@ -7,9 +7,10 @@ import BannerCard from "../BannerCard/BannerCard";
 interface BannersListProps {
     banners: Banner[],
     loading: boolean,
+    editBanner: (banner: Banner) => void;
 }
 
-const BannersList: FC<BannersListProps> = ({ banners, loading }) => {
+const BannersList: FC<BannersListProps> = ({ banners, loading, editBanner }) => {
     return (
         <section className="section">
             <div className={cn('container', styles.container)}>
@@ -20,7 +21,7 @@ const BannersList: FC<BannersListProps> = ({ banners, loading }) => {
                         <BannerCard />
                     </>
                     : banners.length ? banners.map(banner =>
-                        <BannerCard banner={banner} />
+                        <BannerCard banner={banner} key={banner.id} onEditClickHandler={editBanner} />
                     )
                     : <p>Баннеров нет в базе</p>
                 }

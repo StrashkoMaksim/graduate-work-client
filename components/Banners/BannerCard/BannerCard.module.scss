@@ -1,3 +1,9 @@
+@import "../../../styles/variables";
+
+.container {
+  position: relative;
+}
+
 .skeleton {
   display: block;
   height: 460px;
@@ -7,6 +13,23 @@
   object-fit: cover;
   height: 100%;
   width: 100%;
+}
+
+.edit {
+  background: $blue url("/img/edit_white.svg") no-repeat center;
+  background-size: 20px;
+  border: none;
+  border-radius: 5px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: .3s;
+  height: 30px;
+  width: 30px;
+
+  &:hover {
+    background-color: $button;
+  }
 }
 
 @media screen and (max-width: 1000px) {

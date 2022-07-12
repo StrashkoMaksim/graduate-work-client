@@ -1,5 +1,6 @@
 export interface Banner {
     id: number,
+    name: string,
     link: string,
     smallImage: string,
     mediumImage: string,
@@ -7,6 +8,11 @@ export interface Banner {
 }
 
 export interface BannerEdit {
+    id?: number,
+    name: {
+        value: string,
+        isChanged: boolean,
+    },
     link: {
         value: string,
         isChanged: boolean,
@@ -24,3 +30,13 @@ export interface BannerEdit {
         fileId?: number,
     },
 }
+
+export interface CreateBannerDto {
+    name: string;
+    link: string;
+    smallBanner: number;
+    mediumBanner: number;
+    bigBanner: number;
+}
+
+export type UpdateBannerDto = Partial<CreateBannerDto>

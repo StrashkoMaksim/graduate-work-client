@@ -1,6 +1,6 @@
 import {Button} from "@mui/material";
 import ErrorParagraph from "../../ui-kit/ErrorParagraph/ErrorParagraph";
-import React, {FC} from "react";
+import React, {FC, memo} from "react";
 import styles from './ImageInput.module.scss';
 
 interface ImageInputProps {
@@ -13,7 +13,7 @@ interface ImageInputProps {
     replaceText: string;
 }
 
-const ImageInput: FC<ImageInputProps> = ({ filename, fileId, error, loading, changeImageHandler, loadText, replaceText }) => {
+const ImageInput: FC<ImageInputProps> = memo(({ filename, fileId, error, loading, changeImageHandler, loadText, replaceText }) => {
     return (
         <div>
             {filename &&
@@ -40,6 +40,6 @@ const ImageInput: FC<ImageInputProps> = ({ filename, fileId, error, loading, cha
             }
         </div>
     );
-};
+});
 
 export default ImageInput;

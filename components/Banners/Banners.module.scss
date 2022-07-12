@@ -1,5 +1,9 @@
 .banners {
   padding-bottom: 30px;
+
+  &.empty {
+    padding-bottom: 0;
+  }
 }
 
 .wrapper {
