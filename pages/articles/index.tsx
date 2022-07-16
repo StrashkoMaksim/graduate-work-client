@@ -16,6 +16,7 @@ import {ReactElement} from "react";
 import {NextPageWithLayout} from "../_app";
 
 const LIMIT = 8
+const breadcrumbs = [{link: '/', text: 'Главная'}]
 
 interface PageProps {
     articlesFromServer: ArticlePreview[];
@@ -29,7 +30,7 @@ const ArticlesPage: NextPageWithLayout<PageProps> = ({ articlesFromServer }) => 
     return (
         <>
             <Breadcrumbs
-                links={[{link: '/', text: 'Главная'}]}
+                links={breadcrumbs}
                 current='Статьи'
             />
             <PageHeader h1="Статьи" />

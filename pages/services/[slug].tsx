@@ -11,8 +11,9 @@ const ServicesSlugPage: NextPageWithLayout = () => {
 
 ServicesSlugPage.getLayout = function getLayout(props, page: ReactElement) {
     return (
+        // TODO: динамический заголовок
         <MainLayout meta={{
-            title: 'Какой-то пункт',
+            title: 'Сервис',
             type: 'website',
             description: 'Какое-то описание для каталога'
         }}>

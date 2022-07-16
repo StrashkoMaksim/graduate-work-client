@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import styles from './Breadcrumbs.module.scss'
 import cn from "classnames";
 import {Skeleton} from "@mui/material";
@@ -12,15 +12,11 @@ interface BreadcrumbsProps {
     current?: string
 }
 
-const Breadcrumbs: FC<BreadcrumbsProps> = ({ links, current }) => {
+const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ links, current }) => {
     return (
         <div className={cn("section", styles.block)}>
             <div className={cn("container", styles.container)}>
-                {links.map(el => {
-                    if (el.text) {
-                        return (<Link href={el.link} key={el.link}><a>{el.text}</a></Link>)
-                    }
-                })}
+                {links.map(el => <Link href={el.link} key={el.link}><a>{el.text}</a></Link>)}
                 {current
                     ? <span>{current}</span>
                     : <Skeleton variant={"text"} animation={"wave"} className={styles.skeleton} />
@@ -28,6 +24,6 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ links, current }) => {
             </div>
         </div>
     );
-};
+});
 
 export default Breadcrumbs;

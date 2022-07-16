@@ -1,0 +1,61 @@
+@import "../../../styles/variables";
+
+.container {
+  align-items: center;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr auto;
+
+  span {
+    color: $black-text;
+    font-size: 14px;
+    line-height: 17px;
+
+    &:first-child {
+      font-weight: 600;
+    }
+  }
+
+  & + & {
+    border-top: 1px solid #DDE3E5;
+    margin-top: 15px;
+    padding-top: 15px;
+  }
+}
+
+.admin {
+  grid-template-columns: 1fr auto auto;
+}
+
+.edit {
+  background: $blue;
+  border-radius: 6px;
+  border: none;
+  display: grid;
+  place-items: center;
+  position: relative;
+  height: 25px;
+  width: 25px;
+  transition: 0.3s;
+
+  &:hover {
+    background: $button;
+  }
+
+  &::after {
+    background: url('/img/edit_white.svg') no-repeat center;
+    background-size: contain;
+    content: "";
+    height: 15px;
+    width: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    span {
+      font-size: 12px;
+      line-height: 15px;
+    }
+  }
+}

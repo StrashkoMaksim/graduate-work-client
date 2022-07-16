@@ -1,6 +1,6 @@
 import styles from './ProductDetail.module.scss';
 import {ProductDetailModel} from "../../types/product";
-import React, {FC} from "react";
+import React, {FC, useMemo} from "react";
 import cn from "classnames";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import H1 from "../../ui-kit/H1/H1";
@@ -31,14 +31,18 @@ const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
         enqueueSnackbar('Товар добавлен в корзину', {variant: "success"})
     }
 
+    const breadcrumbs = useMemo(() => {
+        return [
+            {link: '/', text: 'Главная'},
+            {link: '/catalog', text: 'Каталог'},
+            {link: `/catalog/${product.category.slug}`, text: product.category.name},
+        ]
+    }, [product])
+
     return (
         <>
             <Breadcrumbs
-                links={[
-                    {link: '/', text: 'Главная'},
-                    {link: '/catalog', text: 'Каталог'},
-                    {link: `/catalog/${product.category.slug}`, text: product.category.name},
-                ]}
+                links={breadcrumbs}
                 current={product.name}
             />
             <div className={cn('section', styles.section)}>

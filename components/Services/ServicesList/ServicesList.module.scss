@@ -1,0 +1,19 @@
+@import "../../../styles/variables";
+
+.list {
+  background: $grey-background;
+  border-radius: 6px;
+  padding: 40px;
+}
+
+@media screen and (max-width: 640px) {
+  .list {
+    padding: 30px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .list {
+    padding: 20px;
+  }
+}

@@ -1,6 +1,19 @@
 import {Product, ProductPreviewModel} from "./product";
 import {Service} from "./service";
 
+export interface CatalogCategoriesState {
+    categories: CategoryAside[] | null;
+    loading: boolean;
+    error: string | null;
+    count: number;
+    selectedId: number | null;
+}
+
+export interface GetCatalogCategoriesResponse {
+    count: number;
+    rows: CategoryAside[];
+}
+
 export interface Category {
     id: number,
     name: string,

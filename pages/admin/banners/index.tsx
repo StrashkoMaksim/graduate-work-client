@@ -18,6 +18,11 @@ const AdminBannersPage: NextPageWithLayout = () => {
     const [selectedBanner, setSelectedBanner] = useState<Banner | undefined>(undefined);
     const [update, setUpdate] = useState(false);
 
+    const fetchBanners = useCallback(async () => {
+        setBanners(await Api().banners.getBanners())
+        setLoading(false)
+    }, [])
+
     const editBanner = (banner: Banner) => {
         setSelectedBanner(banner);
         setIsModalVisible(true);
@@ -36,10 +41,6 @@ const AdminBannersPage: NextPageWithLayout = () => {
     }, [update])
 
     useEffect(() => {
-        const fetchBanners = async () => {
-            setBanners(await Api().banners.getBanners())
-            setLoading(false)
-        }
         fetchBanners();
     }, [update])
 

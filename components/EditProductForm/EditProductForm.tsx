@@ -15,6 +15,7 @@ import {useSnackbar} from "notistack";
 import {useActions} from "../../hooks/useActions";
 import AdminProductCharacteristic from "../AdminProductCharacteristic/AdminProductCharacteristic";
 import MaskedTextField from "../../ui-kit/MaskedTextField/MaskedTextField";
+import CategorySelect from "../CategorySelect/CategorySelect";
 
 interface EditProductFormProps {
     product: ProductEditing;
@@ -269,19 +270,7 @@ const EditProductForm: FC<EditProductFormProps> = ({ product, setProduct, errors
                         <ErrorParagraph className={styles.error}>{errors.previewImage as string}</ErrorParagraph>
                     }
                 </div>
-                <CustomSelect
-                    label='Категория'
-                    value={product.category.id}
-                    // @ts-ignore
-                    onChange={changeCategoryHandler}
-                    error={!!errors.categoryId}
-                    helperText={errors.categoryId as string}
-                    disabled={loading}
-                >
-                    {categories?.map(category =>
-                        <MenuItem value={category.id} key={category.id}>{category.name}</MenuItem>
-                    )}
-                </CustomSelect>
+                <CategorySelect value={product.category.id} changeCategory={changeCategoryHandler} error={errors.category} />
                 {product.category.id &&
                     <div className={styles.characteristics}>
                         <h4 className={styles.h4}>Характеристики</h4>

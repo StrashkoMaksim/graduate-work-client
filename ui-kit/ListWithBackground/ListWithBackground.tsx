@@ -1,11 +1,12 @@
 import React, {FC} from 'react';
 import styles from './ListWithBackground.module.scss';
+import cn from "classnames";
 
 interface ListWithBackgroundProps {
     list: {
         id: number;
         name: string;
-        value: string;
+        value: string | number;
     }[];
 }
 

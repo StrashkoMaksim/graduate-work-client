@@ -4,6 +4,8 @@ import * as LoadingActionCreators from './loading'
 import * as CartActionCreators from './cart'
 import * as CallbackActionCreators from './callback'
 import * as QuestionActionCreators from './question'
+import * as CatalogCategoriesActionCreators from './catalog-categories'
+import * as ServiceActionCreators from './service'
 
 export default {
     ...UserActionCreators,
@@ -12,4 +14,6 @@ export default {
     ...CartActionCreators,
     ...CallbackActionCreators,
     ...QuestionActionCreators,
+    ...CatalogCategoriesActionCreators,
+    ...ServiceActionCreators,
 }

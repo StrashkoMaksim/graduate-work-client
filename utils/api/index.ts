@@ -7,6 +7,7 @@ import {FilesApi} from "./filesApi";
 import {CategoriesApi} from "./categoriesApi";
 import {ProductsApi} from "./productsApi";
 import {BannersApi} from "./bannersApi";
+import {ServicesApi} from "./servicesApi";
 
 export type ApiReturnType = {
     user: ReturnType<typeof UserApi>,
@@ -15,6 +16,7 @@ export type ApiReturnType = {
     categories: ReturnType<typeof CategoriesApi>,
     products: ReturnType<typeof ProductsApi>,
     banners: ReturnType<typeof BannersApi>,
+    services: ReturnType<typeof ServicesApi>,
 }
 
 export const Api = (ctx?: NextPageContext | GetServerSidePropsContext): ApiReturnType => {
@@ -35,5 +37,6 @@ export const Api = (ctx?: NextPageContext | GetServerSidePropsContext): ApiRetur
         categories: CategoriesApi(instance),
         products: ProductsApi(instance),
         banners: BannersApi(instance),
+        services: ServicesApi(instance),
     }
 }

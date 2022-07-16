@@ -4,18 +4,20 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import Catalog from "../../components/Catalog/Catalog";
 import React, {ReactElement} from "react";
 import {NextPageWithLayout} from "../_app";
-import {GetServerSideProps, GetStaticProps} from "next";
+import {GetStaticProps} from "next";
 import {Api} from "../../utils/api";
 
 // TODO: Категории и товары от сервера
+
+const breadcrumbs = [
+    {link: '/', text: 'Главная'},
+]
 
 const CatalogPage: NextPageWithLayout = () => {
     return (
         <>
             <Breadcrumbs
-                links={[
-                    {link: '/', text: 'Главная'},
-                ]}
+                links={breadcrumbs}
                 current='Каталог'
             />
             <PageHeader h1='Каталог' />

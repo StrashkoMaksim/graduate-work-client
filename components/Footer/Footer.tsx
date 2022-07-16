@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import styles from './Footer.module.scss'
 import cn from "classnames";
 import CustomButton, {ButtonType} from "../../ui-kit/CustomButton/CustomButton";
@@ -8,18 +8,16 @@ import Image from 'next/image'
 import CallbackModal from "../CallbackModal/CallbackModal";
 import {useActions} from "../../hooks/useActions";
 import QuestionModal from "../QuestionModal/QuestionModal";
-import {CategoryAside} from "../../types/category";
-import {Api} from "../../utils/api";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
 
 const Footer = () => {
-    const [categories, setCategories] = useState<CategoryAside[]>([])
-    const { setOpenedCallbackModal, setOpenedQuestionModal } = useActions();
+    const { setOpenedCallbackModal, setOpenedQuestionModal, fetchCatalogCategories } = useActions();
+    const {categories} = useTypedSelector(state => state.catalogCategories)
 
     useEffect(() => {
-        const fetchCategories = async () => {
-            setCategories(await Api().categories.getCategories());
+        if (!categories) {
+            fetchCatalogCategories()
         }
-        fetchCategories()
     }, [])
 
     const scrollTop = useCallback(() => {
@@ -44,11 +42,11 @@ const Footer = () => {
                         </div>
                         <div className={styles.services}>
                             <Link href="/catalog"><a className={styles.servicesMain}>Каталог</a></Link>
-                            {categories.map(category =>
+                            {categories ? categories.map(category =>
                                 <Link href={`/catalog/${category.slug}`} key={category.id}>
                                     <a className={styles.servicesItem}>{category.name}</a>
                                 </Link>
-                            )}
+                            ) : ''}
                         </div>
                         <div className={styles.contacts}>
                             <h3 className={styles.contactsHeader}>Контакты</h3>
