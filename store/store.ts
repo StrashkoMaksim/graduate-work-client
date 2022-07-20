@@ -9,6 +9,7 @@ import {callbackReducer} from "./slices/callback";
 import {questionReducer} from "./slices/question";
 import {catalogCategoriesReducer} from "./slices/catalog-categories";
 import {serviceReducer} from "./slices/service";
+import {reviewReducer} from "./slices/review";
 
 const makeStore = () =>
     configureStore({
@@ -21,6 +22,7 @@ const makeStore = () =>
             question: questionReducer,
             catalogCategories: catalogCategoriesReducer,
             service: serviceReducer,
+            review: reviewReducer,
         }
     });
 

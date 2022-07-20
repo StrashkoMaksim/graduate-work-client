@@ -1,39 +1,82 @@
 import CustomModal from "../../ui-kit/CustomModal/CustomModal";
 import React, {FC, useEffect, useRef, useState} from "react";
 import CustomTextField from "../../ui-kit/CustomTextField/CustomTextField";
-import {CreateReviewDTO} from "../../types/review";
+import {initialReviewEdit, Review, ReviewEdit} from "../../types/review";
 import CustomButton, {ButtonType} from "../../ui-kit/CustomButton/CustomButton";
 import styles from './AddReviewModal.module.scss'
-import {validateReview} from "../../utils/validation/review";
+import {validateChangedReview, validateNewReview} from "../../utils/validation/review";
 import {Errors} from "../../types/errors";
 import ReCAPTCHA from "react-google-recaptcha";
 import cn from "classnames";
+import {exceptionsHandler} from "../../utils/api/exceptions/exceptions";
+import {Api} from "../../utils/api";
+import {useRouter} from "next/router";
+import {useSnackbar} from "notistack";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {Checkbox, FormControlLabel} from "@mui/material";
 
 interface ReviewModalProps {
     open: boolean;
-    onClose: () => void;
+    onClose: (reload?: boolean) => void;
 }
 
 const AddReviewModal: FC<ReviewModalProps> = ({ open, onClose }) => {
-    const [dto, setDto] = useState<CreateReviewDTO>({ name: '', surname: '', text: ''});
+    const [review, setReview] = useState<ReviewEdit>(initialReviewEdit);
     const captchaRef = useRef<ReCAPTCHA>(null)
     const [errors, setErrors] = useState<Errors>({})
     const [isSent, setIsSent] = useState(false);
+    const router = useRouter();
+    const { enqueueSnackbar } = useSnackbar();
+    const { selectedReview } = useTypedSelector(state => state.review)
 
     useEffect(() => {
         setIsSent(false);
-        setDto({ name: '', surname: '', text: '' });
+        if (selectedReview) {
+            setReview({
+                id: selectedReview.id,
+                firstName: {
+                    value: selectedReview.firstName,
+                    isChanged: false,
+                },
+                secondName: {
+                    value: selectedReview.secondName,
+                    isChanged: false,
+                },
+                text: {
+                    value: selectedReview.text,
+                    isChanged: false,
+                },
+                isAccepted: {
+                    value: selectedReview.isAccepted,
+                    isChanged: false,
+                },
+            })
+        } else {
+            setReview(initialReviewEdit)
+        }
         setErrors({});
     }, [open])
 
-    const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDto((prev) => {
-            return {...prev, [event.target.name]: event.target.value};
+    const changeTextHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setReview((prev) => {
+            return {...prev, [event.target.name as 'firstName']: {
+                value: event.target.value,
+                isChanged: true
+            }};
         })
     }
 
-    const submitHandler = () => {
-        const errors = validateReview(dto);
+    const changeCheckboxHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setReview((prev) => {
+            return {...prev, isAccepted: {
+                    value: event.target.checked,
+                    isChanged: true
+                }};
+        })
+    }
+
+    const submitCreateHandler = async () => {
+        const { errors, dto } = validateNewReview(review);
 
         if (!captchaRef.current?.getValue()) {
             errors.captcha = 'Пройдите проверку';
@@ -43,9 +86,40 @@ const AddReviewModal: FC<ReviewModalProps> = ({ open, onClose }) => {
             setErrors(errors);
             return
         }
-
         setErrors({});
-        setIsSent(true)
+
+        try {
+            await Api().reviews.createReview(dto);
+            setIsSent(true);
+        } catch (e) {
+            exceptionsHandler(e, router, setErrors, enqueueSnackbar);
+        }
+    }
+
+    const submitUpdateHandler = async () => {
+        const { errors, dto } = validateChangedReview(review);
+
+        if (Object.keys(errors).length) {
+            setErrors(errors);
+            return
+        }
+        setErrors({});
+
+        try {
+            await Api().reviews.updateReview(review.id as number, dto);
+            onClose(true);
+        } catch (e) {
+            exceptionsHandler(e, router, setErrors, enqueueSnackbar);
+        }
+    }
+
+    const submitDeleteHandler = async () => {
+        try {
+            await Api().reviews.deleteReview(review.id as number);
+            onClose(true);
+        } catch (e) {
+            exceptionsHandler(e, router, setErrors, enqueueSnackbar);
+        }
     }
 
     return (
@@ -57,41 +131,63 @@ const AddReviewModal: FC<ReviewModalProps> = ({ open, onClose }) => {
             {!isSent ? <div className={styles.form}>
                 <CustomTextField
                     label='Фамилия'
-                    name='surname'
-                    value={dto.surname}
-                    onChange={changeHandler}
-                    error={Boolean(errors.surname)}
-                    helperText={errors.surname}
+                    name='secondName'
+                    value={review.secondName.value}
+                    onChange={changeTextHandler}
+                    error={Boolean(errors.secondName)}
+                    helperText={errors.secondName}
                 />
                 <CustomTextField
                     label='Имя и отчество'
-                    name='name'
-                    value={dto.name}
-                    onChange={changeHandler}
-                    error={Boolean(errors.name)}
-                    helperText={errors.name}
+                    name='firstName'
+                    value={review.firstName.value}
+                    onChange={changeTextHandler}
+                    error={Boolean(errors.firstName)}
+                    helperText={errors.firstName}
                 />
                 <CustomTextField
                     label='Текст отзыва'
                     name='text'
-                    value={dto.text}
-                    onChange={changeHandler}
+                    value={review.text.value}
+                    onChange={changeTextHandler}
                     error={Boolean(errors.text)}
                     helperText={errors.text}
                     multiline
                 />
-                <ReCAPTCHA
-                    ref={captchaRef}
-                    size="normal"
-                    sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY}
-                    className={cn(styles.captcha, {[styles.error]: errors.captcha})}
-                />
-                <CustomButton
-                    variant={ButtonType.blue}
-                    text='Отправить'
-                    onClick={submitHandler}
-                    additionalClass={styles.btn}
-                />
+                {selectedReview
+                    ? <FormControlLabel
+                        control={<Checkbox checked={review.isAccepted.value} onChange={changeCheckboxHandler} />}
+                        label="Проверенный"
+                    />
+                    : <ReCAPTCHA
+                        ref={captchaRef}
+                        size="normal"
+                        sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY as string}
+                        className={cn(styles.captcha, {[styles.error]: errors.captcha})}
+                    />
+                }
+                {selectedReview
+                    ? <div className={styles.btns}>
+                        <CustomButton
+                            variant={ButtonType.blue}
+                            text='Сохранить'
+                            onClick={submitUpdateHandler}
+                            additionalClass={styles.btn}
+                        />
+                        <CustomButton
+                            variant={ButtonType.red}
+                            text='Удалить'
+                            onClick={submitDeleteHandler}
+                            additionalClass={styles.btnDelete}
+                        />
+                    </div>
+                    : <CustomButton
+                        variant={ButtonType.blue}
+                        text='Отправить'
+                        onClick={submitCreateHandler}
+                        additionalClass={styles.btn}
+                    />
+                }
             </div> : ''
             }
         </CustomModal>

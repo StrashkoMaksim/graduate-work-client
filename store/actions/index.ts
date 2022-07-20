@@ -6,6 +6,7 @@ import * as CallbackActionCreators from './callback'
 import * as QuestionActionCreators from './question'
 import * as CatalogCategoriesActionCreators from './catalog-categories'
 import * as ServiceActionCreators from './service'
+import * as ReviewActionCreators from './review'
 
 export default {
     ...UserActionCreators,
@@ -16,4 +17,5 @@ export default {
     ...QuestionActionCreators,
     ...CatalogCategoriesActionCreators,
     ...ServiceActionCreators,
+    ...ReviewActionCreators,
 }

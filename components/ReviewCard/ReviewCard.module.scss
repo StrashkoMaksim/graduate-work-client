@@ -44,7 +44,7 @@
     max-height: 102px;
   }
 
-  button {
+  .more {
     align-self: center;
     background: url(/img/reviews_down.svg) no-repeat center;
     background-size: contain;
@@ -56,7 +56,7 @@
   }
 
   &.withArrow {
-    button {
+    .more {
       display: block;
     }
   }
@@ -67,10 +67,14 @@
       max-height: unset;
     }
 
-    button {
+    .more {
       background-image: url(/img/reviews_up.svg);
     }
   }
+}
+
+.edit {
+  margin-top: 15px;
 }
 
 @media screen and (max-width: 1200px) {

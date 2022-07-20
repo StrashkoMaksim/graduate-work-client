@@ -15,8 +15,8 @@ const ReviewPreview: FC<ReviewPreviewProps> = ({ review, onOpen }) => {
         return (
             <div className={styles.card}>
                 <h2 className={styles.name}>
-                    <span className={styles.surname}>{review.surname}</span>
-                    <span className={styles.lastname}>{review.name}</span>
+                    <span className={styles.surname}>{review.secondName}</span>
+                    <span className={styles.lastname}>{review.firstName}</span>
                 </h2>
                 <span className={styles.date}>{review.createdAt}</span>
                 <p className={styles.text}>{review.text}</p>

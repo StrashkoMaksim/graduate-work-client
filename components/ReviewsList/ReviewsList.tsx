@@ -1,77 +1,72 @@
-import {FC, useEffect} from "react";
+import React, {FC, MutableRefObject, useEffect, useRef, useState} from "react";
 import {Review} from "../../types/review";
 import styles from './ReviewsList.module.scss'
 import cn from "classnames";
 import ReviewCard from "../ReviewCard/ReviewCard";
+import {Api} from "../../utils/api";
+import {useObserver} from "../../hooks/useObserver";
 
 interface ReviewsListProps {
     reviewsFromServer: Review[] | null;
+    isAdmin?: boolean;
+    reload?: boolean;
 }
 
-const reviews: Review[] = [
-    {
-        id: 1,
-        text: 'В оговоренный срок доставили лазерный гравер 0503 ваттсан. дали на год гарантию от производителя. хорошо, что есть оплата заказов с ндс для юридических лиц, я брал от организации, платил со счета на счет по реквизитам. доставка прошла без проблем, получили станок в рабочем состоянии, документы прилагались.',
-        surname: 'Толмачев',
-        name: 'Максим Сергеевич',
-        accepted: true,
-        createdAt: '24.05.2022',
-    },
-    {
-        id: 2,
-        text: 'Прежде, чем решиться на покупку дорогостоящего станка, я получил исчерпывающие консультации представителей продавца. Взвесил все за и против и оформил заказ на станок с ЧПУ А1 6090. Приятно, что продавец сдержал все данные обещания. Мне помогли не только с доставкой, но и с настройкой купленного оборудования. Огромное спасибо за такое обслуживание, всем советую.',
-        surname: 'Страшко',
-        name: 'Максим Тарасович',
-        accepted: true,
-        createdAt: '20.05.2022',
-    },
-    {
-        id: 3,
-        text: 'Очень доволен приобретенным лазерным станком 0503 Ваттсан. Заявку оформлял на сайте самостоятельно. Заказ обработали оперативно, перезвонили почти сразу же, уточнили детали по доставке и оплате, привезли в обещанный срок. Рекомендую. ',
-        surname: 'Дуда',
-        name: 'Дмитрий Евгеньевич',
-        accepted: true,
-        createdAt: '17.05.2022',
-    },
-    {
-        id: 4,
-        text: 'Заказывал лазерный станок 6040 Ваттсан. Мне показалось, что они предлагают самую выгодную цену. Обслужили меня очень хорошо - организовали удобную доставку, правильно заполнили документы на станок. ',
-        surname: 'Костров',
-        name: 'Дмитрий Максимович',
-        accepted: true,
-        createdAt: '15.04.2022',
-    },
-    {
-        id: 5,
-        text: 'При выборе лазерного станка получил ценную консультацию специалиста по телефону. При организации доставки учли мои пожелания по времени. Цены устроили.',
-        surname: 'Петров',
-        name: 'Игнат Игоревич',
-        accepted: true,
-        createdAt: '10.04.2022',
-    },
-    {
-        id: 6,
-        text: 'Мой муж занимается мелкой сувенирной продукцией из дерева. Он долго решался на приобретение станка. Зайдя на сайт магазина муж заказал лазерный станок, гравер для изготовления сувениров. Доставили оперативно. Станок просто отличный. Дефектов и недостатков не выявлено.',
-        surname: 'Ежеля',
-        name: 'Анастасия Святославовна',
-        accepted: true,
-        createdAt: '04.04.2022',
-    },
-]
+const LIMIT = 8;
 
-const ReviewsList: FC<ReviewsListProps> = ({ reviewsFromServer }) => {
+const ReviewsList: FC<ReviewsListProps> = ({ reviewsFromServer, isAdmin, reload }) => {
+    const [reviews, setReviews] = useState<Review[]>([]);
+    const [loading, setLoading] = useState(false);
+    const isCanLoadMore = useRef(true);
+    const lastProductRef = useRef<HTMLDivElement | null>(null);
+
     useEffect(() => {
-        if (!reviewsFromServer) {
-            // Загрузка отзывов
+        const fetchReviews = async () => {
+            setLoading(true);
+            if (isAdmin) {
+                setReviews(await Api().reviews.getAdminReviews(LIMIT, 0));
+            } else {
+                setReviews(await Api().reviews.getReviews(LIMIT, 0));
+            }
+            setLoading(false);
         }
-    }, [])
+        if (reviewsFromServer) {
+            setReviews(reviewsFromServer);
+        } else {
+            fetchReviews();
+        }
+    }, [reload])
+
+    useObserver(lastProductRef as MutableRefObject<Element>, isCanLoadMore.current, loading, async () => {
+        setLoading(true);
+        const newReviews = isAdmin
+            ? await Api().reviews.getAdminReviews(LIMIT, reviews.length)
+            : await Api().reviews.getReviews(LIMIT, reviews.length);
+        if (newReviews.length) {
+            setReviews([...reviews, ...newReviews]);
+        } else {
+            isCanLoadMore.current = false;
+        }
+        setLoading(false);
+    })
 
     return (
         <div className={cn('section', styles.section)}>
             <div className={cn('container', styles.container)}>
+                {!isCanLoadMore.current && !reviews.length ? 'Отзывов нет в базе' : ''}
                 {reviews.map(review =>
-                    <ReviewCard review={review} key={review.id} />
+                    <ReviewCard review={review} key={review.id} isAdmin={isAdmin} />
                 )}
+                {loading ?
+                    <>
+                        <ReviewCard />
+                        <ReviewCard />
+                        <ReviewCard />
+                        <ReviewCard />
+                    </>
+                    : ''
+                }
+                <div ref={lastProductRef} />
             </div>
         </div>
     );

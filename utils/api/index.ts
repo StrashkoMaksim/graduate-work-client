@@ -8,6 +8,7 @@ import {CategoriesApi} from "./categoriesApi";
 import {ProductsApi} from "./productsApi";
 import {BannersApi} from "./bannersApi";
 import {ServicesApi} from "./servicesApi";
+import {ReviewsApi} from "./reviewsApi";
 
 export type ApiReturnType = {
     user: ReturnType<typeof UserApi>,
@@ -17,6 +18,7 @@ export type ApiReturnType = {
     products: ReturnType<typeof ProductsApi>,
     banners: ReturnType<typeof BannersApi>,
     services: ReturnType<typeof ServicesApi>,
+    reviews: ReturnType<typeof ReviewsApi>,
 }
 
 export const Api = (ctx?: NextPageContext | GetServerSidePropsContext): ApiReturnType => {
@@ -38,5 +40,6 @@ export const Api = (ctx?: NextPageContext | GetServerSidePropsContext): ApiRetur
         products: ProductsApi(instance),
         banners: BannersApi(instance),
         services: ServicesApi(instance),
+        reviews: ReviewsApi(instance),
     }
 }
