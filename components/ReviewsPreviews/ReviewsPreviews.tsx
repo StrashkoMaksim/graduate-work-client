@@ -18,11 +18,14 @@ const ReviewsPreviews: FC<ReviewsPreviewsProps> = ({ reviewsFromServer }) => {
     const [reviews, setReviews] = useState<Review[]>([]);
     const [isAddModalVisible, setIsAddModalVisible] = useState(false);
     const [selectedReview, setSelectedReview] = useState<number | null>(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchReviews = async () => {
+            setLoading(true);
             const reviews = await Api().reviews.getReviews(8, 0);
             setReviews(reviews);
+            setLoading(false);
         }
         if (reviewsFromServer) {
             setReviews(reviewsFromServer);
@@ -70,16 +73,19 @@ const ReviewsPreviews: FC<ReviewsPreviewsProps> = ({ reviewsFromServer }) => {
                     }
                 ]}
             >
-                {reviews.length ? reviews.map((review, index) =>
-                    <ReviewPreview key={review.id} review={review} onOpen={openReadModal(index)} />
-
-                )
-                :
-                <>
-                    <ReviewPreview />
-                    <ReviewPreview />
-                    <ReviewPreview />
-                </>
+                {reviews.length
+                    ? reviews.map((review, index) =>
+                        <ReviewPreview key={review.id} review={review} onOpen={openReadModal(index)} />
+                    )
+                    : ''
+                }
+                {loading
+                    ? [
+                        <ReviewPreview />,
+                        <ReviewPreview />,
+                        <ReviewPreview />
+                    ]
+                    : ''
                 }
             </CustomSlider>
             <div className={cn('flex-center', styles.addReview)}>

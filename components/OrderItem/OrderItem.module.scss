@@ -1,0 +1,77 @@
+@import "../../styles/variables";
+
+.item {
+  align-items: center;
+  display: grid;
+  grid-gap: 30px;
+  grid-template-columns: 30px 1fr 131px 105px 124px 108px 77px 80px;
+  padding: 15px 20px;
+  text-decoration: none;
+  transition: .3s;
+
+  &:nth-child(even) {
+    background: #F3F5F7;
+  }
+
+  &:hover {
+    background: rgba(243, 245, 247, 0.5);
+  }
+
+  & > span {
+    color: $black-text;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+.fieldName {
+    display: none;
+}
+
+.status {
+  align-items: center;
+  background: $blue;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  padding: 5px 15px;
+  height: 46px;
+  width: 124px;
+
+  span {
+    align-items: center;
+    color: $white;
+    display: block;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .item {
+    background: $grey-background;
+    border-radius: 6px;
+    grid-gap: 10px;
+    grid-template-columns: 1fr;
+  }
+
+  .fieldName {
+    display: inline;
+    font-weight: 700;
+  }
+
+  .status {
+    order: 1;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .status {
+    height: auto;
+    padding: 10px 20px;
+
+    span {
+      font-weight: 400 !important;
+    }
+  }
+}

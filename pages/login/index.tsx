@@ -59,7 +59,7 @@ const AuthPage: NextPageWithLayout = () => {
         setErrors({})
         try {
             await login(authData)
-            router.push('/admin');
+            router.push('/admin/crm');
         } catch (e) {
             if (e instanceof AxiosError && e.response?.status === 400) {
                 setErrors(() => {

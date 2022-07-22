@@ -1,0 +1,52 @@
+@import "../../styles/variables";
+
+.table {
+  width: 100%;
+}
+
+.header {
+  background: #F3F5F7;
+  display: grid;
+  grid-gap: 30px;
+  grid-template-columns: 30px 1fr 131px 105px 124px 108px 77px 80px;
+  padding: 15px 20px;
+
+  span {
+    color: $black-text;
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    white-space: nowrap;
+  }
+}
+
+.grid {
+  margin-bottom: 80px;
+}
+
+@media screen and (max-width: 1200px) {
+  .header {
+    display: none;
+  }
+
+  .grid {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 60px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+    margin-bottom: 40px;
+  }
+}
