@@ -87,7 +87,7 @@ const CallbackModal = () => {
                     <ReCAPTCHA
                         ref={captchaRef}
                         size="normal"
-                        sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY}
+                        sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY as string}
                         className={cn(styles.captcha, {[styles.error]: errors.captcha})}
                     />
                     <CustomButton variant={ButtonType.blue} text='Заказать' type='submit' additionalClass={styles.btn} />

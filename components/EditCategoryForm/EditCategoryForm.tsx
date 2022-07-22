@@ -145,11 +145,12 @@ const EditCategoryForm: FC<EditProductFormProps> = ({ category, setCategory, err
                                         className={styles.deleteCharacteristic}
                                         onClick={deleteCharacteristicHandler(id)}
                                         disabled={loading}
-                                    /> }
+                                    />
+                                }
                             </div>
                         )
                     })}
-                    {errors.characteristics && <ErrorParagraph>{errors.characteristics}</ErrorParagraph>}
+                    {errors.characteristics && <ErrorParagraph>{errors.characteristics as string}</ErrorParagraph>}
                     <CustomButton
                         variant={ButtonType.blue}
                         text='Добавить характеристику'
