@@ -20,6 +20,7 @@ export interface Source {
 export interface Status {
     id: number;
     name: string;
+    color: string;
 }
 
 export interface OrderCartItem {
