@@ -47,6 +47,7 @@ export type CreateOrderDto = Pick<Order, 'fio' | 'phone'> & {
 export type CreateOrderFromCartDto = Omit<CreateOrderDto, 'cart' | 'question'> & {
     cart: CartEntities;
 }
+export type UpdateOrderDto = Partial<CreateOrderDto>
 
 export interface OrderEditing {
     id?: number;

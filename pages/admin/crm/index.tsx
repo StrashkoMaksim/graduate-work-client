@@ -10,7 +10,7 @@ const CRMPage: NextPageWithLayout = () => {
     return (
         <>
             <PageHeaderWithBtns title='Заявки'>
-                <CustomButton variant={ButtonType.grey} text='Менеджер источников' />
+                {/*<CustomButton variant={ButtonType.grey} text='Менеджер источников' />*/}
                 <Link href='/admin/crm/create'>
                     <a>
                         <CustomButton variant={ButtonType.blue} text='Добавить заявку' />

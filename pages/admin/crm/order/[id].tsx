@@ -5,6 +5,7 @@ import PageHeaderWithBtns from "../../../../components/PageHeader/PageHeaderWith
 import CustomButton, {ButtonType} from "../../../../ui-kit/CustomButton/CustomButton";
 import OrderDetail from "../../../../components/OrderDetail/OrderDetail";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
+import Link from "next/link";
 
 interface OrderPageProps {
     id: string;
@@ -14,7 +15,9 @@ const OrderPage: NextPageWithLayout<OrderPageProps> = ({ id }) => {
     return (
         <>
             <PageHeaderWithBtns title={`Заявка №${id}`}>
-                <CustomButton variant={ButtonType.grey} text='Редактировать' />
+                <Link href={`/admin/crm/order/update/${id}`}>
+                    <a><CustomButton variant={ButtonType.grey} text='Редактировать' /></a>
+                </Link>
             </PageHeaderWithBtns>
             <OrderDetail />
         </>
