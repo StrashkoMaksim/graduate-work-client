@@ -81,9 +81,9 @@ const ReviewsPreviews: FC<ReviewsPreviewsProps> = ({ reviewsFromServer }) => {
                 }
                 {loading
                     ? [
-                        <ReviewPreview />,
-                        <ReviewPreview />,
-                        <ReviewPreview />
+                        <ReviewPreview key={1} />,
+                        <ReviewPreview key={2} />,
+                        <ReviewPreview key={3} />
                     ]
                     : ''
                 }

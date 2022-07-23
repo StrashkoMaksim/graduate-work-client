@@ -1,0 +1,55 @@
+@import "../../styles/variables";
+
+.container {
+  margin-bottom: 30px;
+}
+
+.fieldName {
+  font-weight: 700;
+}
+
+.phone {
+  color: $black-text;
+  transition: .3s;
+
+  &:hover {
+    color: $blue;
+  }
+}
+
+.h2 {
+  margin-top: 40px;
+}
+
+.cart {
+  margin-top: 20px;
+}
+
+.cartItem {
+  background: $grey-background;
+  border-radius: 6px;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 100px 150px;
+  margin-bottom: 20px;
+  padding: 20px;
+
+  span:first-child {
+    font-weight: 700;
+  }
+
+  span:last-child {
+    text-align: right;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .cartItem {
+    grid-row-gap: 10px;
+    grid-template-columns: auto 1fr;
+
+    span:first-child {
+      grid-column: 1 / -1;
+    }
+  }
+}

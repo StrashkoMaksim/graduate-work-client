@@ -1,0 +1,14 @@
+@import "../../styles/variables";
+
+.comment {
+  background: $grey-background;
+  border-radius: 6px;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.date {
+  font-size: 12px;
+  color: $grey;
+  margin-top: 10px;
+}

@@ -43,7 +43,7 @@ const Cart: FC<CartProps> = ({ products }) => {
                 {count ?
                     <div className={styles.list}>
                         {products.map(product => cart[product.id] ?
-                            <div className={styles.product}>
+                            <div className={styles.product} key={product.id}>
                                 <div className={styles.preview}>
                                     <img src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${product.previewImage}`}
                                          alt={product.name}/>
