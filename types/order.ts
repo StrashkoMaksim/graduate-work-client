@@ -1,3 +1,5 @@
+import {CartEntities} from "./cart";
+
 export interface Order {
     id: number,
     fio: string;
@@ -40,6 +42,10 @@ export type CreateOrderDto = Pick<Order, 'fio' | 'phone'> & {
     sourceId: number;
     statusId: number;
     cart?: OrderCartItem[];
+    question?: string;
+}
+export type CreateOrderFromCartDto = Omit<CreateOrderDto, 'cart' | 'question'> & {
+    cart: CartEntities;
 }
 
 export interface OrderEditing {

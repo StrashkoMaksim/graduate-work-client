@@ -12,19 +12,29 @@ import {Errors} from "../../types/errors";
 import {validateCallback} from "../../utils/validation/callback";
 import cn from "classnames";
 import ReCAPTCHA from "react-google-recaptcha";
+import {exceptionsHandler} from "../../utils/api/exceptions/exceptions";
+import {useSnackbar} from "notistack";
+import {useRouter} from "next/router";
+import {Api} from "../../utils/api";
 
 const CallbackModal = () => {
     const { isOpen } = useTypedSelector(state => state.callback);
-    const { setClosedCallbackModal } = useActions();
+    const { statuses } = useTypedSelector(state => state.status);
+    const { sources } = useTypedSelector(state => state.source);
+    const { setClosedCallbackModal, fetchSources, fetchStatuses } = useActions();
     const [callbackDto, setCallbackDto] = useState<CallbackDTO>(initialCallbackDTO);
     const [isSent, setIsSent] = useState(false);
     const [errors, setErrors] = useState<Errors>({})
     const captchaRef = useRef<ReCAPTCHA>(null)
+    const { enqueueSnackbar } = useSnackbar();
+    const router = useRouter();
 
     useEffect(() => {
         setCallbackDto(initialCallbackDTO);
         setIsSent(false);
         setErrors({})
+        fetchStatuses();
+        fetchSources();
     }, [isOpen])
 
     const changeNameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +51,7 @@ const CallbackModal = () => {
         setCallbackDto((prev) => { return { ...prev, isAgreed: value } })
     }
 
-    const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const errors = validateCallback(callbackDto);
 
@@ -54,7 +64,24 @@ const CallbackModal = () => {
             return;
         }
 
-        setIsSent(true);
+        const selectedStatus = statuses.filter(status => status.name === 'Новый');
+        const selectedSource = sources.filter(source => source.name === 'Заказ звонка');
+        if (!selectedStatus.length || !selectedSource) {
+            enqueueSnackbar('Ошибка при отправке заявки, перезагрузите страницу', { variant: 'error' });
+            return;
+        }
+
+        try {
+            await Api().orders.createOrder({
+                fio: callbackDto.name,
+                phone: callbackDto.phone,
+                statusId: selectedStatus[0].id,
+                sourceId: selectedSource[0].id,
+            })
+            setIsSent(true);
+        } catch (e) {
+            exceptionsHandler(e, router, setErrors, enqueueSnackbar);
+        }
     }
 
     return (
@@ -81,7 +108,7 @@ const CallbackModal = () => {
                         value={callbackDto.phone}
                         onAccept={changePhoneHandler}
                         error={Boolean(errors.phone)}
-                        helperText={errors.name}
+                        helperText={errors.phone}
                     />
                     <PolicyInput checked={callbackDto.isAgreed} onChange={changeAcceptedHandler} error={errors.isAgreed as string} />
                     <ReCAPTCHA

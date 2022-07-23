@@ -7,6 +7,8 @@ import * as QuestionActionCreators from './question'
 import * as CatalogCategoriesActionCreators from './catalog-categories'
 import * as ServiceActionCreators from './service'
 import * as ReviewActionCreators from './review'
+import * as SourceActionCreators from './source'
+import * as StatusActionCreators from './status'
 
 export default {
     ...UserActionCreators,
@@ -18,4 +20,6 @@ export default {
     ...CatalogCategoriesActionCreators,
     ...ServiceActionCreators,
     ...ReviewActionCreators,
+    ...SourceActionCreators,
+    ...StatusActionCreators,
 }

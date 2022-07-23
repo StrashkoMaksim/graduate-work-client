@@ -10,6 +10,8 @@ import {questionReducer} from "./slices/question";
 import {catalogCategoriesReducer} from "./slices/catalog-categories";
 import {serviceReducer} from "./slices/service";
 import {reviewReducer} from "./slices/review";
+import {statusReducer} from "./slices/status";
+import {sourceReducer} from "./slices/source";
 
 const makeStore = () =>
     configureStore({
@@ -23,6 +25,8 @@ const makeStore = () =>
             catalogCategories: catalogCategoriesReducer,
             service: serviceReducer,
             review: reviewReducer,
+            status: statusReducer,
+            source: sourceReducer,
         }
     });
 

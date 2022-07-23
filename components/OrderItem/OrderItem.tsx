@@ -19,7 +19,7 @@ const OrderItem: FC<OrderItemProps> = ({ order }) => {
                 <span className={styles.status} style={{background: `#${order.status.color}`}}>
                     <span>{order.status.name}</span>
                 </span>
-                <span><span className={styles.fieldName}>Сумма заказа: </span>{order.priceSum} руб.</span>
+                <span><span className={styles.fieldName}>Сумма заказа: </span>{order.priceSum.toLocaleString()} руб.</span>
                 <span><span className={styles.fieldName}>Изменено: </span>{order.updatedAt}</span>
                 <span><span className={styles.fieldName}>Создано: </span>{order.createdAt}</span>
             </a>

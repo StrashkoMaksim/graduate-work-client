@@ -12,19 +12,30 @@ import {useActions} from "../../hooks/useActions";
 import {Errors} from "../../types/errors";
 import {initialQuestionDTO, QuestionDTO} from "../../types/question";
 import {validateQuestion} from "../../utils/validation/question";
+import {exceptionsHandler} from "../../utils/api/exceptions/exceptions";
+import {useSnackbar} from "notistack";
+import {useRouter} from "next/router";
+import {Api} from "../../utils/api";
 
 const QuestionModal = () => {
     const { isOpen } = useTypedSelector(state => state.question);
-    const { setClosedQuestionModal } = useActions();
+    const { statuses } = useTypedSelector(state => state.status);
+    const { sources } = useTypedSelector(state => state.source);
+    const { setClosedQuestionModal, fetchSources, fetchStatuses } = useActions();
     const [questionDto, setQuestionDto] = useState<QuestionDTO>(initialQuestionDTO);
     const [isSent, setIsSent] = useState(false);
-    const [errors, setErrors] = useState<Errors>({})
-    const captchaRef = useRef<ReCAPTCHA>(null)
+    const [errors, setErrors] = useState<Errors>({});
+    const captchaRef = useRef<ReCAPTCHA>(null);
+    const { enqueueSnackbar } = useSnackbar();
+    const router = useRouter();
+
 
     useEffect(() => {
         setQuestionDto(initialQuestionDTO);
         setIsSent(false);
         setErrors({})
+        fetchStatuses();
+        fetchSources();
     }, [isOpen])
 
     const changeNameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,7 +58,7 @@ const QuestionModal = () => {
         setQuestionDto((prev) => { return { ...prev, isAgreed: value } })
     }
 
-    const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const errors = validateQuestion(questionDto);
 
@@ -60,7 +71,25 @@ const QuestionModal = () => {
             return;
         }
 
-        setIsSent(true);
+        const selectedStatus = statuses.filter(status => status.name === 'Новый');
+        const selectedSource = sources.filter(source => source.name === 'Консультация');
+        if (!selectedStatus.length || !selectedSource) {
+            enqueueSnackbar('Ошибка при отправке заявки, перезагрузите страницу', { variant: 'error' });
+            return;
+        }
+
+        try {
+            await Api().orders.createOrder({
+                fio: questionDto.name,
+                phone: questionDto.phone,
+                statusId: selectedStatus[0].id,
+                sourceId: selectedSource[0].id,
+                question: questionDto.text
+            })
+            setIsSent(true);
+        } catch (e) {
+            exceptionsHandler(e, router, setErrors, enqueueSnackbar)
+        }
     }
 
     return (
@@ -87,7 +116,7 @@ const QuestionModal = () => {
                         value={questionDto.phone}
                         onAccept={changePhoneHandler}
                         error={Boolean(errors.phone)}
-                        helperText={errors.name}
+                        helperText={errors.phone}
                     />
                     <CustomTextField
                         label='Ваш вопрос'
@@ -101,7 +130,7 @@ const QuestionModal = () => {
                     <ReCAPTCHA
                         ref={captchaRef}
                         size="normal"
-                        sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY}
+                        sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY as string}
                         className={cn(styles.captcha, {[styles.error]: errors.captcha})}
                     />
                     <CustomButton variant={ButtonType.blue} text='Заказать' type='submit' additionalClass={styles.btn} />

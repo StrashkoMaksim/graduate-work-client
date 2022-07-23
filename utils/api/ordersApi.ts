@@ -1,6 +1,6 @@
 import {AxiosInstance} from "axios";
 import {CreateServiceDto, Service, UpdateServiceDto} from "../../types/service";
-import {CreateOrderDto, Order, OrderPreview, Source} from "../../types/order";
+import {CreateOrderDto, CreateOrderFromCartDto, Order, OrderPreview, Source} from "../../types/order";
 
 export const OrdersApi = (instance: AxiosInstance) => ({
     async getOrders(limit: number, offset: number): Promise<OrderPreview[]> {
@@ -13,6 +13,10 @@ export const OrdersApi = (instance: AxiosInstance) => ({
     },
     async createOrder(dto: CreateOrderDto): Promise<string> {
         const {data} = await instance.post<CreateOrderDto, { data: string }>('orders', dto)
+        return data
+    },
+    async createOrderFromCart(dto: CreateOrderFromCartDto): Promise<string> {
+        const {data} = await instance.post<CreateOrderFromCartDto, { data: string }>('orders/cart', dto)
         return data
     },
     async updateOrder(id: number, dto: UpdateServiceDto): Promise<string> {

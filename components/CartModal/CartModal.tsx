@@ -11,6 +11,11 @@ import styles from './CartModal.module.scss';
 import {CartDTO, CartEntities, initialCartDTO} from "../../types/cart";
 import {validateCartDto} from "../../utils/validation/cart";
 import {useActions} from "../../hooks/useActions";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {useSnackbar} from "notistack";
+import {useRouter} from "next/router";
+import {Api} from "../../utils/api";
+import {exceptionsHandler} from "../../utils/api/exceptions/exceptions";
 
 interface CartModalProps {
     isOpen: boolean;
@@ -23,10 +28,16 @@ const CartModal: FC<CartModalProps> = ({ isOpen, onClose, cart }) => {
     const [cartDto, setCartDto] = useState<CartDTO>(initialCartDTO(cart));
     const [errors, setErrors] = useState<Errors>({})
     const captchaRef = useRef<ReCAPTCHA>(null)
-    const {dispatchProductsCart} = useActions();
+    const { dispatchProductsCart, fetchSources, fetchStatuses } = useActions();
+    const { statuses } = useTypedSelector(state => state.status);
+    const { sources } = useTypedSelector(state => state.source);
+    const { enqueueSnackbar } = useSnackbar();
+    const router = useRouter();
 
     useEffect(() => {
         setIsSent(false);
+        fetchSources();
+        fetchStatuses();
     }, [])
 
     const changeNameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +54,7 @@ const CartModal: FC<CartModalProps> = ({ isOpen, onClose, cart }) => {
         setCartDto((prev) => { return { ...prev, isAgreed: value } })
     }
 
-    const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const errors = validateCartDto(cartDto);
 
@@ -56,8 +67,26 @@ const CartModal: FC<CartModalProps> = ({ isOpen, onClose, cart }) => {
             return;
         }
 
-        setIsSent(true);
-        dispatchProductsCart({});
+        const selectedStatus = statuses.filter(status => status.name === 'Новый');
+        const selectedSource = sources.filter(source => source.name === 'Корзина');
+        if (!selectedStatus.length || !selectedSource) {
+            enqueueSnackbar('Ошибка при отправке заявки, перезагрузите страницу', { variant: 'error' });
+            return;
+        }
+
+        try {
+            await Api().orders.createOrderFromCart({
+                fio: cartDto.name,
+                phone: cartDto.phone,
+                sourceId: selectedSource[0].id,
+                statusId: selectedStatus[0].id,
+                cart,
+            })
+            setIsSent(true);
+            dispatchProductsCart({});
+        } catch (e) {
+            exceptionsHandler(e, router, setErrors, enqueueSnackbar);
+        }
     }
 
     return (
@@ -84,13 +113,13 @@ const CartModal: FC<CartModalProps> = ({ isOpen, onClose, cart }) => {
                         value={cartDto.phone}
                         onAccept={changePhoneHandler}
                         error={Boolean(errors.phone)}
-                        helperText={errors.name}
+                        helperText={errors.phone as string}
                     />
                     <PolicyInput checked={cartDto.isAgreed} onChange={changeAcceptedHandler} error={errors.isAgreed as string} />
                     <ReCAPTCHA
                         ref={captchaRef}
                         size="normal"
-                        sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY}
+                        sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY as string}
                         className={cn(styles.captcha, {[styles.error]: errors.captcha})}
                     />
                     <CustomButton variant={ButtonType.blue} text='Заказать' type='submit' additionalClass={styles.btn} />
