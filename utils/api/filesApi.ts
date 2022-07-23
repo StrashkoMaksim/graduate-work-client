@@ -10,4 +10,8 @@ export const FilesApi = (instance: AxiosInstance) => ({
         const {data} = await instance.post<Blob | MediaSource, {data: UploadResponse}>('files/image', filesData);
         return data;
     },
+    async uploadFile(filesData: FormData): Promise<UploadResponse> {
+        const {data} = await instance.post<Blob | MediaSource, {data: UploadResponse}>('files/file', filesData);
+        return data;
+    },
 })

@@ -1,0 +1,18 @@
+@import "../../styles/variables";
+
+.form {
+  display: grid;
+  grid-gap: 20px;
+  width: 100%;
+}
+
+.loadPreviewBtn {
+  background: $blue !important;
+  border-radius: 100px !important;
+  text-transform: inherit !important;
+  width: fit-content;
+
+  &:hover {
+    background: $button !important;
+  }
+}

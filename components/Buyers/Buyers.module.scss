@@ -28,50 +28,7 @@
 }
 
 .ul {
-  li {
-    padding-left: 25px;
-    position: relative;
-
-    &::before {
-      background: $blue;
-      border-radius: 50%;
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 9px;
-      height: 6px;
-      width: 6px;
-    }
-
-    &.pdf {
-      min-height: 30px;
-      padding-left: 43px;
-
-      &::before {
-        background: transparent url(/img/blue_pdf.svg) no-repeat center;
-        background-size: contain;
-        border-radius: 0;
-        top: 6px;
-        height: 30px;
-        width: 26px;
-      }
-    }
-
-    a {
-      color: $blue;
-      font-size: 14px;
-      line-height: 17px;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  li + li {
-    margin-top: 26px;
-  }
+  list-style: none;
 }
 
 @media screen and (max-width: 960px) {
@@ -113,16 +70,5 @@
   .header {
     font-size: 18px;
     line-height: 22px;
-  }
-
-  .ul  {
-    li a {
-      font-size: 12px;
-      line-height: 15px;
-    }
-
-    li + li {
-      margin-top: 15px;
-    }
   }
 }

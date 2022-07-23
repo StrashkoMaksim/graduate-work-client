@@ -13,6 +13,7 @@ import {SourcesApi} from "./sourcesApi";
 import {StatusesApi} from "./statusesApi";
 import {OrdersApi} from "./ordersApi";
 import {CommentApi} from "./commentApi";
+import {DocumentsApi} from "./documentsApi";
 
 export type ApiReturnType = {
     user: ReturnType<typeof UserApi>,
@@ -27,6 +28,7 @@ export type ApiReturnType = {
     statuses: ReturnType<typeof StatusesApi>,
     orders: ReturnType<typeof OrdersApi>,
     comments: ReturnType<typeof CommentApi>,
+    documents: ReturnType<typeof DocumentsApi>,
 }
 
 export const Api = (ctx?: NextPageContext | GetServerSidePropsContext): ApiReturnType => {
@@ -53,5 +55,6 @@ export const Api = (ctx?: NextPageContext | GetServerSidePropsContext): ApiRetur
         statuses: StatusesApi(instance),
         orders: OrdersApi(instance),
         comments: CommentApi(instance),
+        documents: DocumentsApi(instance),
     }
 }

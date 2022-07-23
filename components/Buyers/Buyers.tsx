@@ -1,48 +1,66 @@
 import styles from './Buyers.module.scss'
 import cn from "classnames";
+import {FC, useCallback, useEffect, useState} from "react";
+import {Api} from "../../utils/api";
+import {DocumentCategoryWithDocuments} from "../../types/document";
+import DocumentItem from "../DocumentItem/DocumentItem";
+import {exceptionsHandler} from "../../utils/api/exceptions/exceptions";
+import {useRouter} from "next/router";
+import {useSnackbar} from "notistack";
+import {Errors} from "../../types/errors";
 
-const Buyers = () => {
+interface BuyersProps {
+    isAdmin?: boolean;
+    reload?: boolean;
+}
+
+const Buyers: FC<BuyersProps> = ({ isAdmin, reload }) => {
+    const [documentsCategories, setDocumentsCategories] = useState<DocumentCategoryWithDocuments[]>([]);
+    const [errors, setErrors] = useState<Errors>({});
+    const router = useRouter();
+    const {enqueueSnackbar} = useSnackbar();
+
+    const fetchDocuments = useCallback(async () => {
+        const documents = await Api().documents.getDocuments();
+        setDocumentsCategories(documents);
+    }, []);
+
+    useEffect(() => {
+        fetchDocuments();
+    }, [reload])
+
+    const deleteHandler = async (id: number) => {
+        try {
+            await Api().documents.deleteDocument(id);
+            fetchDocuments();
+        } catch (e) {
+            exceptionsHandler(e, router, setErrors, enqueueSnackbar);
+        }
+    }
+
     return (
         <div className='section'>
             <div className={cn('container', styles.container)}>
-                <div className={styles.wrapper}>
-                    <h2 className={styles.header}>Действующие законы</h2>
-                    <div className={styles.grid}>
-                        <ul className={styles.ul}>
-                            <li>
-                                <a target="_blank" href="http://www.consultant.ru/document/cons_doc_LAW_28399/">Конституция Российской
-                                    Федерации</a>
-                            </li>
-                        </ul>
-                        <ul className={styles.ul}>
-                            <li>
-                                <a target="_blank" href="http://www.consultant.ru/document/cons_doc_LAW_305">Закон РФ от
-                                    07.02.1992 N 2300-1 «О защите прав потребителей»</a>
-                            </li>
-                        </ul>
+                {documentsCategories.map(category => category.documents.length ?
+                    <div className={styles.wrapper} key={category.id}>
+                        <h2 className={styles.header}>{category.name}</h2>
+                        <div className={styles.grid}>
+                            <ul className={styles.ul}>
+                                {category.documents.map((document, index) =>
+                                    index % 2 === 0 &&
+                                    <DocumentItem document={document} isAdmin={isAdmin} onDelete={deleteHandler} />
+                                )}
+                            </ul>
+                            <ul className={styles.ul}>
+                                {category.documents.map((document, index) =>
+                                    index % 2 === 1 &&
+                                    <DocumentItem document={document} isAdmin={isAdmin} onDelete={deleteHandler} />
+                                )}
+                            </ul>
+                        </div>
                     </div>
-                </div>
-
-                <div className={styles.wrapper}>
-                    <h2 className={styles.header}>Внутренние документы</h2>
-                    <div className={styles.grid}>
-                        <ul className={styles.ul}>
-                            <li>
-                                <a target="_blank" href="http://www.consultant.ru/document/cons_doc_LAW_28399/">
-                                    Политика в отношении обработки персональных данных
-                                </a>
-                            </li>
-                        </ul>
-                        <ul className={styles.ul}>
-                            <li className={styles.pdf}>
-                                <a target="_blank" href="/upload/patient/388.pdf">
-                                    Свидетельство о постановке на учет в налоговый орган 529,82 кб
-                                    <span>1022,89 кб</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                    : ''
+                )}
             </div>
         </div>
     );
