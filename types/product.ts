@@ -40,11 +40,12 @@ export interface Product {
     examples: ProductExample[],
     equipments: string[],
     createdAt: string,
-    updatedAt: string
+    updatedAt: string,
+    additionalCharacteristics: [string, string][],
 }
 
 export type ProductPreviewModel = Omit<Product, 'description' | 'equipments' | 'examples' | 'images' | 'videos'>
-export type ProductDetailModel = Pick<Product, 'id' | 'name' | 'description' | 'price' | 'characteristics' | 'videos' | 'examples' | 'equipments' | 'images'> & {
+export type ProductDetailModel = Pick<Product, 'id' | 'name' | 'description' | 'price' | 'characteristics' | 'videos' | 'examples' | 'equipments' | 'images' | 'additionalCharacteristics'> & {
     category: CategoryAside
 }
 export type ProductForCart = Pick<Product, 'id' | 'name' | 'previewImage' | 'price'>
@@ -81,6 +82,10 @@ export interface ProductEditing {
         value: string| number | boolean | null;
         type: CategoryCharacteristicsType;
     }};
+    additionalCharacteristics: {
+        value: [string, string][];
+        isChanged: boolean;
+    };
     isCharacteristicsChanged: boolean;
     images: GalleryImage[];
     deletedImages: number[];
@@ -96,7 +101,7 @@ export interface ProductEditing {
     };
 }
 
-export type CreateProductDTO = Pick<Product, 'name' | 'description' | 'price' | 'characteristics' | 'categoryId'> & {
+export type CreateProductDTO = Pick<Product, 'name' | 'description' | 'price' | 'characteristics' | 'categoryId' | 'additionalCharacteristics'> & {
     previewImage: number;
     images: number[];
     examples?: number[];
@@ -136,6 +141,10 @@ export const InitialProductEditing = (): ProductEditing => {
                 value: null,
                 type: CategoryCharacteristicsType.String
             },
+        },
+        additionalCharacteristics: {
+            value: [],
+            isChanged: false,
         },
         isCharacteristicsChanged: false,
         images: [],

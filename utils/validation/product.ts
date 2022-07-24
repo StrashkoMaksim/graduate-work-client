@@ -14,6 +14,7 @@ export const validateNewProduct = (product: ProductEditing) => {
         characteristics: {},
         equipments: [],
         images: [],
+        additionalCharacteristics: product.additionalCharacteristics.value,
     }
 
     if (!product.name.value) {
@@ -97,6 +98,18 @@ export const validateNewProduct = (product: ProductEditing) => {
     if (product.examples.length > 0) {
         dto.examples = [];
         product.examples.forEach(image => dto.examples?.push(image.fileId as number));
+    }
+
+    if (product.additionalCharacteristics.value.length) {
+        const additionalCharacteristicsErrors: string[] = []
+        product.additionalCharacteristics.value.forEach((item, index) => {
+            if (!item[0] || !item[1]) {
+                additionalCharacteristicsErrors[index] = 'Незаполненная характеристика'
+            }
+        })
+        if (additionalCharacteristicsErrors.length) {
+            errors.additionalCharacteristics = additionalCharacteristicsErrors;
+        }
     }
 
     return {errors, dto};
@@ -220,6 +233,19 @@ export const validateChangedProduct = (product: ProductEditing) => {
             if (videosErrors.length) {
                 errors.videos = videosErrors;
             }
+        }
+    }
+
+    if (product.additionalCharacteristics.isChanged) {
+        dto.additionalCharacteristics = product.additionalCharacteristics.value;
+        const additionalCharacteristicsErrors: string[] = []
+        product.additionalCharacteristics.value.forEach((item, index) => {
+            if (!item[0] || !item[1]) {
+                additionalCharacteristicsErrors[index] = 'Незаполненная характеристика'
+            }
+        })
+        if (additionalCharacteristicsErrors.length) {
+            errors.additionalCharacteristics = additionalCharacteristicsErrors;
         }
     }
 

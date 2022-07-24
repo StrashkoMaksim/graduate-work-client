@@ -23,6 +23,12 @@ const ProductMain: FC<ProductMainProps> = ({ product }) => {
                         <span>{entry[1]}</span>
                     </div>
                 )}
+                {product.additionalCharacteristics.map((item, index) =>
+                    <div key={index}>
+                        <span>{item[0]}</span>
+                        <span>{item[1]}</span>
+                    </div>
+                )}
             </div>
             <div className={styles.block}>
                 <H2 text='Комплектация' className={styles.h2} />

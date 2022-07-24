@@ -207,6 +207,27 @@ const EditProductForm: FC<EditProductFormProps> = ({ product, setProduct, errors
         setProduct(newProduct);
     }
 
+    const addAdditionalCharacteristicHandler = () => {
+        const newProduct = _.clone(product);
+        newProduct.additionalCharacteristics.value.push(['', '']);
+        newProduct.additionalCharacteristics.isChanged = true;
+        setProduct(newProduct);
+    }
+
+    const deleteAdditionalCharacteristicHandler = (index: number) => () => {
+        const newProduct = _.clone(product);
+        newProduct.additionalCharacteristics.value.splice(index, 1);
+        newProduct.additionalCharacteristics.isChanged = true;
+        setProduct(newProduct);
+    }
+
+    const changeAdditionalCharacteristicHandler = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newProduct = _.clone(product);
+        newProduct.additionalCharacteristics.value[index][Number(event.target.name)] = event.target.value;
+        newProduct.additionalCharacteristics.isChanged = true;
+        setProduct(newProduct);
+    }
+
     return (
         <div className='section'>
             <div className={cn("container", styles.container)}>
@@ -288,6 +309,45 @@ const EditProductForm: FC<EditProductFormProps> = ({ product, setProduct, errors
                         )}
                     </div>
                 }
+                <div>
+                    <h4 className={styles.h4}>Дополнительные характеристики</h4>
+                    <div className={styles.container}>
+                        {product.additionalCharacteristics.value.map((characteristic , index) =>
+                            <div className={cn(styles.additionalCharacteristic)} key={index}>
+                                <CustomTextField
+                                    name='0'
+                                    className={styles.input}
+                                    label='Название'
+                                    value={characteristic[0]}
+                                    onChange={changeAdditionalCharacteristicHandler(index)}
+                                    error={errors.additionalCharacteristics && errors.additionalCharacteristics[index]}
+                                    helperText={errors.additionalCharacteristics ? errors.additionalCharacteristics[index] : undefined}
+                                    disabled={loading}
+                                />
+                                <CustomTextField
+                                    name='1'
+                                    className={styles.input}
+                                    label='Значение'
+                                    value={characteristic[1]}
+                                    onChange={changeAdditionalCharacteristicHandler(index)}
+                                    error={errors.additionalCharacteristics && errors.additionalCharacteristics[index]}
+                                    helperText={errors.additionalCharacteristics ? errors.additionalCharacteristics[index] : undefined}
+                                    disabled={loading}
+                                />
+                                <button className={styles.delete} onClick={deleteAdditionalCharacteristicHandler(index)} />
+                            </div>
+                        )}
+                    </div>
+                    <Button
+                        variant="contained"
+                        component="label"
+                        className={styles.loadPreviewBtn}
+                        disabled={loading}
+                        onClick={addAdditionalCharacteristicHandler}
+                    >
+                        Добавить пункт
+                    </Button>
+                </div>
                 <div>
                     <h4 className={styles.h4}>Изображения товара</h4>
                     {product.images.length > 0 &&

@@ -107,6 +107,17 @@
   width: 20px;
 }
 
+.additionalCharacteristic {
+  align-items: flex-end;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 1fr auto;
+
+  .delete {
+    display: block;
+  }
+}
+
 @media screen and (max-width: 1200px) {
   .galleryImage {
     height: calc((100vw - 30px) / 6);
