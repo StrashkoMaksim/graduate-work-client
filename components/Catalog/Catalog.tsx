@@ -18,8 +18,8 @@ interface CatalogProps {
 const LIMIT = 12
 
 const Catalog: FC<CatalogProps> = ({ isAdmin, categoriesFromServer, productsFromServer  }) => {
-    const [products, setProducts] = useState<ProductPreviewModel[]>([])
-    const [categories, setCategories] = useState<CategoryAside[]>([])
+    const [products, setProducts] = useState<ProductPreviewModel[]>(productsFromServer || [])
+    const [categories, setCategories] = useState<CategoryAside[]>(categoriesFromServer || [])
     const [loading, setLoading] = useState(false);
     const router = useRouter()
     const {slug} = router.query;
@@ -34,8 +34,6 @@ const Catalog: FC<CatalogProps> = ({ isAdmin, categoriesFromServer, productsFrom
         }
         if (!categoriesFromServer) {
             fetchCategories()
-        } else {
-            setCategories(categoriesFromServer)
         }
         setLoading(false)
     }, [])
@@ -58,8 +56,6 @@ const Catalog: FC<CatalogProps> = ({ isAdmin, categoriesFromServer, productsFrom
         }
         if (!productsFromServer) {
             changeCategory();
-        } else {
-            setProducts(productsFromServer);
         }
     }, [slug, categories])
 

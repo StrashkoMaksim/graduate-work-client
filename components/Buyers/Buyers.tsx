@@ -12,10 +12,11 @@ import {Errors} from "../../types/errors";
 interface BuyersProps {
     isAdmin?: boolean;
     reload?: boolean;
+    documentsFromServer: DocumentCategoryWithDocuments[] | null;
 }
 
-const Buyers: FC<BuyersProps> = ({ isAdmin, reload }) => {
-    const [documentsCategories, setDocumentsCategories] = useState<DocumentCategoryWithDocuments[]>([]);
+const Buyers: FC<BuyersProps> = ({ isAdmin, reload, documentsFromServer }) => {
+    const [documentsCategories, setDocumentsCategories] = useState<DocumentCategoryWithDocuments[]>(documentsFromServer || []);
     const [errors, setErrors] = useState<Errors>({});
     const router = useRouter();
     const {enqueueSnackbar} = useSnackbar();
@@ -26,7 +27,9 @@ const Buyers: FC<BuyersProps> = ({ isAdmin, reload }) => {
     }, []);
 
     useEffect(() => {
-        fetchDocuments();
+        if (!documentsFromServer) {
+            fetchDocuments();
+        }
     }, [reload])
 
     const deleteHandler = async (id: number) => {
@@ -48,13 +51,13 @@ const Buyers: FC<BuyersProps> = ({ isAdmin, reload }) => {
                             <ul className={styles.ul}>
                                 {category.documents.map((document, index) =>
                                     index % 2 === 0 &&
-                                    <DocumentItem document={document} isAdmin={isAdmin} onDelete={deleteHandler} />
+                                    <DocumentItem key={document.id} document={document} isAdmin={isAdmin} onDelete={deleteHandler} />
                                 )}
                             </ul>
                             <ul className={styles.ul}>
                                 {category.documents.map((document, index) =>
                                     index % 2 === 1 &&
-                                    <DocumentItem document={document} isAdmin={isAdmin} onDelete={deleteHandler} />
+                                    <DocumentItem key={document.id} document={document} isAdmin={isAdmin} onDelete={deleteHandler} />
                                 )}
                             </ul>
                         </div>

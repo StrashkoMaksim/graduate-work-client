@@ -6,14 +6,20 @@ import React, {ReactElement} from "react";
 import {NextPageWithLayout} from "../_app";
 import {GetStaticProps} from "next";
 import {Api} from "../../utils/api";
-
-// TODO: Категории и товары от сервера
+import {ProductPreviewModel} from "../../types/product";
+import {CategoryAside} from "../../types/category";
 
 const breadcrumbs = [
     {link: '/', text: 'Главная'},
 ]
 
-const CatalogPage: NextPageWithLayout = () => {
+interface CatalogPageProps {
+    productsFromServer: ProductPreviewModel[] | null;
+    categoriesFromServer: CategoryAside[] | null;
+}
+
+const CatalogPage: NextPageWithLayout<CatalogPageProps> = ({ productsFromServer, categoriesFromServer }) => {
+
     return (
         <>
             <Breadcrumbs
@@ -21,7 +27,7 @@ const CatalogPage: NextPageWithLayout = () => {
                 current='Каталог'
             />
             <PageHeader h1='Каталог' />
-            <Catalog categoriesFromServer={null} productsFromServer={null} />
+            <Catalog categoriesFromServer={categoriesFromServer} productsFromServer={productsFromServer} />
         </>
     );
 };
@@ -40,12 +46,14 @@ CatalogPage.getLayout = function getLayout(props, page: ReactElement) {
 
 export const getStaticProps: GetStaticProps = async ({ params}) => {
     try {
-        const products = await Api().products.getProducts(null, 8, 0);
-        if (!products) {
+        const productsFromServer = await Api().products.getProducts(null, 8, 0);
+        const categoriesFromServer = await Api().categories.getCategories();
+
+        if (!productsFromServer) {
             throw new Error();
         }
         return {
-            props: { products },
+            props: { productsFromServer, categoriesFromServer },
             revalidate: 60,
         }
     } catch (e) {

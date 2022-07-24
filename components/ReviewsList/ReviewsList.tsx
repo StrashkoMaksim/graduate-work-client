@@ -15,7 +15,7 @@ interface ReviewsListProps {
 const LIMIT = 8;
 
 const ReviewsList: FC<ReviewsListProps> = ({ reviewsFromServer, isAdmin, reload }) => {
-    const [reviews, setReviews] = useState<Review[]>([]);
+    const [reviews, setReviews] = useState<Review[]>(reviewsFromServer || []);
     const [loading, setLoading] = useState(false);
     const isCanLoadMore = useRef(true);
     const lastProductRef = useRef<HTMLDivElement | null>(null);
@@ -30,9 +30,7 @@ const ReviewsList: FC<ReviewsListProps> = ({ reviewsFromServer, isAdmin, reload 
             }
             setLoading(false);
         }
-        if (reviewsFromServer) {
-            setReviews(reviewsFromServer);
-        } else {
+        if (!reviewsFromServer) {
             fetchReviews();
         }
     }, [reload])

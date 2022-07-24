@@ -15,7 +15,7 @@ interface ReviewsPreviewsProps {
 }
 
 const ReviewsPreviews: FC<ReviewsPreviewsProps> = ({ reviewsFromServer }) => {
-    const [reviews, setReviews] = useState<Review[]>([]);
+    const [reviews, setReviews] = useState<Review[]>(reviewsFromServer ||[]);
     const [isAddModalVisible, setIsAddModalVisible] = useState(false);
     const [selectedReview, setSelectedReview] = useState<number | null>(null);
     const [loading, setLoading] = useState(false);
@@ -27,9 +27,7 @@ const ReviewsPreviews: FC<ReviewsPreviewsProps> = ({ reviewsFromServer }) => {
             setReviews(reviews);
             setLoading(false);
         }
-        if (reviewsFromServer) {
-            setReviews(reviewsFromServer);
-        } else {
+        if (!reviewsFromServer) {
             fetchReviews();
         }
     }, [])

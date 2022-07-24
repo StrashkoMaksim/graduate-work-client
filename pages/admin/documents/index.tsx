@@ -27,7 +27,7 @@ const AdminDocumentsPage: NextPageWithLayout = () => {
             <PageHeaderWithBtns title='Документы'>
                 <CustomButton variant={ButtonType.blue} text='Добавить документ' onClick={openModalHandler} />
             </PageHeaderWithBtns>
-            <Buyers isAdmin={true} reload={reload} />
+            <Buyers isAdmin={true} reload={reload} documentsFromServer={null} />
             <CustomModal isOpen={isModalVisible} onClose={onModalClose} title='Добавить документ'>
                 <DocumentModal onClose={onModalClose} />
             </CustomModal>

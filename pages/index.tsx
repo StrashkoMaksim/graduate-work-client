@@ -11,20 +11,26 @@ import {CategoryMain} from "../types/category";
 import {Api} from "../utils/api";
 import {ReactElement} from "react";
 import {NextPageWithLayout} from "./_app";
+import {Banner} from "../types/banner";
+import {Review} from "../types/review";
+import {ArticlePreview} from "../types/article";
 
 interface MainPageProps {
+    bannersFromServer: Banner[] | null;
     categoriesFromServer: CategoryMain[] | null;
+    reviewsFromServer: Review[] | null;
+    articlesFromServer: ArticlePreview[] | null;
 }
 
-const MainPage: NextPageWithLayout<MainPageProps> = ({ categoriesFromServer }) => {
+const MainPage: NextPageWithLayout<MainPageProps> = ({ bannersFromServer, categoriesFromServer, reviewsFromServer, articlesFromServer }) => {
     return (
         <>
-            <Banners />
+            <Banners bannersFromServer={bannersFromServer} />
             <CategoriesPreviews categoriesFromServer={categoriesFromServer} />
-            <ReviewsPreviews />
+            <ReviewsPreviews reviewsFromServer={reviewsFromServer} />
             <About />
-            <ArticlesBlock articlesFromServer={null} />
-            <VideosBlock />
+            <ArticlesBlock articlesFromServer={articlesFromServer} />
+            {/*<VideosBlock />*/}
             <MapBlock />
         </>
     );
@@ -44,17 +50,28 @@ MainPage.getLayout = function getLayout(props, page: ReactElement) {
 
 export const getStaticProps: GetStaticProps = async () => {
     try {
+        const bannersFromServer = await Api().banners.getBanners();
         const categoriesFromServer = await Api().categories.getMainCategories();
+        const reviewsFromServer = await Api().reviews.getReviews(8, 0);
+        const articlesFromServer = await Api().articles.getArticles(8, 0, null);
 
         return {
             props: {
+                bannersFromServer,
                 categoriesFromServer,
+                reviewsFromServer,
+                articlesFromServer,
             },
             revalidate: 60,
         }
     } catch (e) {
         return  {
-            props: { categoriesFromServer: null },
+            props: {
+                bannersFromServer: null,
+                categoriesFromServer: null,
+                reviewsFromServer: null,
+                articlesFromServer: null,
+            },
             revalidate: 60,
         }
     }

@@ -22,8 +22,8 @@ interface ServicesWithAsideProps {
 }
 
 const ServicesWithAside: FC<ServicesWithAsideProps> = ({ servicesFromServer, categoriesFromServer, isAdmin, update }) => {
-    const [categories, setCategories] = useState<CategoryAside[]>([]);
-    const [services, setServices] = useState<Service[]>([]);
+    const [categories, setCategories] = useState<CategoryAside[]>(categoriesFromServer || []);
+    const [services, setServices] = useState<Service[]>(servicesFromServer || []);
     const {loading} = useTypedSelector(state => state.loading)
     const router = useRouter()
     const {slug} = router.query;
@@ -39,9 +39,7 @@ const ServicesWithAside: FC<ServicesWithAsideProps> = ({ servicesFromServer, cat
             setCategories(categories);
             setDisableLoading();
         }
-        if (categoriesFromServer) {
-            setCategories(categoriesFromServer);
-        } else {
+        if (!categoriesFromServer) {
             fetchCategories();
         }
     }, [])
@@ -64,8 +62,6 @@ const ServicesWithAside: FC<ServicesWithAsideProps> = ({ servicesFromServer, cat
         }
         if (!servicesFromServer) {
             changeCategory();
-        } else {
-            setServices(servicesFromServer);
         }
     }, [slug, categories, update])
 

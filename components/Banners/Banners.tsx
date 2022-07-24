@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import styles from './Banners.module.scss';
 import cn from "classnames";
 import {Banner} from "../../types/banner";
@@ -6,8 +6,12 @@ import Slider from "react-slick";
 import BannerCard from "./BannerCard/BannerCard";
 import {Api} from "../../utils/api";
 
-const Banners = () => {
-    const [banners, setBanners] = useState<Banner[]>([]);
+interface BannersProps {
+    bannersFromServer: Banner[] | null;
+}
+
+const Banners: FC<BannersProps> = ({ bannersFromServer }) => {
+    const [banners, setBanners] = useState<Banner[]>(bannersFromServer || []);
     const [loading, setLoading] = useState(false);
     const [clickable, setClickable] = useState(true);
 
@@ -17,7 +21,9 @@ const Banners = () => {
             setBanners(await Api().banners.getBanners());
             setLoading(false);
         }
-        fetchBanners();
+        if (!bannersFromServer) {
+            fetchBanners();
+        }
     }, [])
 
     const onSliderChange = () => {
