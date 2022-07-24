@@ -137,7 +137,7 @@ const ArticleEditForm: FC<ArticleEditFormProps> = ({ article, setArticle, loadin
                             />
                         </Button>
                         {errors.previewImage &&
-                            <ErrorParagraph className={styles.error}>{errors.previewImage}</ErrorParagraph>
+                            <ErrorParagraph className={styles.error}>{errors.previewImage as string}</ErrorParagraph>
                         }
                     </div>
                     <CustomSelect
@@ -146,7 +146,7 @@ const ArticleEditForm: FC<ArticleEditFormProps> = ({ article, setArticle, loadin
                         // @ts-ignore
                         onChange={changeCategoryHandler}
                         error={!!errors.categoryId}
-                        helperText={errors.categoryId}
+                        helperText={errors.categoryId as string}
                         disabled={loading}
                     >
                         {categories && categories.map(category =>
@@ -155,7 +155,7 @@ const ArticleEditForm: FC<ArticleEditFormProps> = ({ article, setArticle, loadin
                     </CustomSelect>
                 </div>
             </div>
-            {!loading && <Editor blocks={article.content.blocks} onChange={changeContentHandler} error={errors.content} />}
+            {!loading && <Editor blocks={article.content.blocks} onChange={changeContentHandler} error={errors.content as string} />}
         </>
     );
 };
