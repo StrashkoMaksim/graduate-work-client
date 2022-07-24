@@ -4,7 +4,7 @@ export interface CallbackDTO {
     isAgreed: boolean;
 }
 
-export const initialCallbackDTO: CallbackDTO = () => {
+export const initialCallbackDTO = (): CallbackDTO => {
     return {
         name: '',
         phone: '',

@@ -5,7 +5,7 @@ export interface QuestionDTO {
     isAgreed: boolean;
 }
 
-export const initialQuestionDTO: QuestionDTO = () => {
+export const initialQuestionDTO = (): QuestionDTO => {
     return {
         name: '',
         phone: '',

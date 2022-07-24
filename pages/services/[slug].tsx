@@ -5,7 +5,7 @@ import {NextPageWithLayout} from "../_app";
 
 const ServicesSlugPage: NextPageWithLayout = () => {
     return (
-        <ServicesPage />
+        <ServicesPage categoriesFromServer={null} servicesFromServer={null} />
     );
 };
 

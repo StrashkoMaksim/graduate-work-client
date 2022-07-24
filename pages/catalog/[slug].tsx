@@ -5,7 +5,7 @@ import {NextPageWithLayout} from "../_app";
 
 const CatalogSlugPage: NextPageWithLayout = () => {
     return (
-        <CatalogPage />
+        <CatalogPage categoriesFromServer={null} productsFromServer={null} />
     );
 };
 
