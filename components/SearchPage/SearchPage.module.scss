@@ -1,0 +1,27 @@
+@import "../../styles/variables";
+
+.block {
+  min-height: 0;
+  min-width: 0;
+  margin-top: 15px;
+}
+
+.link {
+  color: $black-text;
+  display: block;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  margin-right: 50px;
+  text-decoration: none;
+  transition: .3s;
+  width: fit-content;
+
+  & + & {
+    margin-top: 16px;
+  }
+
+  &.active {
+    color: $blue;
+  }
+}

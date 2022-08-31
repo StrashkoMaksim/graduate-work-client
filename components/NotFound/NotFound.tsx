@@ -20,7 +20,7 @@ const NotFound = () => {
         e.preventDefault();
 
         if (search) {
-            router.push(`search?q=${search}`)
+            router.push(`/search?category=articles&q=${search}`)
         }
     }
 

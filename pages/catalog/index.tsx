@@ -4,7 +4,7 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import Catalog from "../../components/Catalog/Catalog";
 import React, {ReactElement} from "react";
 import {NextPageWithLayout} from "../_app";
-import {GetStaticProps} from "next";
+import {GetServerSideProps, GetStaticProps} from "next";
 import {Api} from "../../utils/api";
 import {ProductPreviewModel} from "../../types/product";
 import {CategoryAside} from "../../types/category";
@@ -44,9 +44,9 @@ CatalogPage.getLayout = function getLayout(props, page: ReactElement) {
     )
 }
 
-export const getStaticProps: GetStaticProps = async ({ params}) => {
+export const getServerSideProps: GetServerSideProps = async ({ query}) => {
     try {
-        const productsFromServer = await Api().products.getProducts(null, 8, 0);
+        const productsFromServer = await Api().products.getProducts(null, 12, 0, query.q as string);
         const categoriesFromServer = await Api().categories.getCategories();
 
         if (!productsFromServer) {
@@ -54,7 +54,6 @@ export const getStaticProps: GetStaticProps = async ({ params}) => {
         }
         return {
             props: { productsFromServer, categoriesFromServer },
-            revalidate: 60,
         }
     } catch (e) {
         return { notFound: true }

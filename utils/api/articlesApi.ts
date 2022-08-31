@@ -20,8 +20,8 @@ export const ArticlesApi = (instance: AxiosInstance) => ({
         const {data} = await instance.post('articles-categories', {name});
         return data;
     },
-    async getArticles(limit: number, offset: number, categoryId: number | null): Promise<ArticlePreview[]> {
-        const {data} = await instance.get(`articles?${limit ? `limit=${limit}&` : ''}${offset ? `offset=${offset}&` : ''}${categoryId ? `category=${categoryId}` : ''}`)
+    async getArticles(limit: number, offset: number, categoryId: number | null, search?: string): Promise<ArticlePreview[]> {
+        const {data} = await instance.get(`articles?${limit ? `limit=${limit}` : ''}${offset ? `&offset=${offset}` : ''}${categoryId ? `&category=${categoryId}` : ''}${search ? `&search=${search}` : ''}`)
         return data
     },
     async getAllSlugs(): Promise<{slug: string}[]> {

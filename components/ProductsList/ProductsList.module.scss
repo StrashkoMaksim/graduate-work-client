@@ -4,6 +4,10 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
+.empty {
+  display: block;
+}
+
 @media screen and (max-width: 960px) {
   .wrapper {
     grid-template-columns: repeat(2, 1fr);

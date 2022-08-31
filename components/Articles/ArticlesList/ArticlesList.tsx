@@ -10,9 +10,10 @@ interface ArticlesListProps {
     articlesFromServer: ArticlePreview[] | null
     isAdmin?: boolean
     limit: number
+    search?: string
 }
 
-const ArticlesList: FC<ArticlesListProps> = ({ isAdmin, articlesFromServer, limit }) => {
+const ArticlesList: FC<ArticlesListProps> = ({ isAdmin, articlesFromServer, limit, search }) => {
     const [articles, setArticles] = useState<ArticlePreview[] | null>(articlesFromServer)
     const [offset, setOffset] = useState(0);
     const [loading, setLoading] = useState(false)
@@ -22,8 +23,8 @@ const ArticlesList: FC<ArticlesListProps> = ({ isAdmin, articlesFromServer, limi
 
     const fetchArticles = async (offset: number, isNewCategory?: boolean) => {
         setLoading(true)
-        const oldArticles = isNewCategory ? [] : articles
-        const newArticles = await Api().articles.getArticles(limit, offset, selectedCategory)
+        const oldArticles = isNewCategory ? [] : articles || []
+        const newArticles = await Api().articles.getArticles(limit, offset, selectedCategory, search)
         setArticles([...oldArticles as ArticlePreview[], ...newArticles]);
         setLoading(false)
     }
@@ -31,7 +32,7 @@ const ArticlesList: FC<ArticlesListProps> = ({ isAdmin, articlesFromServer, limi
     useEffect(() => {
         const initialFetchArticles = async () => {
             setLoading(true)
-            const newArticles = await Api().articles.getArticles(limit, offset, selectedCategory)
+            const newArticles = await Api().articles.getArticles(limit, offset, selectedCategory, search)
             setArticles(newArticles)
             setLoading(false)
         }
@@ -59,7 +60,7 @@ const ArticlesList: FC<ArticlesListProps> = ({ isAdmin, articlesFromServer, limi
             setArticles([])
             fetchArticles(0, true)
         }
-    }, [selectedCategory])
+    }, [selectedCategory, search])
 
     return (
         <>
@@ -68,6 +69,7 @@ const ArticlesList: FC<ArticlesListProps> = ({ isAdmin, articlesFromServer, limi
                     <Article article={article} key={article.id} isAdmin={isAdmin} />
                 )}
             </div>
+            {articles && !articles.length && <p>Статей с указанными параметрами не найдено</p>}
             <div ref={lastArticleRef} />
             {loading &&
                 <>

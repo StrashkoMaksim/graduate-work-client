@@ -1,13 +1,12 @@
-import ProductsList from "../ProductsList/ProductsList";
 import BlockWithAside from "../BlockWithAside/BlockWithAside";
-import React, {FC, MutableRefObject, useEffect, useRef, useState} from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import {ProductPreviewModel} from "../../types/product";
 import AsideLinks from "../Aside/AsideLinks/AsideLinks";
 import {useRouter} from "next/router";
 import {CategoryAside} from "../../types/category";
 import AsidePopper from "../Aside/AsidePopper/AsidePopper";
 import {Api} from "../../utils/api";
-import {useObserver} from "../../hooks/useObserver";
+import ProductsListContainer from "../ProductsList/ProductsListContainer/ProductsListContainer";
 
 interface CatalogProps {
     isAdmin?: boolean;
@@ -15,17 +14,11 @@ interface CatalogProps {
     productsFromServer: ProductPreviewModel[] | null;
 }
 
-const LIMIT = 12
-
 const Catalog: FC<CatalogProps> = ({ isAdmin, categoriesFromServer, productsFromServer  }) => {
-    const [products, setProducts] = useState<ProductPreviewModel[]>(productsFromServer || [])
     const [categories, setCategories] = useState<CategoryAside[]>(categoriesFromServer || [])
     const [loading, setLoading] = useState(false);
     const router = useRouter()
     const {slug} = router.query;
-    const lastProductRef = useRef<HTMLDivElement | null>(null);
-    const [selectedCategory, setSelectedCategory] = useState<number>(0);
-    const isCanLoadMore = useRef(true);
 
     useEffect(() => {
         setLoading(true)
@@ -38,57 +31,22 @@ const Catalog: FC<CatalogProps> = ({ isAdmin, categoriesFromServer, productsFrom
         setLoading(false)
     }, [])
 
-    useEffect(() => {
-        const changeCategory = async () => {
-            setLoading(true);
-            if (slug && categories.length) {
-                const categoryId = categories.find(el => el.slug === slug)?.id;
-                if (categoryId) {
-                    setSelectedCategory(categoryId);
-                    setProducts(await Api().products.getProducts(categoryId, LIMIT, 0));
-                } else {
-                    router.push('/404');
-                }
-            } else if (categories.length) {
-                setProducts(await Api().products.getProducts(null, LIMIT, 0));
-            }
-            setLoading(false);
-        }
-        if (!productsFromServer) {
-            changeCategory();
-        }
-    }, [slug, categories])
-
-    useObserver(lastProductRef as MutableRefObject<Element>, isCanLoadMore.current && Boolean(categories.length), loading, async () => {
-        setLoading(true);
-        const newProducts = await Api().products.getProducts(selectedCategory, LIMIT, products.length);
-        if (newProducts.length) {
-            setProducts([...products, ...newProducts]);
-        } else {
-            isCanLoadMore.current = false;
-        }
-        setLoading(false);
-    })
-
     return (
-        <>
-            <BlockWithAside
-                aside={
-                    <AsidePopper>
-                        <AsideLinks
-                            isLoading={loading}
-                            links={categories}
-                            entity='catalog'
-                            isNewRoute={true}
-                            selectedLinkId={slug as string | undefined}
-                            isAdmin={isAdmin}
-                        />
-                    </AsidePopper>
-                }
-                content={<ProductsList products={products} isAdmin={isAdmin} />}
-            />
-            <div ref={lastProductRef} />
-        </>
+        <BlockWithAside
+            aside={
+                <AsidePopper title={'Категория'}>
+                    <AsideLinks
+                        isLoading={loading}
+                        links={categories}
+                        entity='catalog'
+                        isNewRoute={true}
+                        selectedLinkId={slug as string | undefined}
+                        isAdmin={isAdmin}
+                    />
+                </AsidePopper>
+            }
+            content={<ProductsListContainer productsFromServer={productsFromServer} isAdmin={isAdmin} />}
+        />
     );
 };
 

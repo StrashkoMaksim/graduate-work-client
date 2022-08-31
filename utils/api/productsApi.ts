@@ -12,8 +12,8 @@ export const ProductsApi = (instance: AxiosInstance) => ({
         const {data} = await instance.get('products/slugs')
         return data
     },
-    async getProducts(categoryId: number | null, limit: number, offset: number): Promise<ProductPreviewModel[]> {
-        const {data} = await instance.get(`products?limit=${limit}${categoryId ? `&category=${categoryId}` : ''}${offset ? `&offset=${offset}` : ''}`)
+    async getProducts(categoryId: number | null, limit: number, offset: number, search?: string): Promise<ProductPreviewModel[]> {
+        const {data} = await instance.get(`products?limit=${limit}${categoryId ? `&category=${categoryId}` : ''}${offset ? `&offset=${offset}` : ''}${search ? `&search=${search}` : ''}`)
         return data;
     },
     async getProductsForCart(ids: string[]): Promise<ProductForCart[]> {

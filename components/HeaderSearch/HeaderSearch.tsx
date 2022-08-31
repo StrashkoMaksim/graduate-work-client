@@ -26,7 +26,7 @@ const HeaderSearch = () => {
             event.stopPropagation()
             setIsOpen(true)
         } else {
-            router.push(`/search/${inputText}`)
+            router.push(`/search?category=articles&q=${inputText}`)
             setInputText('')
             setIsOpen(false)
         }

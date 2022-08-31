@@ -2,6 +2,8 @@ import CatalogPage from "./index";
 import React, {ReactElement} from "react";
 import MainLayout from "../../components/MainLayout/MainLayout";
 import {NextPageWithLayout} from "../_app";
+import {GetServerSideProps} from "next";
+import {Api} from "../../utils/api";
 
 const CatalogSlugPage: NextPageWithLayout = () => {
     return (
@@ -20,5 +22,25 @@ CatalogSlugPage.getLayout = function getLayout(props, page: ReactElement) {
         </MainLayout>
     )
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ query, params}) => {
+    try {
+        const categoriesFromServer = await Api().categories.getCategories();
+
+        const selectedCategory = categoriesFromServer.find((el) => el.slug === params?.slug)
+        if (!selectedCategory) return {notFound: true}
+
+        const productsFromServer = await Api().products.getProducts(selectedCategory.id, 12, 0, query.q as string);
+
+        if (!productsFromServer) {
+            throw new Error();
+        }
+        return {
+            props: { productsFromServer, categoriesFromServer },
+        }
+    } catch (e) {
+        return { notFound: true }
+    }
+};
 
 export default CatalogSlugPage;

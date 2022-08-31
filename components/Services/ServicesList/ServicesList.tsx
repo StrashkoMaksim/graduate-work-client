@@ -16,7 +16,7 @@ const ServicesList: FC<ServicesListProps> = ({ services, isAdmin, loading }) => 
             {!services.length && !loading
                 ? <p>Услуг нет в базе</p>
                 : services.map(service =>
-                    <ServiceItem service={service} isAdmin={isAdmin} />
+                    <ServiceItem service={service} isAdmin={isAdmin} key={service.id} />
                 )
             }
             {loading

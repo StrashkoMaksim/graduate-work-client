@@ -1,11 +1,13 @@
 import {ClickAwayListener, Popper, useMediaQuery} from "@mui/material";
 import {FC, ReactNode, useCallback, useRef, useState} from "react";
+import styles from './AsidePopper.module.scss';
 
 interface AsidePopper {
     children: ReactNode;
+    title?: string;
 }
 
-const AsidePopper: FC<AsidePopper> = ({ children }) => {
+const AsidePopper: FC<AsidePopper> = ({ children, title }) => {
     const isHiddenAside = useMediaQuery('(max-width: 1200px)');
     const [isPopperOpen, setIsPopperOpen] = useState(false)
     const headerRef = useRef(null)
@@ -20,12 +22,12 @@ const AsidePopper: FC<AsidePopper> = ({ children }) => {
 
     return (
         <div>
-            <span className="asideHeader" onClick={headerClickHandler} ref={headerRef}>Категории</span>
+            {title && <span className="asideHeader" onClick={headerClickHandler} ref={headerRef}>{title}</span>}
             {isHiddenAside
                 ?
                 <Popper open={isPopperOpen} anchorEl={headerRef.current}>
                     <ClickAwayListener onClickAway={closePopper} >
-                        <div>
+                        <div className={styles.content}>
                             {children}
                         </div>
                     </ClickAwayListener>
